@@ -1,37 +1,13 @@
-New log file opened at Sat Apr 23 10:41:50 ICT 2016 by 9563@giangbb-comp
-Taking next connection to: 42522
-New client attempting to connect on port: 35542-42522
-  Address = /127.0.1.1:42522
-This client on port 35542 has uuid 27c3a977-0c1e-4801-be44-860d58361d77 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-27c3a977-0c1e-4801-be44-860d58361d77
-Taking next connection to: 42522
+New log file opened at Sat Apr 23 11:22:37 ICT 2016 by 12578@giangbb-comp
+Taking next connection to: 36197
+New client attempting to connect on port: 51226-36197
+  Address = /127.0.1.1:36197
+This client on port 51226 has uuid dc8879d1-5080-4387-9741-4159902b8b93 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-dc8879d1-5080-4387-9741-4159902b8b93
+Taking next connection to: 36197
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42522
-New client attempting to connect on port: 36292-42522
-  Address = /127.0.1.1:42522
-Handshake exception on socket: 36292
-sbt.impl.ipc.HandshakeException: Unable to perform handshake
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
-	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
-	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
-Caused by: java.io.EOFException
-	at java.io.DataInputStream.readInt(DataInputStream.java:392)
-	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
-	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
-	... 2 more
-Taking next connection to: 42522
-New client attempting to connect on port: 36294-42522
-  Address = /127.0.1.1:42522
-This client on port 36294 has uuid d8f2b9f9-608e-41dd-b0a7-8bb9a3812954 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
-Connected Clients: activator-d8f2b9f9-608e-41dd-b0a7-8bb9a3812954
-Taking next connection to: 42522
+Taking next connection to: 36197
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 42522
-Checking to see if clients are empty...
-No non-daemon clients connected after 3 min. Shutting down.
-Server socket thread exiting.
-0 clients open, will close them...
-All client sockets have been closed.
-Closing the 9563@giangbb-comp logs at Sat Apr 23 10:54:31 ICT 2016, goodbye.
+Taking next connection to: 36197
