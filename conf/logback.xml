@@ -26,6 +26,13 @@
 
   <logger name="play" level="INFO" />
   <logger name="application" level="DEBUG" />
+  <logger name="org.mongodb.driver" level="ERROR" />
+  <logger name="controllers" level="DEBUG" />
+  <logger name="controllers.App" level="DEBUG" />
+  <logger name="services" level="DEBUG" />
+  <logger name="dao" level="DEBUG" />
+  <logger name="utils" level="DEBUG" />
+
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
   <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />

@@ -1,7 +1,7 @@
-New log file opened at Sun Apr 24 08:40:32 ICT 2016 by 4208@giangdaika-comp
-Taking next connection to: 46665
-New client attempting to connect on port: 41540-46665
-  Address = /127.0.1.1:46665
-This client on port 41540 has uuid cf196311-d3a9-4bd3-a5c8-f4ce55167a58 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-cf196311-d3a9-4bd3-a5c8-f4ce55167a58
-Taking next connection to: 46665
+New log file opened at Mon Apr 25 00:36:33 ICT 2016 by 13619@giangdaika-comp
+Taking next connection to: 41249
+New client attempting to connect on port: 39006-41249
+  Address = /127.0.1.1:41249
+This client on port 39006 has uuid 8ed895fb-6d0d-4857-8cf6-25b1295fd324 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-8ed895fb-6d0d-4857-8cf6-25b1295fd324
+Taking next connection to: 41249
