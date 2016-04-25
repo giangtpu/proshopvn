@@ -3,6 +3,7 @@ package models;
 import configs.ModelData;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.StringUtils;
 import utils.DateUtil;
 import utils.UserHelper;
@@ -16,6 +17,7 @@ import java.util.Map;
  * Created by giangdaika on 24/04/2016.
  */
 @ModelData(collection = "User", mapCacheName = "", mapCacheTTL = 86400)
+@Document(collection = "User")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 

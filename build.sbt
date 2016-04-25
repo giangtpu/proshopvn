@@ -1,4 +1,4 @@
-name := """play-java"""
+name := """shoppro"""
 
 version := "1.0-SNAPSHOT"
 
