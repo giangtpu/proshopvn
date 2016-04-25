@@ -1,5 +1,7 @@
 package controllers;
 
+import dao.ItemDAO;
+import models.Item;
 import models.JSON.TestForm;
 import models.User;
 import play.Configuration;
@@ -19,8 +21,8 @@ import javax.inject.Inject;
  * to the application's home page.
  */
 public class HomeController extends AbstractController {
-//    @Inject
-//    MessagesApi messagesApi;
+    @Inject
+    ItemDAO itemDAO;
 //    @Inject
 //    Messages messages;
     /**
@@ -33,6 +35,10 @@ public class HomeController extends AbstractController {
 //        User user =new User("saivnct","saivnct@gmail.com","Buigiang88",User.Roles.admin.getCode());
 //        userDAO.save(user);
 
+        Item item=new Item("456", "testitem", "cover", "testitem test", "leather", "teo.jpg", 100, 125000);
+        itemDAO.save(item);
+
+        System.out.println(item.getImageLinkPath());
         String s= getMessages().at("home.title");
         return ok(index.render(s));
     }

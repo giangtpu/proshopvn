@@ -25,28 +25,28 @@ public class MongoConfig extends AbstractMongoConfiguration{
     Logger.ALogger LOG = Logger.of(MongoConfig.class);
 
 
+
     private final MongoClient mongoClient;
     public boolean isReplicaSet=false;
 
-
     @Inject
-    public MongoConfig(ApplicationConfig applicationConfig) throws Exception{
-        this.mongoClient = mongoClient(applicationConfig);
+    public MongoConfig(Configuration configuration) throws Exception{
+        this.mongoClient = mongoClient(configuration);
     }
 
 
-    public MongoClient mongoClient(ApplicationConfig applicationConfig) throws Exception {
+    public MongoClient mongoClient(Configuration configuration) throws Exception {
 
-        String networkMembers = applicationConfig.getNetworkMembers();
-        int connectionPerHost = applicationConfig.getConnectionPerHost();
-        int threadAllowBlock = applicationConfig.getThreadAllowBlock();
-        isReplicaSet = applicationConfig.isReplicaSet();
-        boolean socketKeepAlive = applicationConfig.isSocketKeepAlive();
-        int socketTimeout = applicationConfig.getSocketTimeout();
-        int connectTimeout = applicationConfig.getConnectTimeout();
-        String username = applicationConfig.getUsername();
-        String password = applicationConfig.getPassword();
-        String databaseName = applicationConfig.getDatabaseName();
+        String networkMembers =configuration.getString("mongo.network.members");
+        int connectionPerHost =  configuration.getInt("mongo.network.connectionPerHost");
+        int threadAllowBlock = configuration.getInt("mongo.network.threadAllowBlock");
+        isReplicaSet = configuration.getBoolean("mongo.network.replicaSet");
+        boolean socketKeepAlive = configuration.getBoolean("mongo.network.socketKeepAlive");
+        int socketTimeout = configuration.getInt("mongo.network.socketTimeout");
+        int connectTimeout =configuration.getInt("mongo.network.connectTimeout");
+        String username =  configuration.getString("mongo.db.username");
+        String password = configuration.getString("mongo.db.password");
+        String databaseName = configuration.getString("mongo.db.databaseName");
 
         List<ServerAddress> seeds = new ArrayList<ServerAddress>();
         for(String networkMember: Arrays.asList(networkMembers.split(","))){

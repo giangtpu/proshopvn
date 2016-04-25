@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import utils.StringUtil;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by giangdaika on 24/04/2016.
  */
+@Singleton
 public class UserDAO extends AbstractDAO<String, User>{
 
     public static final String UserCollection = "User";

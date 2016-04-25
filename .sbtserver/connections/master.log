@@ -1,7 +1,7 @@
-New log file opened at Mon Apr 25 15:15:18 ICT 2016 by 2178@giangbb-comp
-Taking next connection to: 32983
-New client attempting to connect on port: 42432-32983
-  Address = /127.0.1.1:32983
-This client on port 42432 has uuid 79e516df-f6d3-4f75-9f7c-45f37f11248f configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-79e516df-f6d3-4f75-9f7c-45f37f11248f
-Taking next connection to: 32983
+New log file opened at Mon Apr 25 23:09:53 ICT 2016 by 9431@giangdaika-comp
+Taking next connection to: 34662
+New client attempting to connect on port: 57816-34662
+  Address = /127.0.1.1:34662
+This client on port 57816 has uuid cb8ec348-b755-4dd2-831c-bae1d8d343e5 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-cb8ec348-b755-4dd2-831c-bae1d8d343e5
+Taking next connection to: 34662
