@@ -6,6 +6,8 @@ import org.springframework.util.StringUtils;
 import play.Logger;
 import play.data.Form;
 import play.data.validation.ValidationError;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import services.UserService;
 import utils.UserHelper;
@@ -24,6 +26,14 @@ public class AbstractController extends Controller{
 
     @Inject
     public UserDAO userDAO;
+
+    @Inject
+    public MessagesApi messagesApi;
+
+    public Messages getMessages() {
+        Messages messages = messagesApi.preferred(request());
+        return messages;
+    }
 
     public String getLangCode(){
         String lang = ctx().lang().code();

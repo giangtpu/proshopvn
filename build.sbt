@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "org.springframework.data" % "spring-data-mongodb" % "1.8.4.RELEASE",
   "me.prettyprint" % "hector-core" % "1.0-5",
   "com.mortennobel" % "java-image-scaling" % "0.8.6",
-  "org.json" % "json" % "20151123"
+  "org.json" % "json" % "20151123",
+  "org.julienrf" %% "play-jsmessages" % "2.0.0"
 
 )
 
