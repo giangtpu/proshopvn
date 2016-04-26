@@ -11,7 +11,9 @@ import utils.UserHelper;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by giangdaika on 25/04/2016.
@@ -30,15 +32,19 @@ public class Item implements Serializable {
     private String image;
 
     private int quantity;
-    private double price;
+    private double price_receipt;   //gia nhap hang
+    private double price_sell;      //gia ban
     private Date lastModified;
+
+    private int rating=5;     //diem 1-5
+    private List<String> comments=new ArrayList<String>();      //phan hoi
 
     public Item() {
         this.id= ItemHelper.generateId();
         this.lastModified= DateUtil.now();
     }
 
-    public Item(String id, String name, String category_id, String description, String material, String image, int quantity, double price) {
+    public Item(String id, String name, String category_id, String description, String material, String image, int quantity, double price_sell) {
         this.id = id;
         this.name = name;
         this.category_id = category_id;
@@ -46,7 +52,7 @@ public class Item implements Serializable {
         this.material = material;
         this.image = image;
         this.quantity = quantity;
-        this.price = price;
+        this.price_sell = price_sell;
         this.lastModified= DateUtil.now();
     }
     public String getImageLinkPath(){
@@ -101,12 +107,28 @@ public class Item implements Serializable {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public String getImage() {
+        return image;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getPrice_receipt() {
+        return price_receipt;
+    }
+
+    public void setPrice_receipt(double price_receipt) {
+        this.price_receipt = price_receipt;
+    }
+
+    public double getPrice_sell() {
+        return price_sell;
+    }
+
+    public void setPrice_sell(double price_sell) {
+        this.price_sell = price_sell;
     }
 
     public Date getLastModified() {
@@ -115,5 +137,21 @@ public class Item implements Serializable {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
     }
 }

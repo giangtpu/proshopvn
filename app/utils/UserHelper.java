@@ -69,13 +69,14 @@ public class UserHelper {
     public class StaticContent{
         public static final String WEB_LINK_ROOT_KEY ="web.link.root";
         public static final String WEB_LINK_RESET_PASS ="web.link.reset";
-        public static final String WEB_LINK_VIETTEL_ORDER ="web.link.viettelorder";
+
 
         public static final String FOLDER_AVATAR_KEY ="content.folder.avatar";
 
 
-        public static final String LINK_AVATAR_KEY ="content.link.avatar";
-        public static final String LINK_KID_AVATAR ="content.link.kidavatar";
+        public static final String LINK_AVATAR_USER_KEY ="content.link.avatar.user";
+        public static final String LINK_AVATAR_CUSTOMER_KEY ="content.link.avatar.customer";
+
         public static final String LINK_AVATAR_DEFAULT ="content.default.linkavatar";
 
 
@@ -86,12 +87,13 @@ public class UserHelper {
 
     public static String webLinkRoot = AppHelper.getAppConfigString(StaticContent.WEB_LINK_ROOT_KEY);
     public static String avatarFolderPath = AppHelper.getAppConfigString(StaticContent.FOLDER_AVATAR_KEY);
-    public static String avatarLinkPath = webLinkRoot + AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_KEY);
-    public static String avatarKidLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_KID_AVATAR);
+    public static String avatarUserLinkPath = webLinkRoot + AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_USER_KEY);
+    public static String avatarCustomerLinkPath = webLinkRoot + AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_CUSTOMER_KEY);
+
+
     public static String avatarDefaultLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_DEFAULT);
     public static String webLinkReset = AppHelper.getAppConfigString(StaticContent.WEB_LINK_RESET_PASS);
-    public static String webLinkViettelOrder = AppHelper.getAppConfigString(StaticContent.WEB_LINK_VIETTEL_ORDER);
-    public static Boolean isDisplayBTS = AppHelper.getAppConfigBoolean(StaticContent.MAP_DISPLAY_BTS);
+
 
 
     public static boolean isSessionTimeOut(String sessionId){

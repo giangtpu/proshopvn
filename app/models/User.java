@@ -103,7 +103,7 @@ public class User implements Serializable {
         if (StringUtils.isEmpty(avatar))
             return UserHelper.avatarDefaultLinkPath;
         else
-            return UserHelper.avatarLinkPath + "/" + avatar;
+            return UserHelper.avatarUserLinkPath + "/" + avatar;
     }
 
 
