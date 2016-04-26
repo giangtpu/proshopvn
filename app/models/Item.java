@@ -36,6 +36,14 @@ public class Item implements Serializable {
     private double price_sell;      //gia ban
     private Date lastModified;
 
+    private boolean promotion=false;    //khuyen mai
+    private double discountRate=0;        // tinh theo %
+    private Date datePromotionStart;        //ngay bat dau khuyen mai
+    private Date datePromotionEnd;        //ngay ket thuc khuyen mai
+
+    private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
+
+
     private int rating=5;     //diem 1-5
     private List<String> comments=new ArrayList<String>();      //phan hoi
 
@@ -153,5 +161,41 @@ public class Item implements Serializable {
 
     public void setComments(List<String> comments) {
         this.comments = comments;
+    }
+
+    public boolean isPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(boolean promotion) {
+        this.promotion = promotion;
+    }
+
+    public double getDiscountRate() {
+        return discountRate;
+    }
+
+    public void setDiscountRate(double discountRate) {
+        this.discountRate = discountRate;
+    }
+
+    public double getPromotionPrice() {
+        return (price_sell-(price_sell*(discountRate/100)));
+    }
+
+    public Date getDatePromotionStart() {
+        return datePromotionStart;
+    }
+
+    public void setDatePromotionStart(Date datePromotionStart) {
+        this.datePromotionStart = datePromotionStart;
+    }
+
+    public Date getDatePromotionEnd() {
+        return datePromotionEnd;
+    }
+
+    public void setDatePromotionEnd(Date datePromotionEnd) {
+        this.datePromotionEnd = datePromotionEnd;
     }
 }
