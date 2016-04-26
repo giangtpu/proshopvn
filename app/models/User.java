@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by giangdaika on 24/04/2016.
  */
 @ModelData(collection = "User", mapCacheName = "", mapCacheTTL = 86400)
-@Document(collection = "User")
+//@Document(collection = "User")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -76,6 +76,9 @@ public class User implements Serializable {
     private Date createdDate;
     private Date lastModified;
 
+
+    public User() {
+    }
 
     public User(String username, String email, String password, int role) {
         Date now = DateUtil.now();

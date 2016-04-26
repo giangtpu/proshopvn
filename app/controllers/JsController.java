@@ -27,10 +27,9 @@ public class JsController extends Controller {
     }
 
     public  Result javascriptRoutes() {
-//        response().setContentType("text/javascript");     //2.5 not supported any more , use as instead
         return ok(
                 JavaScriptReverseRouter.create("jsRoutes",
-                        controllers.routes.javascript.HomeController.ajaxTest())
+                        routes.javascript.Admin.index())
 
         ).as("text/javascript");
 

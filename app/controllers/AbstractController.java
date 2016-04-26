@@ -5,6 +5,7 @@ import models.User;
 import org.springframework.util.StringUtils;
 import play.Logger;
 import play.data.Form;
+import play.data.FormFactory;
 import play.data.validation.ValidationError;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
@@ -30,6 +31,11 @@ public class AbstractController extends Controller{
     @Inject
     public MessagesApi messagesApi;
 
+    @Inject
+    public FormFactory formFactory;
+
+
+//    Ex: String s= getMessages().at("home.title");
     public Messages getMessages() {
         Messages messages = messagesApi.preferred(request());
         return messages;

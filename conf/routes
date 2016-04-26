@@ -2,11 +2,35 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-POST    /ajaxTest                   controllers.HomeController.ajaxTest
+
 #Change language
-GET         /lang/:lang             controllers.HomeController.setlang(lang: String)
+GET         /lang/:lang                             controllers.Application.setlang(lang: String)
+
+#Project
+GET         /login                                  controllers.Application.login()
+POST        /login                                  controllers.Application.authenticate()
+GET         /logout                                  controllers.Application.logout()
+
+GET         /                                       controllers.Admin.index()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15,8 +39,13 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# Versioned Assets
+GET         /vassets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
+
+# Unversioned Assets
+GET         /assets/*file                            controllers.Assets.at(path="/public", file)
 
 
 #i18n

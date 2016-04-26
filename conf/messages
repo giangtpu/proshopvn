@@ -1,3 +1,33 @@
-home.title=Đây là trang home
-js.testmessage=Đây là message từ js
-js.testajax=Đây là message từ ajax
+valid.require=Trường bắt buộc nhập
+valid.minlength=Hãy nhập ít nhất {0} kí tự
+valid.maxlength=Không được nhập nhiều hơn {0} kí tự
+valid.minlengthpass=Mật khẩu phải có ít nhất {0} kí tự
+valid.equalpass=Mật khẩu mới không khớp
+valid.mobileVN=Hãy nhập số điện thoại đúng
+valid.email=Hãy nhập email đúng
+
+loginForm.EmptyEmail=Email rỗng
+loginForm.InvalidEmail=Email không hợp lệ
+loginForm.EmptyPass=Mật khẩu rỗng
+loginForm.ReEmptyPass=Mật khẩu lập lại rỗng
+loginForm.RePassNotMatch=Mật khẩu lập lại không giống
+loginForm.InvalidImg=Hình không hợp lệ, phải là định dạng png/jpg/gif
+loginForm.InvalidEmailPass=Email hoặc mật khẩu không hợp lệ
+loginForm.ExistedEmail=Email đã tồn tại
+loginForm.ExistedPhone=Số điện thoại này đã tồn tại
+
+loginForm.Registerd=Bạn vừa mới đăng ký
+loginForm.LoggedOut=Bạn vừa thoát
+
+login.success=Xin chào, {0} !
+login.LoginWith=Đăng nhập
+login.Login=Đăng nhập
+login.Signin=Đăng nhập
+
+login.Email=Email
+login.Role=Chức năng
+login.Password=Mật khẩu
+login.RePassword=Nhập lại mật khẩu
+
+
+form.error=Lỗi form

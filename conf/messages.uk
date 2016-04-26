@@ -1,3 +1,32 @@
-home.title=This is home title
-js.testmessage=this is message from js
-js.testajax=this is message from ajax
+valid.require=This field is required
+valid.minlength=Please enter at least {0} characters
+valid.maxlength=Please enter no more than {0} characters
+valid.minlengthpass=Please enter at least {0} characters
+valid.equalpass=Repeat password does not match
+valid.mobileVN=Please specify a valid mobile
+valid.email=Please enter a valid email address
+
+loginForm.EmptyEmail=Email is empty
+loginForm.InvalidEmail=Invalid email
+loginForm.EmptyPass=Password is empty
+loginForm.ReEmptyPass=Repeat password is empty
+loginForm.RePassNotMatch=Repeat password is not match
+loginForm.InvalidImg=Image invalid, must png/jpg/gif
+loginForm.InvalidEmailPass=Invalid email or password
+loginForm.ExistedEmail=Email existed
+loginForm.ExistedPhone=Phone number existed
+
+loginForm.Registerd=You''ve been registed
+loginForm.LoggedOut=You''ve been logged out
+
+login.success=Welcome back, {0} !
+login.LoginWith=Login
+login.Login=Login
+login.Signin=Sign in
+
+login.Email=Email
+login.Role=Role
+login.Password=Password
+login.RePassword=Repeat Password
+
+form.error=Form error

@@ -7,12 +7,14 @@ import utils.ParseUtil;
 import utils.PasswordHash;
 import utils.UserHelper;
 
+import javax.inject.Singleton;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
  * Created by giangdaika on 24/04/2016.
  */
+@Singleton
 public class UserService extends AbstractService{
     public User authenticate(String email, String password) {
         User user = userDAO.getByEmail(email);
