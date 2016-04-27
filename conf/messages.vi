@@ -38,3 +38,7 @@ nav.Usr=Tài khoản
 Admin.menu.Title=TRANG QUẢN LÍ ShopPRO
 Admin.menu.profile=Thông tin cá nhân
 Admin.menu.Dashboard=Bảng điều khiển
+
+Admin.user.role.1=Admin
+Admin.user.role.2=Super Mod
+Admin.user.role.3=Mod

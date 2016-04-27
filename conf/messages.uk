@@ -38,3 +38,7 @@ nav.Usr=Account
 Admin.menu.Title=ShopPRO ADMIN SITE
 Admin.menu.profile=My Profile
 Admin.menu.Dashboard=Dashboard
+
+Admin.user.role.1=Admin
+Admin.user.role.2=Super Mod
+Admin.user.role.3=Mod

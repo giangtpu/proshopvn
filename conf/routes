@@ -11,6 +11,8 @@ GET         /login                                  controllers.Application.logi
 POST        /login                                  controllers.Application.authenticate()
 GET         /logout                                  controllers.Application.logout()
 
+GET         /adminuseradminprofile/:id               controllers.Admin.userAdminprofile(id:String)
+
 GET         /                                       controllers.Admin.index()
 
 
