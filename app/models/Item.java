@@ -30,6 +30,8 @@ public class Item implements Serializable {
     private String description;
     private String material;
     private String image;
+    private String producer;    //nha san xuat
+    private String origin; //xuat xu
 
     private int quantity;
     private double price_receipt;   //gia nhap hang
@@ -52,13 +54,15 @@ public class Item implements Serializable {
         this.lastModified= DateUtil.now();
     }
 
-    public Item(String id, String name, String category_id, String description, String material, String image, int quantity, double price_sell) {
+    public Item(String id, String name, String category_id, String description, String material, String image,String producer, String origin, int quantity, double price_sell) {
         this.id = id;
         this.name = name;
         this.category_id = category_id;
         this.description = description;
         this.material = material;
         this.image = image;
+        this.producer=producer;
+        this.origin=origin;
         this.quantity = quantity;
         this.price_sell = price_sell;
         this.lastModified= DateUtil.now();
