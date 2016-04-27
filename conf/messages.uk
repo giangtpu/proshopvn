@@ -30,3 +30,11 @@ login.Password=Password
 login.RePassword=Repeat Password
 
 form.error=Form error
+
+nav.Logout=Log Out
+Admin.navbar.searchdevice=Search Device
+nav.Usr=Account
+
+Admin.menu.Title=ShopPRO ADMIN SITE
+Admin.menu.profile=My Profile
+Admin.menu.Dashboard=Dashboard

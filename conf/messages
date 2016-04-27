@@ -31,3 +31,11 @@ login.RePassword=Nhập lại mật khẩu
 
 
 form.error=Lỗi form
+
+nav.Logout=Thoát
+Admin.navbar.searchdevice=Tìm kiếm thiết bị
+nav.Usr=Tài khoản
+
+Admin.menu.Title=TRANG QUẢN LÍ ShopPRO
+Admin.menu.profile=Thông tin cá nhân
+Admin.menu.Dashboard=Bảng điều khiển

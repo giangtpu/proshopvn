@@ -32,6 +32,7 @@ public class Item implements Serializable {
     private String image;
     private String producer;    //nha san xuat
     private String origin; //xuat xu
+    private int warrantyTime;       //thoi gian bao hanh - tinh theo thang
 
     private int quantity;
     private double price_receipt;   //gia nhap hang

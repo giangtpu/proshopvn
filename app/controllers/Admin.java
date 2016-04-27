@@ -9,6 +9,6 @@ import play.mvc.Security;
 @Security.Authenticated(Secured.class)
 public class Admin extends AbstractController {
     public Result index() {
-        return ok("day la trang admin");
+        return ok(views.html.Admin.render(getUserSession()));
     }
 }

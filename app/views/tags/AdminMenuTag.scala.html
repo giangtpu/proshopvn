@@ -1,0 +1,51 @@
+@import utils.UserHelper
+@(currentUser: User)
+<div class="sidebar" data-color="azure" data-image="@routes.Assets.versioned("img/faces/face-0.jpg")">
+
+        <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+
+        <div class="logo">
+            <a href="@routes.Admin.index()" class="logo-text">
+                @Messages("Admin.menu.Title")
+            </a>
+        </div>
+
+    <div class="sidebar-wrapper">
+
+        <div class="user">
+            <div class="photo">
+                <img src="@routes.Assets.at("img/default-avatar.png")" />
+            </div>
+            <div class="info">
+                <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                        @currentUser.getEmail
+                    <b class="caret"></b>
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <ul class="nav">
+                        <li><a href="routes.Admin.userAdminprofile('me')">@Messages("Admin.menu.profile")</a></li>
+                        <li><a href="@routes.Application.logout()">@Messages("nav.Logout")</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav" style="margin-bottom: 50px">
+            <li id="dashboard">
+                <a href="@routes.Admin.index()">
+                    <i class="pe-7s-graph"></i>
+                    <p>@Messages("Admin.menu.Dashboard")</p>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+</div>
+
