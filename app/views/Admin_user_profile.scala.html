@@ -27,7 +27,7 @@
 
 
 
-
+        <link href="@routes.Assets.versioned("css/view/Admin_user_profile.css")" rel="stylesheet" />
 
             <!--  CSS for Demo Purpose, don't include it in your project     -->
             <!-- <link href="routes.Assets.versioned("css/demo-admin.css")" rel="stylesheet" />-->
@@ -135,8 +135,14 @@
                                         </div>
                                         <div class="content">
                                             <div class="author">
-                                                <img class="avatar border-gray" src="@user.getAvatarLinkPath()" onerror="this.src='@routes.Assets.at("img/faces/face-0.jpg")'" class="picture-src" id="wizardPicturePreview"/>
 
+                                                <div class="image-upload">
+                                                    <label for="wizard-picture">
+                                                        <img class="avatar border-gray" src="@user.getAvatarLinkPath()" onerror="this.src='@routes.Assets.at("img/faces/face-0.jpg")'" id="wizardPicturePreview"/>
+                                                    </label>
+
+                                                    <input id="wizard-picture" name="avatar" type="file"/>
+                                                </div>
                                                 <a href="#">
                                                     <h4 class="title">@user.getUsername<br />
                                                         <small>@user.getPhone</small>
@@ -212,7 +218,7 @@
 
 
              @if(flash.containsKey("success")) {
-                showNotification('top','center','info','@flash.get("success")','pe-7s-like2');
+                showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
                 }
              @if(flash.containsKey("failed")) {
                          showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
@@ -246,6 +252,21 @@
                 }
             });
     	});
+
+
+        $(function () {
+            $("#wizard-picture").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+        function imageIsLoaded(e) {
+            $('#wizardPicturePreview').attr('src', e.target.result);
+        };
+
 	</script>
 
 

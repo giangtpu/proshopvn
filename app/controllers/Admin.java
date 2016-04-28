@@ -6,12 +6,18 @@ import models.forms.UserForm;
 import org.springframework.util.StringUtils;
 import play.data.Form;
 import play.i18n.Messages;
+import play.libs.F;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import utils.DateUtil;
+import utils.ImageUtil;
 import utils.StringUtil;
 import utils.UserHelper;
 import views.html.Admin_user_profile;
+
+import java.io.File;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by giangdaika on 26/04/2016.
@@ -51,6 +57,7 @@ public class Admin extends AbstractController {
             return redirect(routes.Admin.userAdminprofile(id));
         }
         UserForm formuser=Userform.bindFromRequest().get();
+        Http.MultipartFormData.FilePart fileData = formuser.getFileData();
 
         User userupdate = userDAO.getByKey(formuser.getId());
 
@@ -101,6 +108,33 @@ public class Admin extends AbstractController {
                         userupdate.setEmail(formuser.getEmail());
                     }
                 }
+
+
+                if(fileData!=null) {
+                    String oldAvatarFilename = userupdate.getAvatar();
+
+                    String fileName = formuser.getFileName();
+                    String contentType = formuser.getContentType();
+                    File file = (File) fileData.getFile();
+                    formuser.setFileClientPath(file.getPath());
+                    String imageName = UserHelper.generateUniqueFilename(fileName);
+
+//                    System.out.println("imageName:"+imageName);
+                    // write image file to disk
+                    java.util.concurrent.CompletionStage<Boolean> promiseOfSaveImg = CompletableFuture.supplyAsync(
+                            () -> ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserLinkPath, file)
+                    );
+//                    ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserLinkPath, file);
+                    userupdate.setAvatar(imageName);
+                    java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                            () -> ImageUtil.delImage(oldAvatarFilename, UserHelper.avatarUserLinkPath)
+                    );
+                    logger.debug("User.getAvatarPath:{}", userupdate.getAvatarLinkPath());
+                }
+
+
+
+
                 updateProfile(userupdate);
             } else {
                 flash("failed",getMessages().at("Admin.donthavepermission"));

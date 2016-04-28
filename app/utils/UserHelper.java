@@ -55,6 +55,9 @@ public class UserHelper {
     public static String generateFilename(String contentType) {
         return StringUtil.getTimeUUIDString() + "." + contentType;
     }
+    public static String generateUniqueFilename(String filename) {
+        return StringUtil.getTimeUUIDString() +"-"+ filename;
+    }
     public static String hashPassword(String password){
         String passwordHash = "";
         try {

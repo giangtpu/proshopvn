@@ -9,11 +9,15 @@ import play.data.FormFactory;
 import play.data.validation.ValidationError;
 import play.i18n.Messages;
 import play.i18n.MessagesApi;
+import play.libs.F;
 import play.mvc.Controller;
+import play.mvc.Http;
 import services.UserService;
+import utils.ImageUtil;
 import utils.UserHelper;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -110,6 +114,8 @@ public class AbstractController extends Controller{
 //        generalUserSession(user);
         userService.addUserSessionToCookie(session(),user, true);
     }
+
+
 
 
 }
