@@ -1,10 +1,16 @@
 package controllers;
 
 import models.User;
+
+import models.forms.UserForm;
+import org.springframework.util.StringUtils;
 import play.data.Form;
 import play.i18n.Messages;
 import play.mvc.Result;
 import play.mvc.Security;
+import utils.DateUtil;
+import utils.StringUtil;
+import utils.UserHelper;
 import views.html.Admin_user_profile;
 
 /**
@@ -31,5 +37,81 @@ public class Admin extends AbstractController {
         }
 
         return ok(Admin_user_profile.render(getUserSession(), user));
+    }
+
+    public Result updateUserAdmin(String id)
+    {
+        Form<UserForm> Userform = formFactory.form(UserForm.class);
+
+
+
+        if(Userform.hasErrors())
+        {
+            flash("failed",getMessages().at("form.error"));
+            return redirect(routes.Admin.userAdminprofile(id));
+        }
+        UserForm formuser=Userform.bindFromRequest().get();
+
+        User userupdate = userDAO.getByKey(formuser.getId());
+
+
+        if (userupdate!=null)
+        {
+            User currentUser=getUserSession();
+            if(isAdmin() && (formuser.getRole() !=1) && currentUser.getId().equals(userupdate.getId())){
+
+                flash("failed",getMessages().at("Admin.cannotdowngrade"));
+                return redirect(routes.Admin.userAdminprofile(id));
+            }
+            if (isAdmin()) {
+                userupdate.setRole(formuser.getRole());
+            }
+            if (isAdmin()||currentUser.getId().equals(userupdate.getId()))
+            {
+
+                if(!StringUtils.isEmpty(formuser.getUsername()))
+                {
+                    userupdate.setUsername(formuser.getUsername());
+                }
+                if(!StringUtils.isEmpty(formuser.getPhone()))
+                {
+                    userupdate.setPhone(formuser.getPhone());
+                }
+                if(!StringUtils.isEmpty(formuser.getPassword()))
+                {
+                    if (!StringUtil.isComplicatedPassword(formuser.getPassword())){
+                        flash("failed",getMessages().at("Admin.PasswordNotComplicated"));
+                        return redirect(routes.Admin.userAdminprofile(id));
+                    }
+                    if (!formuser.getPassword().equals(formuser.getRepeatPassword()))
+                    {
+                        flash("failed",getMessages().at("Admin.PasswordNotMatch"));
+                        return redirect(routes.Admin.userAdminprofile(id));
+                    }
+                    userupdate.setPassword(UserHelper.hashPassword(formuser.getPassword()));
+                }
+                if(!StringUtils.isEmpty(formuser.getEmail()))
+                {
+                    if (!userupdate.getEmail().equals(formuser.getEmail())){
+                        if (userService.isEmailExisted(formuser.getEmail())) {
+                            flash("failed",getMessages().at("loginForm.ExistedEmail"));
+                            return redirect(routes.Admin.userAdminprofile(id));
+                        }
+                        userDAO.deleteByKey(userupdate.getId());
+                        userupdate.setEmail(formuser.getEmail());
+                    }
+                }
+                updateProfile(userupdate);
+            } else {
+                flash("failed",getMessages().at("Admin.donthavepermission"));
+                return redirect(routes.Admin.userAdminprofile(id));
+
+            }
+            flash("success",getMessages().at("Admin.updatesuccess"));
+            return redirect(routes.Admin.userAdminprofile(id));
+        }
+
+        flash("success",getMessages().at("Admin.usernotfound"));
+        return redirect(routes.Admin.userAdminprofile(id));
     }
 }

@@ -3,15 +3,6 @@
  */
 $(document).ready(function () {
     $('#loginform').validate({
-        rules: {
-            email: {
-                required: true,
-                email: true,
-            },
-            password: {
-                required: true,
-            }
-        },
         messages: {
             email: {
                 required: Messages("valid.require"),
@@ -20,9 +11,6 @@ $(document).ready(function () {
             password: {
                 required: Messages("valid.require"),
             }
-        },
-        highlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
         }
     });
 });

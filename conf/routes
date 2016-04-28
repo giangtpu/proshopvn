@@ -12,6 +12,7 @@ POST        /login                                  controllers.Application.auth
 GET         /logout                                  controllers.Application.logout()
 
 GET         /adminuseradminprofile/:id               controllers.Admin.userAdminprofile(id:String)
+POST        /adminuseradminprofile/:id               controllers.Admin.updateUserAdmin(id:String)
 
 GET         /                                       controllers.Admin.index()
 

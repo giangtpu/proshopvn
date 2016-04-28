@@ -1,11 +1,3 @@
-valid.require=Trường bắt buộc nhập
-valid.minlength=Hãy nhập ít nhất {0} kí tự
-valid.maxlength=Không được nhập nhiều hơn {0} kí tự
-valid.minlengthpass=Mật khẩu phải có ít nhất {0} kí tự
-valid.equalpass=Mật khẩu mới không khớp
-valid.mobileVN=Hãy nhập số điện thoại đúng
-valid.email=Hãy nhập email đúng
-
 loginForm.EmptyEmail=Email rỗng
 loginForm.InvalidEmail=Email không hợp lệ
 loginForm.EmptyPass=Mật khẩu rỗng
@@ -32,7 +24,7 @@ login.RePassword=Nhập lại mật khẩu
 form.error=Lỗi form
 
 nav.Logout=Thoát
-Admin.navbar.searchdevice=Tìm kiếm thiết bị
+Admin.navbar.searchdevice=Tìm kiếm
 nav.Usr=Tài khoản
 
 Admin.menu.Title=TRANG QUẢN LÍ ShopPRO
@@ -42,3 +34,27 @@ Admin.menu.Dashboard=Bảng điều khiển
 Admin.user.role.1=Admin
 Admin.user.role.2=Super Mod
 Admin.user.role.3=Mod
+
+Admin.user.usrid=ID
+Admin.username=User Name
+Admin.email=Email
+profile.PhoneNum=Số điện thoại
+Admin.useradmin.role=Nhóm
+
+valid.require=Trường bắt buộc nhập
+valid.minlength=Hãy nhập ít nhất {0} kí tự
+valid.maxlength=Không được nhập nhiều hơn {0} kí tự
+valid.minlengthpass=Mật khẩu phải có ít nhất {0} kí tự
+valid.maxlengthpass=Mật khẩu không được nhiều hơn {0} kí tự
+valid.equalpass=Mật khẩu mới không khớp
+valid.repeatpass=Mật khẩu lặp lại không khớp
+valid.mobileVN=Hãy nhập số điện thoại đúng
+valid.emailmobileVN=Hãy nhập email hoặc số điện thoại đúng
+valid.email=Hãy nhập email đúng
+
+Admin.cannotdowngrade=Không thể tự đổi quyền admin
+Admin.PasswordNotMatch=Mật khẩu lặp lại không trùng khớp
+Admin.PasswordNotComplicated=Mật khẩu phải phức tạp
+Admin.donthavepermission=Bạn không có quyền thực thi tác vụ này, hãy đăng nhập với quyền admin
+Admin.updatesuccess=Cập nhật user thành công
+Admin.usernotfound=Không tìm thấy user
