@@ -62,7 +62,7 @@ public class UserForm {
         }
         else{
             fileName = fileData.getFilename();
-                        System.out.println("fileName:" + fileName);
+//            System.out.println("fileName:" + fileName);
             contentType = ImageUtil.getImageType(fileName);
             File file = (File )fileData.getFile();
             fileClientPath = file.getParent();

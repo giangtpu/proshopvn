@@ -26,7 +26,9 @@ public class Application extends AbstractController {
 
     public Result login() {
 //        User admin=new User("giangdaika","saivnct@gmail.com","Buigiang88",User.Roles.admin.getCode());
-//        userDAO.save(admin);
+//        User useradd=userDAO.getByEmail("saivnct@gmail.com");
+//        useradd.setPassword(UserHelper.hashPassword("123456"));
+//        userDAO.save(useradd);
 
         User user = getUserSession();
         if (user == null) {
@@ -54,6 +56,8 @@ public class Application extends AbstractController {
             flash("failed",getMessages().at("loginForm.InvalidEmailPass"));
             return redirect(routes.Application.login());
         }
+
+
 
         addUserSessionToCookie(user);
 

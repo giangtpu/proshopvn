@@ -59,3 +59,4 @@ Admin.PasswordNotComplicated=Mật khẩu phải phức tạp
 Admin.donthavepermission=Bạn không có quyền thực thi tác vụ này, hãy đăng nhập với quyền admin
 Admin.updatesuccess=Cập nhật user thành công
 Admin.usernotfound=Không tìm thấy user
+Admin.add=Thêm mới

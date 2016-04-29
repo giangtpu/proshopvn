@@ -14,6 +14,14 @@ GET         /logout                                  controllers.Application.log
 GET         /adminuseradminprofile/:id               controllers.Admin.userAdminprofile(id:String)
 POST        /adminuseradminprofile/:id               controllers.Admin.updateUserAdmin(id:String)
 
+GET         /adminusers                              controllers.Admin.adminusers()
+GET         /adminusers/:page/:numPage               controllers.Admin.adminusersPage(page:Int, numPage:Int)
+
+GET         /adminadduser                            controllers.Admin.addAdminuser()
+POST         /adminadduser                            controllers.Admin.adduserAdmin()
+POST        /checkEmailExist                        controllers.Admin.checkEmailExist()
+
+
 GET         /                                       controllers.Admin.index()
 
 

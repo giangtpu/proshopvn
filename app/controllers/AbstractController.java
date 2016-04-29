@@ -2,6 +2,7 @@ package controllers;
 
 import dao.UserDAO;
 import models.User;
+import models.forms.UserForm;
 import org.springframework.util.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -19,6 +20,7 @@ import utils.UserHelper;
 import javax.inject.Inject;
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by giangdaika on 24/04/2016.
@@ -113,6 +115,28 @@ public class AbstractController extends Controller{
     public void addUserSessionToCookieApp(User user){
 //        generalUserSession(user);
         userService.addUserSessionToCookie(session(),user, true);
+    }
+
+    public void writeUserAvatarTodisk(UserForm formuser, User user){
+        Http.MultipartFormData.FilePart fileData = formuser.getFileData();
+        String oldAvatarFilename = user.getAvatar();
+        String fileName = formuser.getFileName();
+        String contentType = formuser.getContentType();
+        File file = (File) fileData.getFile();
+        formuser.setFileClientPath(file.getPath());
+        String imageName = UserHelper.generateUniqueFilename(fileName);
+        try
+        {
+            // write image file to disk
+            ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserFolderPath, file);
+            user.setAvatar(imageName);
+            java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                    () -> ImageUtil.delImage(oldAvatarFilename, UserHelper.avatarUserFolderPath)
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 

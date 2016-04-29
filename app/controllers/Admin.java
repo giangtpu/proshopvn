@@ -1,22 +1,25 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import models.User;
 
 import models.forms.UserForm;
 import org.springframework.util.StringUtils;
+import play.Logger;
 import play.data.Form;
 import play.i18n.Messages;
 import play.libs.F;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import utils.DateUtil;
-import utils.ImageUtil;
-import utils.StringUtil;
-import utils.UserHelper;
+import utils.*;
+import views.html.Admin_add_user;
 import views.html.Admin_user_profile;
+import views.html.Admin_users;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -24,6 +27,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Security.Authenticated(Secured.class)
 public class Admin extends AbstractController {
+    Logger.ALogger logger = Logger.of(Admin.class);
     public Result index() {
         return ok(views.html.Admin.render(getUserSession()));
     }
@@ -57,7 +61,7 @@ public class Admin extends AbstractController {
             return redirect(routes.Admin.userAdminprofile(id));
         }
         UserForm formuser=Userform.bindFromRequest().get();
-        Http.MultipartFormData.FilePart fileData = formuser.getFileData();
+
 
         User userupdate = userDAO.getByKey(formuser.getId());
 
@@ -109,35 +113,7 @@ public class Admin extends AbstractController {
                     }
                 }
 
-
-                if(fileData!=null && !org.apache.commons.lang.StringUtils.isEmpty(fileData.getFilename())) {
-                    String oldAvatarFilename = userupdate.getAvatar();
-
-                    String fileName = formuser.getFileName();
-                    String contentType = formuser.getContentType();
-                    File file = (File) fileData.getFile();
-                    formuser.setFileClientPath(file.getPath());
-                    String imageName = UserHelper.generateUniqueFilename(fileName);
-
-                    // write image file to disk
-//                    java.util.concurrent.CompletionStage<Boolean> promiseOfSaveImg = CompletableFuture.supplyAsync(
-//                            () -> ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserFolderPath, file)
-//                    );
-                    ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserFolderPath, file);
-//                    ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserLinkPath, file);
-                    userupdate.setAvatar(imageName);
-                    java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
-                            () -> ImageUtil.delImage(oldAvatarFilename, UserHelper.avatarUserFolderPath)
-                    );
-//                    logger.debug("User.getAvatarPath:{}", userupdate.getAvatarLinkPath());
-//
-//
-//                    System.out.println("imageName:"+imageName);
-//                    System.out.println("userupdate:"+userupdate.getAvatarLinkPath());
-                }
-
-
-
+                writeUserAvatarTodisk(formuser,userupdate);
 
                 updateProfile(userupdate);
             } else {
@@ -152,4 +128,96 @@ public class Admin extends AbstractController {
         flash("success",getMessages().at("Admin.usernotfound"));
         return redirect(routes.Admin.userAdminprofile(id));
     }
+
+
+    public Result adminusers()
+    {
+        int numPage=(int) userDAO.CountQuerry()/ StaticData.itemPerPage_UserAdmin;
+        if (userDAO.CountQuerry()%StaticData.itemPerPage_UserAdmin!=0)
+        {
+            numPage++;
+        }
+
+        return adminusersPage(1, numPage);
+    }
+    public Result adminusersPage(int page, int numPage)
+    {
+        List<User> userList=new ArrayList<User>();
+        userList=userDAO.getByPage(page, StaticData.itemPerPage_UserAdmin);
+        if (userList==null) {
+            flash("failed", getMessages().at("Admin.usernotfound"));
+            return redirect(routes.Admin.index());
+        }
+        return ok(Admin_users.render(getUserSession(), userList, page, numPage));
+    }
+
+    public Result addAdminuser(){
+        if (!isAdmin()){
+            flash("failed", getMessages().at("Admin.donthavepermission"));
+            return redirect(routes.Admin.index());
+        }
+        return ok(Admin_add_user.render(getUserSession()));
+    }
+
+    public Result adduserAdmin()
+    {
+        Form<UserForm> Userform = formFactory.form(UserForm.class);
+
+        if(Userform.hasErrors())
+        {
+            flash("failed",getMessages().at("form.error"));
+            return redirect(routes.Admin.addAdminuser());
+        }
+        UserForm formuser=Userform.bindFromRequest().get();
+
+        if(!isAdmin() ){
+
+            flash("failed", getMessages().at("Admin.donthavepermission"));
+            return redirect(routes.Admin.addAdminuser());
+        }
+        if (!StringUtil.isComplicatedPassword(formuser.getPassword())){
+            flash("failed",getMessages().at("Admin.PasswordNotComplicated"));
+            return redirect(routes.Admin.addAdminuser());
+        }
+        if (!formuser.getPassword().equals(formuser.getRepeatPassword()))
+        {
+            flash("failed",getMessages().at("Admin.PasswordNotMatch"));
+            return redirect(routes.Admin.addAdminuser());
+        }
+        if (userService.isEmailExisted(formuser.getEmail())) {
+            flash("failed",getMessages().at("loginForm.ExistedEmail"));
+            return redirect(routes.Admin.addAdminuser());
+        }
+
+        int role=formuser.getRole();
+        String username=formuser.getUsername();
+        String email=formuser.getEmail();
+        String password=formuser.getPassword();
+
+        User user=new User(username,email,password,role);
+        if(!StringUtils.isEmpty(formuser.getPhone()))
+        {
+            user.setPhone(formuser.getPhone());
+        }
+
+        writeUserAvatarTodisk(formuser,user);
+
+        flash("success",getMessages().at("Admin.addModsuccess"));
+        return redirect(routes.Admin.addAdminuser());
+
+    }
+
+    public Result checkEmailExist()
+    {
+        JsonNode json = request().body().asJson();
+        String email = json.findPath("email").textValue();
+
+        System.out.println("email:"+email);
+
+
+
+        return redirect(routes.Admin.addAdminuser());
+    }
+
+
 }

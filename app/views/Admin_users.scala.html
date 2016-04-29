@@ -1,0 +1,320 @@
+@import helper._
+@import play.mvc.Http._
+@import play.data.Form
+@import models.User
+@import java.util
+@import utils.StaticData
+@import utils.UserHelper
+@(currentUser: User,Userlist:util.List[User],page:Int,numPage:Int)
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="@routes.Assets.versioned("img/favicon.ico")">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>MKIDs Admin Page</title>
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+
+            <!-- Bootstrap core CSS     -->
+        <link href="@routes.Assets.versioned("css/bootstrap.min.css")" rel="stylesheet" />
+            <!-- Animation library for notifications   -->
+        <link href="@routes.Assets.versioned("css/animate.min.css")" rel="stylesheet"/>
+            <!--  Light Bootstrap Table core CSS    -->
+        <link href="@routes.Assets.versioned("css/light-bootstrap-dashboard.css")" rel="stylesheet"/>
+            <!--     Fonts and icons     -->
+        <link href="@routes.Assets.versioned("css/font-awesome.css")" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+        <link href="@routes.Assets.versioned("css/pe-icon-7-stroke.css")" rel="stylesheet" />
+
+    </head>
+    <body>
+
+        <div class="wrapper">
+            @views.html.tags.AdminMenuTag(currentUser)
+
+            <div class="main-panel">
+                @views.html.tags.AdminNavBarTag()
+
+                <div class="content">
+
+                        <div class="fresh-table toolbar-color-azure" style="margin-bottom:50px">
+                                <!--    Available colors for the full background: full-color-blue, full-color-azure, full-color-green, full-color-red, full-color-orange
+                                Available colors only for the toolbar: toolbar-color-blue, toolbar-color-azure, toolbar-color-green, toolbar-color-red, toolbar-color-orange
+                        -->
+                            <div class="toolbar">
+                                <div class="col-md-12" >
+                                    <form action="routes.Admin.searchUserAdminbykey()" method="POST" id="searchUserAdmin">
+                                        <div class="col-md-5" style="padding: 0">
+                                            <input id="searchkey" class="form-control" name="searchkey" placeholder="Search">
+                                        </div>
+
+                                        <div class="col-md-2" style="padding: 0" >
+                                            <a id="mappage" class="btn btn-default" onclick="document.getElementById('searchUserAdmin').submit()"><i class="fa fa-search"></i></a>
+                                        </div>
+
+                                        @if(UserHelper.isAdmin(currentUser)) {
+                                            <div class="col-md-2" >
+                                                <a rel="tooltip" class="btn btn-default" title="@Messages("mapkid.addSafezone")" href="javascript:void(0)" data-toggle="modal" data-target="#Addmod">@Messages("mapkid.addSafezone")</a>
+                                            </div>
+                                        }
+
+                                    </form>
+                                </div>
+
+
+                            </div>
+
+
+                            <table id="fresh-table" class="table">
+
+                                <thead>
+                                    <th data-field="No">No</th>
+                                    <th data-field="id">@Messages("Admin.balance.usrid")</th>
+                                    @if(UserHelper.isAdmin(currentUser)) {
+                                        <th data-field="role">@Messages("Admin.useradmin.role")</th>
+                                    }
+                                    <th data-field="name">@Messages("Admin.username")</th>
+                                    <th data-field="email">@Messages("Order.Email")</th>
+                                    <th data-field="phone">@Messages("profile.PhoneNum")</th>
+                                    <th data-field="actions">@Messages("Admin.devinfo.action")</th>
+                                </thead>
+                                <tbody align="left">
+                                    @for((user,index)<-Userlist.zipWithIndex) {
+                                        <tr>
+                                            <td>@(index+1+((page-1)*StaticData.itemPerPage_UserAdmin))</td>
+                                            <td>@user.getId</td>
+                                            @if(UserHelper.isAdmin(currentUser)) {
+                                                <td>@user.getRole</td>
+                                            }
+                                            <td>@user.getUsername</td>
+                                            <td>@user.getEmail</td>
+                                            <td>@user.getPhone</td>
+                                            <td>
+                                                @if(UserHelper.isAdmin(currentUser)) {
+                                                    <a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm@user.getId">
+                                                        <i class="fa fa-remove"></i>
+                                                    </a>
+                                                }
+                                                <a rel="tooltip" title="Edit" class="table-action edit" href="@routes.Admin.userAdminprofile(user.getId())">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <div class="col-md-12" >
+                                <ul class="pagination" style="float: right!important;">
+
+                                    @if(page>1){
+                                        <li><a href="@routes.Admin.adminusersPage(1,numPage)"><<</a></li>
+                                        <li><a href="@routes.Admin.adminusersPage(page-1,numPage)">prev</a></li>
+                                    }
+
+                                    @for(item<-(1 to 3).reverse){
+                                        @if(page-item>0){
+                                            <li><a href="@routes.Admin.adminusersPage(page-item,numPage)">@(page-item)</a></li>
+                                        }
+                                    }
+                                <li><a href="@routes.Admin.adminusersPage(page,numPage)" style="border-color: #666666;">@(page)</a></li>
+
+                                    @for(item<-1 to 3){
+                                        @if(page+item<=numPage){
+                                            <li><a href="@routes.Admin.adminusersPage(page+item,numPage)">@(page+item)</a></li>
+                                        }
+                                    }
+
+                                    @if(page<numPage){
+                                        <li><a href="@routes.Admin.adminusersPage(page+1,numPage)">next</a></li>
+                                        <li><a href="@routes.Admin.adminusersPage(numPage,numPage)">>></a></li>
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+                </div>
+                @views.html.tags.AdminFooterTag()
+            </div>
+        </div>
+
+        @for(user<-Userlist) {
+            <form action="routes.Admin.deleteUserAdmin(page,numPage)" method="POST" id="deleteuser@user.getId">
+                <div class="modal fade" id="deleteconfirm@user.getId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel">@Messages("deviceUser.confirmDelete")</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group" hidden>
+                                    <input id="id" class="form-control" name="id" value="@user.getId">
+                                </div>
+                                <div class="form-group">
+                                    <label for="devtoken">@Messages("deviceUser.confirmDeletebody")</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                                <input type="submit" class="btn btn-info btn-simple" id="submit_@user.getId" value="@Messages("btnDelete")" style="margin:0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+
+        @if(UserHelper.isAdmin(currentUser)) {
+            <form action="routes.Admin.addUserAdmin(page,numPage)" method="POST" id="addModForm">
+                <div class="modal fade" id="Addmod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel">@Messages("Admin.Addmod")</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="username">@Messages("Admin.username")</label>
+                                            <input id="username" class="form-control" name="username">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">@Messages("login.Email")</label>
+                                            <input type="text" style="display:none">
+                                            <input type="text" id="addemail" class="form-control" name="email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="password">@Messages("login.Password")</label>
+                                            <input type="password" style="display:none">
+                                            <input type="password" id="password" class="form-control" name="password">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="passwordRepeat">@Messages("login.RePassword")</label>
+                                            <input type="password" id="passwordRepeat" class="form-control" name="passwordRepeat">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="role">@Messages("Admin.useradmin.role")</label>
+                                            <select id="role" name="role" class="selectpicker" data-title="role" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                                                <option value= "0" >@Messages("Admin.user.role.0")</option>
+                                                <option value= "1" >@Messages("Admin.user.role.1")</option>
+                                                <option value= "2" >@Messages("Admin.user.role.2")</option>
+                                                <option value= "21">@Messages("Admin.user.role.21")</option>
+                                                <option value= "22">@Messages("Admin.user.role.22")</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="border-top: 0px;">
+                                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                                <input type="submit" class="btn btn-info btn-simple" id="submit_addMod" value="@Messages("btnSave")" style="margin:0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        }
+
+
+    </body>
+
+        <!--   Core JS Files   -->
+    <script src="@routes.Assets.at("js/jquery.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
+        <!--  Notifications Plugin    -->
+    <script src="@routes.Assets.at("js/bootstrap-notify.js")"></script>
+        <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="@routes.Assets.at("js/light-bootstrap-dashboard.js")"></script>
+
+
+        <!--  Checkbox, Radio & Switch Plugins -->
+        <!-- <script src="routes.Assets.at("js/bootstrap-checkbox-radio-switch.js")"></script>-->
+
+        <!--  Charts Plugin -->
+        <!-- <script src="routes.Assets.at("js/chartist-admin.min.js")"></script>-->
+
+
+
+
+        <!--<script src="routes.Assets.at("js/bootstrap-selectpicker.js")"></script>-->
+
+
+
+    <script type="text/javascript">
+    	$(document).ready(function(){
+
+            @if(flash.containsKey("success")) {
+            showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
+            }
+            @if(flash.containsKey("failed")) {
+            showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
+            }
+
+             $('#useradmin').addClass('active');
+    	});
+	</script>
+    <script type="text/javascript">
+                var $table = $('#fresh-table'),
+                full_screen = false;
+
+                if($(".selectpicker").length != 0){
+                        $(".selectpicker").selectpicker();
+                    }
+
+                $().ready(function(){
+                    $table.bootstrapTable({
+                        toolbar: ".toolbar",
+
+                        showRefresh: false,
+                        search: false,
+                        showToggle: true,
+                        showColumns: true,
+                        pagination: false,
+                        striped: true,
+                        sortable: true,
+                        pageSize: 8,
+                        pageList: [8,10,25,50,100],
+
+                        formatShowingRows: function(pageFrom, pageTo, totalRows){
+                            //do nothing here, we don't want to show the text "showing x of y from..."
+                        },
+                        formatRecordsPerPage: function(pageNumber){
+                            return pageNumber + " rows visible";
+                        },
+                        icons: {
+                            refresh: 'fa fa-refresh',
+                            toggle: 'fa fa-th-list',
+                            columns: 'fa fa-columns',
+                            detailOpen: 'fa fa-plus-circle',
+                            detailClose: 'fa fa-minus-circle'
+                        }
+                    });
+
+
+
+                });
+        </script>
+
+    <script src="@routes.Assets.at("js/ShowNotification.js")" type="text/javascript"></script>
+
+</html>
