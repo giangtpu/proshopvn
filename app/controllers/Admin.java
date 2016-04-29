@@ -110,7 +110,7 @@ public class Admin extends AbstractController {
                 }
 
 
-                if(fileData!=null) {
+                if(fileData!=null && !org.apache.commons.lang.StringUtils.isEmpty(fileData.getFilename())) {
                     String oldAvatarFilename = userupdate.getAvatar();
 
                     String fileName = formuser.getFileName();
@@ -119,17 +119,21 @@ public class Admin extends AbstractController {
                     formuser.setFileClientPath(file.getPath());
                     String imageName = UserHelper.generateUniqueFilename(fileName);
 
-//                    System.out.println("imageName:"+imageName);
                     // write image file to disk
-                    java.util.concurrent.CompletionStage<Boolean> promiseOfSaveImg = CompletableFuture.supplyAsync(
-                            () -> ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserLinkPath, file)
-                    );
+//                    java.util.concurrent.CompletionStage<Boolean> promiseOfSaveImg = CompletableFuture.supplyAsync(
+//                            () -> ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserFolderPath, file)
+//                    );
+                    ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserFolderPath, file);
 //                    ImageUtil.writeAvatarToDisk(imageName, UserHelper.avatarUserLinkPath, file);
                     userupdate.setAvatar(imageName);
                     java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
-                            () -> ImageUtil.delImage(oldAvatarFilename, UserHelper.avatarUserLinkPath)
+                            () -> ImageUtil.delImage(oldAvatarFilename, UserHelper.avatarUserFolderPath)
                     );
-                    logger.debug("User.getAvatarPath:{}", userupdate.getAvatarLinkPath());
+//                    logger.debug("User.getAvatarPath:{}", userupdate.getAvatarLinkPath());
+//
+//
+//                    System.out.println("imageName:"+imageName);
+//                    System.out.println("userupdate:"+userupdate.getAvatarLinkPath());
                 }
 
 

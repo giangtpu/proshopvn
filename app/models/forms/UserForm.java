@@ -1,5 +1,6 @@
 package models.forms;
 
+import org.apache.commons.lang.StringUtils;
 import play.data.validation.ValidationError;
 import play.i18n.Messages;
 import play.mvc.Http;
@@ -56,11 +57,12 @@ public class UserForm {
         Http.MultipartFormData data = request().body().asMultipartFormData();
         fileData = data.getFile("avatar");
 
-        if (fileData == null) {
+        if (fileData == null|| StringUtils.isEmpty(fileData.getFilename())) {
 
         }
         else{
             fileName = fileData.getFilename();
+                        System.out.println("fileName:" + fileName);
             contentType = ImageUtil.getImageType(fileName);
             File file = (File )fileData.getFile();
             fileClientPath = file.getParent();

@@ -74,7 +74,8 @@ public class UserHelper {
         public static final String WEB_LINK_RESET_PASS ="web.link.reset";
 
 
-        public static final String FOLDER_AVATAR_KEY ="content.folder.avatar";
+        public static final String FOLDER_AVATAR_USER_KEY ="content.folder.avatar.user";
+        public static final String FOLDER_AVATAR_CUSTOMER_KEY ="content.folder.avatar.customer";
 
 
         public static final String LINK_AVATAR_USER_KEY ="content.link.avatar.user";
@@ -89,7 +90,8 @@ public class UserHelper {
     }
 
     public static String webLinkRoot = AppHelper.getAppConfigString(StaticContent.WEB_LINK_ROOT_KEY);
-    public static String avatarFolderPath = AppHelper.getAppConfigString(StaticContent.FOLDER_AVATAR_KEY);
+    public static String avatarUserFolderPath = AppHelper.getAppConfigString(StaticContent.FOLDER_AVATAR_USER_KEY);
+    public static String avatarCustomerFolderPath = AppHelper.getAppConfigString(StaticContent.FOLDER_AVATAR_CUSTOMER_KEY);
     public static String avatarUserLinkPath = webLinkRoot + AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_USER_KEY);
     public static String avatarCustomerLinkPath = webLinkRoot + AppHelper.getAppConfigString(StaticContent.LINK_AVATAR_CUSTOMER_KEY);
 
