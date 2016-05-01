@@ -46,23 +46,3 @@ function imageIsLoaded(e) {
 };
 
 
-var r_checkEmailExist = jsRoutes.controllers.Admin.checkEmailExist();
-function checkEmailExist(){
-    var datamodel = new DataModel();
-    datamodel.email = document.getElementById('email').value;;
-
-
-
-    $.ajax({
-        type: r_checkEmailExist.type,
-        dataType: 'json',
-        data: JSON.stringify(datamodel),
-        contentType: "application/json; charset=utf-8",
-        url: r_checkEmailExist.url,
-        success: function (data) {
-            console.log(data);
-
-
-        }
-    });
-}

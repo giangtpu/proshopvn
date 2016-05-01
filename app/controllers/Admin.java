@@ -129,6 +129,50 @@ public class Admin extends AbstractController {
         return redirect(routes.Admin.userAdminprofile(id));
     }
 
+    public Result deleteUserAdmin(int page, int numPage)
+    {
+        Form<UserForm> Userform = formFactory.form(UserForm.class);
+
+
+        List<User> userList=new ArrayList<User>();
+
+        if(Userform.hasErrors())
+        {
+            flash("failed",getMessages().at("form.error"));
+            return redirect(routes.Admin.adminusersPage( page, numPage));
+        }
+        if(!isAdmin())
+        {
+            flash("failed",getMessages().at("Admin.donthavepermission"));
+            return redirect(routes.Admin.adminusersPage( page, numPage));
+        }
+        UserForm formuser=Userform.bindFromRequest().get();
+
+        User user = userDAO.getByKey(formuser.getId());
+
+//        System.out.printf("user id:"+user.getId());
+
+        if (user==null)
+        {
+            flash("failed",getMessages().at("Admin.usernotfound"));
+            return redirect(routes.Admin.adminusersPage( page, numPage));
+        }
+
+
+        userDAO.deleteByKey(user.getId());
+        numPage=(int) userDAO.CountQuerry()/StaticData.itemPerPage_UserAdmin;
+        if (userDAO.CountQuerry()%StaticData.itemPerPage_UserAdmin!=0)
+        {
+            numPage++;
+        }
+        if (page>numPage)
+        {
+            page--;
+        }
+        flash("success",getMessages().at("Admin.deletesuccess"));
+        return redirect(routes.Admin.adminusersPage( page, numPage));
+    }
+
 
     public Result adminusers()
     {
@@ -138,7 +182,7 @@ public class Admin extends AbstractController {
             numPage++;
         }
 
-        return adminusersPage(1, numPage);
+        return redirect(routes.Admin.adminusersPage( 1, numPage));
     }
     public Result adminusersPage(int page, int numPage)
     {
@@ -202,22 +246,15 @@ public class Admin extends AbstractController {
 
         writeUserAvatarTodisk(formuser,user);
 
+        userDAO.save(user);
+
         flash("success",getMessages().at("Admin.addModsuccess"));
         return redirect(routes.Admin.addAdminuser());
 
     }
 
-    public Result checkEmailExist()
-    {
-        JsonNode json = request().body().asJson();
-        String email = json.findPath("email").textValue();
-
-        System.out.println("email:"+email);
 
 
-
-        return redirect(routes.Admin.addAdminuser());
-    }
 
 
 }

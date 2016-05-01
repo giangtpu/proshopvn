@@ -44,6 +44,23 @@
                 </a>
             </li>
 
+            @if(UserHelper.isAdmin(currentUser)) {
+                <li id="usermenu">
+                    <a id="usermenutoggle" data-toggle="collapse" href="#componentusermenu">
+                        <i class="pe-7s-user"></i>
+                        <p>@Messages("Admin.menu.User")
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="componentusermenu">
+                        <ul class="nav">
+                            <li id="userlist"><a href="@routes.Admin.adminusers()">@Messages("Admin.menu.User.list")</a></li>
+                            <li id="useradd"><a href="@routes.Admin.addAdminuser()">@Messages("Admin.add")</a></li>
+                        </ul>
+                    </div>
+                </li>
+            }
+
 
         </ul>
     </div>

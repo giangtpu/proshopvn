@@ -18,8 +18,9 @@ GET         /adminusers                              controllers.Admin.adminuser
 GET         /adminusers/:page/:numPage               controllers.Admin.adminusersPage(page:Int, numPage:Int)
 
 GET         /adminadduser                            controllers.Admin.addAdminuser()
-POST         /adminadduser                            controllers.Admin.adduserAdmin()
-POST        /checkEmailExist                        controllers.Admin.checkEmailExist()
+POST         /adminadduser                           controllers.Admin.adduserAdmin()
+POST         /admindeluser/:page/:numPage            controllers.Admin.deleteUserAdmin(page:Int, numPage:Int)
+
 
 
 GET         /                                       controllers.Admin.index()

@@ -118,6 +118,11 @@ public class AbstractController extends Controller{
     }
 
     public void writeUserAvatarTodisk(UserForm formuser, User user){
+        if (formuser.getFileData()==null)
+        {
+            return;
+        }
+
         Http.MultipartFormData.FilePart fileData = formuser.getFileData();
         String oldAvatarFilename = user.getAvatar();
         String fileName = formuser.getFileName();

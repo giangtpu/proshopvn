@@ -1,3 +1,26 @@
+btnClose=Close
+btnDelete=Delete
+btnhome=Back to home
+btnEdit=Edit
+btnCancel=Cancel
+btnSave=Save
+btnUpdate=Update
+btnShow=Show
+btnStop=Stop
+btnNext=Next
+btnBack=Back
+btnFinish=Finish
+btnPrevious=Previous
+btnChangePass=Change Password
+btnBuynow=Buy now!
+btnTrial=Trial
+btnOk=Ok
+btnYES=Yes
+btnBrowse=Browse
+btnSubmit=Submit
+btnResend=Resend
+btnAdd=Thêm
+
 loginForm.EmptyEmail=Email is empty
 loginForm.InvalidEmail=Invalid email
 loginForm.EmptyPass=Password is empty
@@ -59,3 +82,9 @@ Admin.donthavepermission=Bạn không có quyền thực thi tác vụ này, hã
 Admin.updatesuccess=Cập nhật user thành công
 Admin.usernotfound=Không tìm thấy user
 Admin.add=Thêm mới
+Admin.menu.User=Quản lý user
+Admin.menu.User.list=User list
+Admin.action=Action
+
+Admin.confirmDelete=Xác nhận xóa
+User.confirmDeletebody=Bạn có chắc muốn xóa user này?

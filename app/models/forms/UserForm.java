@@ -55,28 +55,28 @@ public class UserForm {
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<ValidationError>();
         Http.MultipartFormData data = request().body().asMultipartFormData();
-        fileData = data.getFile("avatar");
 
-        if (fileData == null|| StringUtils.isEmpty(fileData.getFilename())) {
-
-        }
-        else{
-            fileName = fileData.getFilename();
+        if (data!=null&&data.getFile("avatar") != null){
+            if(!StringUtils.isEmpty(data.getFile("avatar").getFilename())){
+                fileData = data.getFile("avatar");
+                fileName = fileData.getFilename();
 //            System.out.println("fileName:" + fileName);
-            contentType = ImageUtil.getImageType(fileName);
-            File file = (File )fileData.getFile();
-            fileClientPath = file.getParent();
+                contentType = ImageUtil.getImageType(fileName);
+                File file = (File )fileData.getFile();
+                fileClientPath = file.getParent();
 
-            if(!ImageUtil.checkValidImageType(contentType)){
-                errors.add(new ValidationError("avatar", "wrong format image"));
-            }
+                if(!ImageUtil.checkValidImageType(contentType)){
+                    errors.add(new ValidationError("avatar", "wrong format image"));
+                }
 //            System.out.println("fileName:" + fileName);
 //            System.out.println("contentType:" + contentType);
 //            System.out.println("fileClientPath:" + fileClientPath);
 //
 //            System.out.println("getPath:" + file.getPath());
 //            System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+            }
         }
+
 
         return errors.isEmpty() ? null : errors;
     }

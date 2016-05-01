@@ -29,8 +29,8 @@ public class JsController extends Controller {
     public  Result javascriptRoutes() {
         return ok(
                 JavaScriptReverseRouter.create("jsRoutes",
-                        routes.javascript.Admin.index(),
-                        routes.javascript.Admin.checkEmailExist()
+                        routes.javascript.Admin.index()
+
 
                 )
 
