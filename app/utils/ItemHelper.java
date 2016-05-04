@@ -45,12 +45,17 @@ public class ItemHelper {
 		return false;
 	}
 	public class StaticContent{
-		public static final String LINK_ITEM_IMAGE ="content.folder.item.image";
-
+		public static final String LINK_ITEM_IMAGE ="content.link.image.item";
+		public static final String LINK_ITEM_DEFAULT ="content.default.linkitem";
+		public static final String LINK_CATEGORY_IMAGE ="content.link.image.category";
+		public static final String LINK_CATEGORY_DEFAULT ="content.default.linkcategory";
 
 	}
 
 	public static String itemImageLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_ITEM_IMAGE);
+	public static String itemDefaultLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_ITEM_DEFAULT);
+	public static String categoryImageLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_CATEGORY_IMAGE);
+	public static String categoryDefaultLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_CATEGORY_DEFAULT);
 
 
 

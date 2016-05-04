@@ -88,3 +88,10 @@ Admin.action=Action
 
 Admin.confirmDelete=Xác nhận xóa
 User.confirmDeletebody=Bạn có chắc muốn xóa user này?
+
+Admin.Category.title=Danh mục
+Admin.Category.name=Tên danh mục
+Admin.Category.isItemCategory=Chứa item
+Admin.Category.father=Danh mục cha
+Admin.Category.root=Danh mục gốc
+Admin.Category.description=Mô tả

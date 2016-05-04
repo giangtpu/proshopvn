@@ -11,6 +11,7 @@ GET         /login                                  controllers.Application.logi
 POST        /login                                  controllers.Application.authenticate()
 GET         /logout                                  controllers.Application.logout()
 
+#User
 GET         /adminuseradminprofile/:id               controllers.Admin.userAdminprofile(id:String)
 POST        /adminuseradminprofile/:id               controllers.Admin.updateUserAdmin(id:String)
 
@@ -21,6 +22,9 @@ GET         /adminadduser                            controllers.Admin.addAdminu
 POST         /adminadduser                           controllers.Admin.adduserAdmin()
 POST         /admindeluser/:page/:numPage            controllers.Admin.deleteUserAdmin(page:Int, numPage:Int)
 
+#Category
+GET         /addcategory                             controllers.CategoryController.addCategoryView()
+POST         /addcategory                             controllers.CategoryController.addCategory()
 
 
 GET         /                                       controllers.Admin.index()

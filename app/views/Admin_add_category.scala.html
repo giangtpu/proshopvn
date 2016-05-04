@@ -1,5 +1,5 @@
 @import utils.UserHelper
-@(currentUser:User,user: User)
+@(currentUser:User)
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
         <link href="@routes.Assets.versioned("css/pe-icon-7-stroke.css")" rel="stylesheet" />
 
-        <link href="@routes.Assets.versioned("css/view/Admin_user_profile.css")" rel="stylesheet" />
+        <link href="@routes.Assets.versioned("css/view/Admin_add_category.css")" rel="stylesheet" />
 
             <!--  CSS for Demo Purpose, don't include it in your project     -->
             <!-- <link href="routes.Assets.versioned("css/demo-admin.css")" rel="stylesheet" />-->
@@ -45,83 +45,57 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            @helper.form(action = routes.Admin.updateUserAdmin(user.getId()), 'enctype -> "multipart/form-data", 'id -> "updateuser"){
+                             @helper.form(action = routes.CategoryController.addCategory(), 'enctype -> "multipart/form-data", 'id -> "updatecategory"){
                                 <div class="col-md-8">
                                     <div class="card">
                                         <div class="header">
-                                            <h4 class="title">@Messages("nav.Usr")</h4>
+                                            <h4 class="title">@Messages("Admin.Category.title")</h4>
                                         </div>
                                         <div class="content">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" >
+                                                        <p class="category">@Messages("Admin.Category.isItemCategory")</p>
+                                                        <input  id ="isItemCategory" name="isItemCategory" type="checkbox" data-toggle="switch" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>@Messages("Admin.user.usrid")</label>
+                                                        <label for="name">@Messages("Admin.Category.name")</label>
                                                         <input type="text" style="display:none">
-                                                        <input name="id" type="text" class="form-control" required="true" placeholder="id" value="@user.getId" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="username">@Messages("Admin.username")</label>
-                                                        <input type="text" style="display:none">
-                                                        <input name="username" type="text" required="true" minLength="5" class="form-control" placeholder="Username" value="@user.getUsername">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email">@Messages("Admin.email")</label>
-                                                        <input type="email" style="display:none">
-                                                        <input name="email" type="email" email="true" required="true" class="form-control" placeholder="Email" value="@user.getEmail">
+                                                        <input name="name" type="text" required="true" minLength="5" class="form-control" placeholder="name"  autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12" >
                                                     <div class="form-group">
-                                                        <label for="password">@Messages("login.Password")</label>
-                                                        <input type="password" style="display:none">
-                                                        <input name="password" type="password" id="password" minLength="5" class="form-control" placeholder="Not Showing">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="repeatPassword">@Messages("login.RePassword")</label>
-                                                        <input type="repeatPassword" style="display:none">
-                                                        <input name="repeatPassword" equalTo="#password" type="password" class="form-control" placeholder="Not Showing">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="phone">@Messages("profile.PhoneNum")</label>
-                                                        <input type="text" style="display:none">
-                                                        <input name="phone" type="text" class="form-control"  placeholder="Phone" value="@user.getPhone">
-                                                    </div>
-                                                </div>
-                                                @if(UserHelper.isAdmin(currentUser)) {
-                                                    <div class="col-md-6" style="padding-right: 6px;">
-                                                        <div class="form-group">
-                                                            <label for="phone">@Messages("Admin.useradmin.role")</label>
-                                                            <div>
-                                                                <select name="role" class="selectpicker" data-style="form-control" data-menu-style="">
-                                                                    <option value= "1"  @if(UserHelper.isAdmin(user)) {selected}>@Messages("Admin.user.role.1")</option>
-                                                                    <option value= "2"  @if(UserHelper.isSMod(user)) {selected}>@Messages("Admin.user.role.2")</option>
-                                                                    <option value= "3"  @if(UserHelper.isMod(user)) {selected}>@Messages("Admin.user.role.3")</option>
-                                                                </select>
-                                                            </div>
+                                                        <label for="fatherCategoryId">@Messages("Admin.Category.father")</label>
+                                                        <div>
+                                                            <select name="fatherCategoryId" class="selectpicker" data-style="form-control" data-menu-style="">
+                                                                <option value= "0"  >@Messages("Admin.Category.root")</option>
+                                                                <option value= "1"  >@Messages("Admin.user.role.2")</option>
+                                                                <option value= "2"  selected>@Messages("Admin.user.role.3")</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                }
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12" >
+                                                    <div class="form-group">
+                                                        <label for="description">@Messages("Admin.Category.description")</label>
+                                                        <textarea class="form-control" rows="5" name="description" id="description"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
 
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">@Messages("Admin.add")</button>
 
-                                            @if((UserHelper.isAdmin(currentUser))||(currentUser.getId.equals(user.getId))){
-                                                <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                            }
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -136,16 +110,11 @@
 
                                                 <div class="image-upload">
                                                     <label for="wizard-picture">
-                                                        <img class="avatar border-gray" src="@user.getAvatarLinkPath()" onerror="this.src='@routes.Assets.at("img/faces/face-0.jpg")'" id="wizardPicturePreview"/>
+                                                        <img class="avatar border-gray" src="@routes.Assets.at("img/default-item-image.png")" id="wizardPicturePreview"/>
                                                     </label>
 
-                                                    <input id="wizard-picture" name="avatar" type="file"/>
+                                                    <input id="wizard-picture" name="image" type="file"/>
                                                 </div>
-                                                <a href="#">
-                                                    <h4 class="title">@user.getUsername<br />
-                                                        <small>@user.getPhone</small>
-                                                    </h4>
-                                                </a>
                                             </div>
                                         </div>
                                         <hr>
@@ -181,11 +150,14 @@
     <script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
         <!--  Notifications Plugin    -->
     <script src="@routes.Assets.at("js/bootstrap-notify.js")"></script>
+
+        <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="@routes.Assets.at("js/bootstrap-checkbox-radio-switch-tags.js")"></script>
+
         <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="@routes.Assets.at("js/light-bootstrap-dashboard.js")"></script>
 
-        <!--  Checkbox, Radio & Switch Plugins -->
-        <!--<script src="routes.Assets.at("js/bootstrap-checkbox-radio-switch.js")"></script> -->
+
 
         <!--  Charts Plugin -->
     <!-- <script src="routes.Assets.at("js/chartist-admin.min.js")"></script>-->
@@ -218,7 +190,14 @@
              @if(flash.containsKey("failed")) {
                          showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
                 }
+
+
+            $('#usermenu').addClass('active');
+            $('#usermenu #componentusermenu').collapse('show');
+            $('#usermenu #useradd').addClass('active');
     	});
+
+
 
 	</script>
     <script src="@routes.Assets.at("js/view/Admin_user_profile.js")" type="text/javascript"></script>

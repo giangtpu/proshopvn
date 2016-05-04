@@ -3,8 +3,10 @@ package models;
 import configs.ModelData;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.util.StringUtils;
 import utils.DateUtil;
 import utils.ItemHelper;
+import utils.UserHelper;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,24 +14,34 @@ import java.util.Date;
 /**
  * Created by giangdaika on 25/04/2016.
  */
-@ModelData(collection = "Category", mapCacheName = "", mapCacheTTL = 86400)
-@Document(collection = "Category")
+@ModelData(collection = "CategoryController", mapCacheName = "", mapCacheTTL = 86400)
+@Document(collection = "CategoryController")
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String id;
-
+    private String name;
     private boolean isItemCategory=true;
+    private int level;
 
     private String fatherCategoryId;
 
     private String description;
+
+    private String image;
 
     private Date lastModified;
 
     public Category() {
         this.id= ItemHelper.generateId();
         this.lastModified= DateUtil.now();
+    }
+
+    public String getImageLinkPath(){
+        if (StringUtils.isEmpty(image))
+            return ItemHelper.categoryDefaultLinkPath;
+        else
+            return ItemHelper.categoryImageLinkPath + "/" + image;
     }
 
     public String getId() {
@@ -70,5 +82,29 @@ public class Category implements Serializable {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
