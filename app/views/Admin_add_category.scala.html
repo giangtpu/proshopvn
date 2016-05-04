@@ -1,5 +1,6 @@
 @import utils.UserHelper
-@(currentUser:User)
+@import java.util
+@(currentUser:User,menu:util.List[Category])
 
 <!DOCTYPE html>
 <html>
@@ -57,9 +58,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group" >
                                                         <p class="category">@Messages("Admin.Category.isItemCategory")</p>
-                                                        <input  id ="isItemCategory" name="isItemCategory" type="checkbox" data-toggle="switch" />
+                                                        <input  id ="isItemCategorySwitch" type="checkbox" onchange="setIsItemCategory()" data-toggle="switch" value="true"/>
                                                     </div>
 
+                                                    <div class="form-group" hidden>
+                                                        <input  id ="isItemCategory" name="isItemCategory" value="false"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -78,8 +82,9 @@
                                                         <div>
                                                             <select name="fatherCategoryId" class="selectpicker" data-style="form-control" data-menu-style="">
                                                                 <option value= "0"  >@Messages("Admin.Category.root")</option>
-                                                                <option value= "1"  >@Messages("Admin.user.role.2")</option>
-                                                                <option value= "2"  selected>@Messages("Admin.user.role.3")</option>
+                                                                @for(item<-menu) {
+                                                                    <option value= "@item.getId">@for( level <-0 to item.getLevel()) {------}@item.getName</option>
+                                                                }
                                                             </select>
                                                         </div>
                                                     </div>
@@ -200,7 +205,7 @@
 
 
 	</script>
-    <script src="@routes.Assets.at("js/view/Admin_user_profile.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/view/Admin_add_category.js")" type="text/javascript"></script>
 
     <script src="@routes.Assets.at("js/ShowNotification.js")" type="text/javascript"></script>
 

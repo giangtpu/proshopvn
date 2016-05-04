@@ -14,17 +14,17 @@ import java.util.Date;
 /**
  * Created by giangdaika on 25/04/2016.
  */
-@ModelData(collection = "CategoryController", mapCacheName = "", mapCacheTTL = 86400)
-@Document(collection = "CategoryController")
+@ModelData(collection = "Category", mapCacheName = "", mapCacheTTL = 86400)
+@Document(collection = "Category")
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String id;
     private String name;
     private boolean isItemCategory=true;
-    private int level;
+    private int level=0;
 
-    private String fatherCategoryId;
+    private String fatherCategoryId="";
 
     private String description;
 

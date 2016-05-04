@@ -24,7 +24,7 @@ POST         /admindeluser/:page/:numPage            controllers.Admin.deleteUse
 
 #Category
 GET         /addcategory                             controllers.CategoryController.addCategoryView()
-POST         /addcategory                             controllers.CategoryController.addCategory()
+POST        /addcategory                             controllers.CategoryController.addCategory()
 
 
 GET         /                                       controllers.Admin.index()
