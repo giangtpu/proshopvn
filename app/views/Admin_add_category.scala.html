@@ -1,6 +1,6 @@
 @import utils.UserHelper
 @import java.util
-@(currentUser:User,menu:util.List[Category])
+@(currentUser:User,menu:Menu)
 
 <!DOCTYPE html>
 <html>
@@ -82,8 +82,8 @@
                                                         <div>
                                                             <select name="fatherCategoryId" class="selectpicker" data-style="form-control" data-menu-style="">
                                                                 <option value= "0"  >@Messages("Admin.Category.root")</option>
-                                                                @for(item<-menu) {
-                                                                    <option value= "@item.getId">@for( level <-0 to item.getLevel()) {------}@item.getName</option>
+                                                                @for(item<-menu.getCategoryList()) {
+                                                                    <option value= "@item.getId">@for( level <-0 to item.getLevel()) {--------}@item.getName</option>
                                                                 }
                                                             </select>
                                                         </div>

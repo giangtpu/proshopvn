@@ -1,7 +1,12 @@
 package controllers;
 
+import dao.CategoryDAO;
+import dao.MenuDAO;
 import dao.UserDAO;
+import models.Category;
+import models.Menu;
 import models.User;
+import models.forms.CategoryForm;
 import models.forms.UserForm;
 import org.springframework.util.StringUtils;
 import play.Logger;
@@ -15,10 +20,12 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import services.UserService;
 import utils.ImageUtil;
+import utils.ItemHelper;
 import utils.UserHelper;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -39,6 +46,12 @@ public class AbstractController extends Controller{
 
     @Inject
     public FormFactory formFactory;
+
+    @Inject
+    public CategoryDAO categoryDAO;
+
+    @Inject
+    public MenuDAO menuDAO;
 
 
 //    Ex: String s= getMessages().at("home.title");
@@ -145,6 +158,84 @@ public class AbstractController extends Controller{
     }
 
 
+    /////////////////////////MENU///////////////////////
+    public void getCategoryChild(Category category, List<Category> categories, List<Category> menu){
+
+        for (Category subcategory:categories){
+            if (subcategory.getFatherCategoryId().equals(category.getId())){
+                menu.add(subcategory);
+                getCategoryChild(subcategory,categories,menu);
+            }
+        }
+
+    }
+
+    public List<Category> getListCategoryMenu(){
+
+        List<Category> categories=categoryDAO.getAll();
+        List<Category> menu=new ArrayList<Category>();
+
+        for (Category category:categories){
+            if (StringUtils.isEmpty(category.getFatherCategoryId())){
+                menu.add(category);
+                getCategoryChild(category,categories,menu);
+            }
+        }
+        return menu;
+    }
+
+    public void updateMenu(){
+        Menu menu= menuDAO.getByKey("menu");
+        if (menu==null){
+            menu=new Menu();
+            menu.setId("menu");
+        }
+        List<Category> categories=getListCategoryMenu();
+        menu.setCategoryList(categories);
+        menuDAO.save(menu);
+    }
+
+    public Menu getMenu(){
+        Menu menu= menuDAO.getByKey("menu");
+        if (menu==null){
+            menu=new Menu();
+            menu.setId("menu");
+            List<Category> categories=getListCategoryMenu();
+            menu.setCategoryList(categories);
+            menuDAO.save(menu);
+        }
+
+        return menu;
+    }
+
+    public void writeCatagoryImageTodisk(CategoryForm formcategory, Category category){
+        if (formcategory.getFileData()==null)
+        {
+            return;
+        }
+
+        Http.MultipartFormData.FilePart fileData = formcategory.getFileData();
+        String oldImageFilename = category.getImage();
+        String fileName = formcategory.getFileName();
+        String contentType = formcategory.getContentType();
+        File file = (File) fileData.getFile();
+        formcategory.setFileClientPath(file.getPath());
+        String imageName = UserHelper.generateUniqueFilename(fileName);
+        try
+        {
+            // write image file to disk
+            ImageUtil.writeAvatarToDisk(imageName, ItemHelper.categoryImageFolderPath, file);
+            category.setImage(imageName);
+            java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                    () -> ImageUtil.delImage(oldImageFilename, ItemHelper.categoryImageFolderPath)
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    /////////////////////////MENU///////////////////////
 
 
 }

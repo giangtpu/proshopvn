@@ -26,40 +26,11 @@ public class CategoryController extends AbstractController {
 
 //    private static List<Category> menu;
 
-    public void getCategoryChild(Category category,List<Category> categories, List<Category> menu){
 
-        for (Category subcategory:categories){
-            if (subcategory.getFatherCategoryId().equals(category.getId())){
-                menu.add(subcategory);
-                getCategoryChild(subcategory,categories,menu);
-            }
-        }
-
-    }
-
-    public List<Category> getListCategoryMenu(){
-
-        List<Category> categories=categoryDAO.getAll();
-        List<Category> menu=new ArrayList<Category>();
-
-        for (Category category:categories){
-           if (StringUtils.isEmpty(category.getFatherCategoryId())){
-               menu.add(category);
-               getCategoryChild(category,categories,menu);
-           }
-        }
-
-
-//        for (Category category:menu){
-//            System.out.println("name:"+category.getName());
-//        }
-
-        return menu;
-    }
 
     public Result addCategoryView() {
 
-        return ok(Admin_add_category.render(getUserSession(),getListCategoryMenu()));
+        return ok(Admin_add_category.render(getUserSession(),getMenu()));
     }
 
     public Result addCategory() {
@@ -90,7 +61,9 @@ public class CategoryController extends AbstractController {
         }
         category.setDescription(formcategory.getDescription());
 
+        writeCatagoryImageTodisk(formcategory,category);
         categoryDAO.save(category);
+        updateMenu();
 
         return redirect(routes.CategoryController.addCategoryView());
     }
