@@ -15,6 +15,14 @@ public class ItemHelper {
 	private static final Pattern lonpattern = Pattern.compile(
 			"(\\d{3})(\\d{2}\\.\\d+)");
 
+	public static String generateCategoryIDbyName(String name)
+	{
+		name=name.trim();
+		name=name.replace(" ","-");
+		return name+"-"+getTimeStampID();
+	};
+
+
 	public static String generateToken(){
 		return Long.toString(StringUtil.generateRandom(6));
 	}

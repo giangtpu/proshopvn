@@ -33,7 +33,7 @@ public class Category implements Serializable {
     private Date lastModified;
 
     public Category() {
-        this.id= ItemHelper.generateId();
+//        this.id= ItemHelper.generateId();
         this.lastModified= DateUtil.now();
     }
 

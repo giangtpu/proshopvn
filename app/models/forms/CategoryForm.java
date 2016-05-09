@@ -15,6 +15,7 @@ import static play.mvc.Controller.request;
  * Created by giangdaika on 05/05/2016.
  */
 public class CategoryForm {
+    private String id;
     private String name;
     private boolean isItemCategory;
     private String fatherCategoryId;
@@ -125,5 +126,13 @@ public class CategoryForm {
 
     public void setFileServerPath(String fileServerPath) {
         this.fileServerPath = fileServerPath;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

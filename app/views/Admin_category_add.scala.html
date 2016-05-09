@@ -83,7 +83,7 @@
                                                             <select name="fatherCategoryId" class="selectpicker" data-style="form-control" data-menu-style="">
                                                                 <option value= "0"  >@Messages("Admin.Category.root")</option>
                                                                 @for(item<-menu.getCategoryList()) {
-                                                                    <option value= "@item.getId">@for( level <-0 to item.getLevel()) {--------}@item.getName</option>
+                                                                    <option value= "@item.getId">@for( level <-1 to item.getLevel()) {--------}@item.getName</option>
                                                                 }
                                                             </select>
                                                         </div>
@@ -197,9 +197,9 @@
                 }
 
 
-            $('#usermenu').addClass('active');
-            $('#usermenu #componentusermenu').collapse('show');
-            $('#usermenu #useradd').addClass('active');
+            $('#categorymenu').addClass('active');
+            $('#categorymenu #componentcategorymenu').collapse('show');
+            $('#categorymenu #categoryadd').addClass('active');
     	});
 
 

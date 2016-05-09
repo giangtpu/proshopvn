@@ -61,6 +61,23 @@
                 </li>
             }
 
+            @if(UserHelper.isAdmin(currentUser)) {
+                <li id="categorymenu">
+                    <a id="categorymenutoggle" data-toggle="collapse" href="#componentcategorymenu">
+                        <i class="pe-7s-menu"></i>
+                        <p>@Messages("Admin.Category.title")
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="componentcategorymenu">
+                        <ul class="nav">
+                            <li id="categorylist"><a href="@routes.CategoryController.categoryList()">@Messages("Admin.Category.list")</a></li>
+                            <li id="categoryadd"><a href="@routes.CategoryController.addCategoryView()">@Messages("Admin.Category.add")</a></li>
+                        </ul>
+                    </div>
+                </li>
+            }
+
 
         </ul>
     </div>

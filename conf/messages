@@ -85,6 +85,9 @@ Admin.usernotfound=Không tìm thấy user
 Admin.add=Thêm mới
 Admin.menu.User=Quản lý user
 Admin.menu.User.list=User list
+Admin.addsuccess=Thêm mới thành công
+Admin.deletesuccess=Xóa thành công
+Admin.Updatesuccess=Cập nhật thành công
 
 Admin.action=Action
 
@@ -92,8 +95,14 @@ Admin.confirmDelete=Xác nhận xóa
 User.confirmDeletebody=Bạn có chắc muốn xóa user này?
 
 Admin.Category.title=Danh mục
+Admin.Category.level=Cấp
 Admin.Category.name=Tên danh mục
 Admin.Category.isItemCategory=Chứa item
 Admin.Category.father=Danh mục cha
 Admin.Category.root=Danh mục gốc
 Admin.Category.description=Mô tả
+Admin.Category.list=Quản lý danh mục
+Admin.Category.add=Thêm mới danh mục
+Admin.Category.notfound=Không tìm thấy danh mục
+Admin.Category.childconsist=Danh mục còn chứa danh mục con
+Admin.Category.existed=Danh mục đã tồn tại

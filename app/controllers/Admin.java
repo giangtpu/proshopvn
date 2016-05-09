@@ -13,7 +13,7 @@ import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import utils.*;
-import views.html.Admin_add_user;
+import views.html.Admin_user_add;
 import views.html.Admin_user_profile;
 import views.html.Admin_users;
 
@@ -200,7 +200,7 @@ public class Admin extends AbstractController {
             flash("failed", getMessages().at("Admin.donthavepermission"));
             return redirect(routes.Admin.index());
         }
-        return ok(Admin_add_user.render(getUserSession()));
+        return ok(Admin_user_add.render(getUserSession()));
     }
 
     public Result adduserAdmin()
@@ -248,7 +248,7 @@ public class Admin extends AbstractController {
 
         userDAO.save(user);
 
-        flash("success",getMessages().at("Admin.addModsuccess"));
+        flash("success",getMessages().at("Admin.addsuccess"));
         return redirect(routes.Admin.addAdminuser());
 
     }

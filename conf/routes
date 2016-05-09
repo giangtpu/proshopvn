@@ -23,8 +23,13 @@ POST         /adminadduser                           controllers.Admin.adduserAd
 POST         /admindeluser/:page/:numPage            controllers.Admin.deleteUserAdmin(page:Int, numPage:Int)
 
 #Category
+GET         /categories                             controllers.CategoryController.categoryList()
+GET         /category/:id                           controllers.CategoryController.categoryInfo(id:String)
+POST        /deleteCategory                             controllers.CategoryController.deleteCategory()
 GET         /addcategory                             controllers.CategoryController.addCategoryView()
 POST        /addcategory                             controllers.CategoryController.addCategory()
+POST        /updateCategory                             controllers.CategoryController.updateCategory()
+
 
 
 GET         /                                       controllers.Admin.index()
