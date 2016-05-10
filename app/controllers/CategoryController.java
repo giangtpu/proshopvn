@@ -128,8 +128,17 @@ public class CategoryController extends AbstractController {
         }
 
 
+        if(formcategory.getIsItemCategory()==1){
+            category.setItemCategory(true);
+        }else
+        {
+            category.setItemCategory(false);
+        }
 
-        category.setItemCategory(formcategory.isItemCategory());
+
+
+
+//        System.out.println("formcategory.isItemCategory():"+formcategory.getIsItemCategory());
 
         if(!formcategory.getFatherCategoryId().equals("0"))
         {
@@ -178,7 +187,13 @@ public class CategoryController extends AbstractController {
         }
         category.setId(idGenerate);
 //        System.out.println(ItemHelper.generateCategoryIDbyName(formcategory.getName()));
-        category.setItemCategory(formcategory.isItemCategory());
+        if(formcategory.getIsItemCategory()==1){
+            category.setItemCategory(true);
+        }else
+        {
+            category.setItemCategory(false);
+        }
+//        category.setItemCategory(formcategory.isItemCategory());
         if(!formcategory.getFatherCategoryId().equals("0"))
         {
             category.setFatherCategoryId(formcategory.getFatherCategoryId());

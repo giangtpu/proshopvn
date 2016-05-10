@@ -29,8 +29,9 @@ function imageIsLoaded(e) {
 
 function setIsItemCategory(){
     if($('#isItemCategorySwitch').is(":checked")){
-        $('#isItemCategory').val(true);
+        $('#isItemCategory').val(1);
+        //alert($('#isItemCategory').val());
     }else{
-        $('#isItemCategory').val(false);
+        $('#isItemCategory').val(0);
     }
 }

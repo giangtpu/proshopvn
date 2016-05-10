@@ -17,7 +17,7 @@ import static play.mvc.Controller.request;
 public class CategoryForm {
     private String id;
     private String name;
-    private boolean isItemCategory;
+    private int isItemCategory;
     private String fatherCategoryId;
     private String description;
 
@@ -64,12 +64,12 @@ public class CategoryForm {
         this.name = name;
     }
 
-    public boolean isItemCategory() {
+    public int getIsItemCategory() {
         return isItemCategory;
     }
 
-    public void setItemCategory(boolean itemCategory) {
-        isItemCategory = itemCategory;
+    public void setIsItemCategory(int isItemCategory) {
+        this.isItemCategory = isItemCategory;
     }
 
     public String getFatherCategoryId() {
