@@ -78,6 +78,23 @@
                 </li>
             }
 
+            @if(UserHelper.isAdmin(currentUser)) {
+                <li id="itemmenu">
+                    <a id="itemmenutoggle" data-toggle="collapse" href="#componentitemmenu">
+                        <i class="pe-7s-gift"></i>
+                        <p>@Messages("Admin.Item.title")
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse" id="componentitemmenu">
+                        <ul class="nav">
+                            <li id="itemlist"><a href="@routes.CategoryController.categoryList()">@Messages("Admin.Item.list")</a></li>
+                            <li id="itemadd"><a href="@routes.ItemController.addItemView()">@Messages("Admin.Item.add")</a></li>
+                        </ul>
+                    </div>
+                </li>
+            }
+
 
         </ul>
     </div>

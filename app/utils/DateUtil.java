@@ -23,6 +23,9 @@ public class DateUtil {
     public static final String FORMAT_DATE_YYYY_MM_DD_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_DAYOFWEEK = "EEE";
     public static final String FORMAT_DAYOFWEEK_FULL = "EEEE";
+    public static final String FORMAT_MAP_HISTORY = "dd/MM/yyyy";
+
+
     public static final String DATE_DEFAULT = "1900/01/01";
     public static final String TIME_DEFAULT = "HH:mm:ss";
     public static final String TIME_GPS = "ddMMyyHHmmss.SSS";

@@ -30,6 +30,9 @@ GET         /addcategory                             controllers.CategoryControl
 POST        /addcategory                             controllers.CategoryController.addCategory()
 POST        /updateCategory                             controllers.CategoryController.updateCategory()
 
+#item
+GET         /additem                                    controllers.ItemController.addItemView()
+
 
 
 GET         /                                       controllers.Admin.index()

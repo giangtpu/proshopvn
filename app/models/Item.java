@@ -47,7 +47,8 @@ public class Item implements Serializable {
     private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
 
 
-    private int rating=5;     //diem 1-5
+    private double rating=5;     //diem 1-5
+    private int numbervote=1;   //so luong danh gia
     private List<String> comments=new ArrayList<String>();      //phan hoi
 
     public Item() {
@@ -152,13 +153,7 @@ public class Item implements Serializable {
         this.lastModified = lastModified;
     }
 
-    public int getRating() {
-        return rating;
-    }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
 
     public List<String> getComments() {
         return comments;
@@ -202,5 +197,53 @@ public class Item implements Serializable {
 
     public void setDatePromotionEnd(Date datePromotionEnd) {
         this.datePromotionEnd = datePromotionEnd;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public int getWarrantyTime() {
+        return warrantyTime;
+    }
+
+    public void setWarrantyTime(int warrantyTime) {
+        this.warrantyTime = warrantyTime;
+    }
+
+    public List<String> getRelatedItems() {
+        return relatedItems;
+    }
+
+    public void setRelatedItems(List<String> relatedItems) {
+        this.relatedItems = relatedItems;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getNumbervote() {
+        return numbervote;
+    }
+
+    public void setNumbervote(int numbervote) {
+        this.numbervote = numbervote;
     }
 }
