@@ -47,7 +47,7 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                        @helper.form(action = routes.CategoryController.addCategory(), 'enctype -> "multipart/form-data", 'id -> "updatecategory"){
+                        @helper.form(action = routes.ItemController.addItem(), 'enctype -> "multipart/form-data", 'id -> "updateitem"){
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="header">
@@ -76,7 +76,7 @@
                                                 <div class="form-group">
                                                     <label for="quantity">@Messages("Admin.Item.quantity")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="quantity" type="text" class="form-control" placeholder="quantity"  autocomplete="off">
+                                                    <input name="quantity" type="text" required="true" number="true" class="form-control" placeholder="quantity"  autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                                 <div class="form-group">
                                                     <label for="price_receipt">@Messages("Admin.Item.price_receipt")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="price_receipt" type="text" class="form-control" placeholder="price_receipt"  autocomplete="off">
+                                                    <input name="price_receipt" required="true" number="true" type="text" class="form-control" placeholder="price_receipt"  autocomplete="off">
                                                 </div>
                                             </div>
 
@@ -109,7 +109,7 @@
                                                 <div class="form-group">
                                                     <label for="price_sell">@Messages("Admin.Item.price_sell")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="price_sell" type="text" class="form-control" placeholder="price_sell"  autocomplete="off">
+                                                    <input name="price_sell" required="true" number="true" type="text" class="form-control" placeholder="price_sell"  autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -145,12 +145,12 @@
                                                 <div class="form-group">
                                                     <label for="warrantyTime">@Messages("Admin.Item.warrantyTime")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="warrantyTime" type="text" class="form-control" placeholder="warrantyTime"  autocomplete="off">
+                                                    <input name="warrantyTime" required="true"  number="true" type="text" class="form-control" placeholder="warrantyTime"  autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row" id="promotiongroup">
                                             <div class="col-md-6">
                                                 <div class="form-group" >
                                                     <p class="category">@Messages("Admin.Item.promotion")</p>
@@ -162,27 +162,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6 discoutdiv" >
-                                                <div class="form-group">
-                                                    <label for="discountRate">@Messages("Admin.Item.discountRate")</label>
-                                                    <input type="text" style="display:none">
-                                                    <input name="discountRate" type="text" class="form-control" placeholder="discountRate"  autocomplete="off">
-                                                </div>
-                                            </div>
 
-                                            <div class="col-md-6 discoutdiv">
-                                                <div class="form-group">
-                                                    <label for="datePromotionStart">@Messages("Admin.Item.datePromotionStart")</label>
-                                                    <input id ="datePromotionStart" name="datePromotionStart" class="form-control datetimepicker" type="text" value="@DateUtil.getDateByFormat(DateUtil.now(),DateUtil.FORMAT_MAP_HISTORY)">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 discoutdiv">
-                                                <div class="form-group">
-                                                    <label for="datePromotionEnd">@Messages("Admin.Item.datePromotionEnd")</label>
-                                                    <input id ="datePromotionEnd" name="datePromotionEnd" class="form-control datetimepicker" type="text" value="@DateUtil.getDateByFormat(DateUtil.now(),DateUtil.FORMAT_MAP_HISTORY)">
-                                                </div>
-                                            </div>
 
 
                                         </div>
@@ -190,8 +170,16 @@
                                         <div class="row">
                                             <div class="col-md-12" >
                                                 <div class="form-group">
-                                                    <label for="description">@Messages("Admin.Category.description")</label>
-                                                    <textarea class="form-control" rows="5" name="description" id="description"></textarea>
+                                                    <label>@Messages("Admin.Category.description")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="techSpecifics">
+                                            <div class="col-md-12" >
+                                                <div class="form-group">
+                                                    <a href="javascript:void(0)" onclick="appendTechSpecific()">@Messages("Admin.Item.techSpecifics")</a>
+                                                    <a href="javascript:void(0)" onclick="removelastTechSpecific()">@Messages("Admin.Item.techSpecificsremove")</a>
                                                 </div>
                                             </div>
                                         </div>

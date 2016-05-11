@@ -32,7 +32,7 @@ POST        /updateCategory                             controllers.CategoryCont
 
 #item
 GET         /additem                                    controllers.ItemController.addItemView()
-
+POST         /additem                                    controllers.ItemController.addItem()
 
 
 GET         /                                       controllers.Admin.index()

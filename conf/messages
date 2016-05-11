@@ -75,6 +75,7 @@ valid.repeatpass=Mật khẩu lặp lại không khớp
 valid.mobileVN=Hãy nhập số điện thoại đúng
 valid.emailmobileVN=Hãy nhập email hoặc số điện thoại đúng
 valid.email=Hãy nhập email đúng
+valid.number=Hãy nhập giá trị số
 
 Admin.cannotdowngrade=Không thể tự đổi quyền admin
 Admin.PasswordNotMatch=Mật khẩu lặp lại không trùng khớp
@@ -122,3 +123,7 @@ Admin.Item.promotion=Khuyến mãi
 Admin.Item.discountRate=Mức khuyến mãi
 Admin.Item.datePromotionStart=Khuyến mãi từ
 Admin.Item.datePromotionEnd=Khuyến mãi đến
+Admin.Item.techSpecifics=Thông số kỹ thuật (+)
+Admin.Item.techSpecificsremove= (-)
+Admin.Item.techSpecifics.key=Thông số
+Admin.Item.techSpecifics.value=Giá trị

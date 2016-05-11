@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by giangdaika on 25/04/2016.
@@ -43,6 +44,8 @@ public class Item implements Serializable {
     private double discountRate=0;        // tinh theo %
     private Date datePromotionStart;        //ngay bat dau khuyen mai
     private Date datePromotionEnd;        //ngay ket thuc khuyen mai
+
+    private Map<String,String> techSpecifics; //thong so ky thuat
 
     private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
 
@@ -245,5 +248,13 @@ public class Item implements Serializable {
 
     public void setNumbervote(int numbervote) {
         this.numbervote = numbervote;
+    }
+
+    public Map<String, String> getTechSpecifics() {
+        return techSpecifics;
+    }
+
+    public void setTechSpecifics(Map<String, String> techSpecifics) {
+        this.techSpecifics = techSpecifics;
     }
 }
