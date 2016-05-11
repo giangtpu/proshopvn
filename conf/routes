@@ -34,7 +34,10 @@ POST        /updateCategory                             controllers.CategoryCont
 GET         /additem                                    controllers.ItemController.addItemView()
 POST         /additem                                    controllers.ItemController.addItem()
 POST         /saveitemImageDescription                   controllers.ItemController.saveitemImageDescription()
+POST         /deleteDescripFilePrefix                   controllers.ItemController.deleteDescripFilePrefix()
 POST         /deleteDescripFile                   controllers.ItemController.deleteDescripFile()
+
+GET         /infoitem/:id                                    controllers.ItemController.infoitem(id:String)
 
 
 GET         /                                       controllers.Admin.index()

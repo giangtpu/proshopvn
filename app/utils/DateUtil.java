@@ -36,6 +36,8 @@ public class DateUtil {
     public static final String TIME_CALENDAR_EVENT = "dd-MM-yyyy,HH:mm";
     public static final String TIME_TABLE_DISPLAY = "dd/MM/yyyy HH:mm:ss";
 
+    public static final String TIME_ITEM = "dd/MM/yyyy HH:mm";
+
     // second unit
     public static final int SECOND_OF_DAY_UNIT = 24 * 3600; // 1 day
 

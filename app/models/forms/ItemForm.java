@@ -1,8 +1,10 @@
 package models.forms;
 
-import org.apache.commons.lang.StringUtils;
+import models.Item;
+import org.springframework.util.StringUtils;
 import play.data.validation.ValidationError;
 import play.mvc.Http;
+import utils.DateUtil;
 import utils.ImageUtil;
 
 import java.io.File;
@@ -61,19 +63,105 @@ public class ItemForm {
                 if(!ImageUtil.checkValidImageType(contentType)){
                     errors.add(new ValidationError("image", "wrong format image"));
                 }
-
-                System.out.println("fileName:" + fileName);
-                System.out.println("contentType:" + contentType);
-                System.out.println("fileClientPath:" + fileClientPath);
-
-                System.out.println("getPath:" + file.getPath());
-                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+//                System.out.println("fileName:" + fileName);
+//                System.out.println("contentType:" + contentType);
+//                System.out.println("fileClientPath:" + fileClientPath);
+//
+//                System.out.println("getPath:" + file.getPath());
+//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
             }
         }
 
 
         return errors.isEmpty() ? null : errors;
     }
+
+
+    public boolean fillToItem(Item item){
+        item.setCategory_id(category_id);
+
+        if (!StringUtils.isEmpty(description))
+        {
+            item.setDescription(description);
+        }
+
+        item.setDescription_id(description_id);
+
+        if (!StringUtils.isEmpty(material))
+        {
+            item.setMaterial(material);
+        }
+
+        if (!StringUtils.isEmpty(producer))
+        {
+            item.setProducer(producer);
+        }
+
+        if (!StringUtils.isEmpty(origin))
+        {
+            item.setOrigin(origin);
+        }
+
+        if (!StringUtils.isEmpty(warrantyTime))
+        {
+            item.setWarrantyTime(warrantyTime);
+        }
+
+        if (!StringUtils.isEmpty(quantity))
+        {
+            item.setQuantity(quantity);
+        }
+
+        if (!StringUtils.isEmpty(price_receipt))
+        {
+            item.setPrice_receipt(price_receipt);
+        }
+
+        if (!StringUtils.isEmpty(price_sell))
+        {
+            item.setPrice_sell(price_sell);
+        }
+
+        if (promotion){
+
+            item.setPromotion(promotion);
+            if (!StringUtils.isEmpty(discountRate))
+            {
+                item.setDiscountRate(discountRate);
+            }
+            Date datestart= (DateUtil.convertStringtoDate(
+                    datePromotionStart,
+                    DateUtil.TIME_ITEM));
+
+            Date dateend = (DateUtil.convertStringtoDate(
+                    datePromotionEnd,
+                    DateUtil.TIME_ITEM));
+
+            if (datestart.after(dateend))
+            {
+                return false;
+            }
+
+            item.setDatePromotionStart(datestart);
+            item.setDatePromotionEnd(dateend);
+
+
+        }
+
+        if (techkey!=null&&techvalue!=null){
+            item.setTechkey(techkey);
+            item.setTechvalue(techvalue);
+        }
+
+
+        return true;
+
+
+
+    }
+
+
+
 
     public ItemForm() {
     }

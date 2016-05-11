@@ -30,6 +30,7 @@ public class JsController extends Controller {
         return ok(
                 JavaScriptReverseRouter.create("jsRoutes",
                         routes.javascript.ItemController.saveitemImageDescription(),
+                        routes.javascript.ItemController.deleteDescripFilePrefix(),
                         routes.javascript.ItemController.deleteDescripFile()
 
 

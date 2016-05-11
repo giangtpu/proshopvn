@@ -4,9 +4,11 @@ import dao.CategoryDAO;
 import dao.MenuDAO;
 import dao.UserDAO;
 import models.Category;
+import models.Item;
 import models.Menu;
 import models.User;
 import models.forms.CategoryForm;
+import models.forms.ItemForm;
 import models.forms.UserForm;
 import org.springframework.util.StringUtils;
 import play.Logger;
@@ -238,7 +240,33 @@ public class AbstractController extends Controller{
     /////////////////////////MENU///////////////////////
 
     ////////////////////ITEM////////////////////////
+    public void writeItemImageTodisk(ItemForm itemForm, Item item){
+        if (itemForm.getFileData()==null)
+        {
+            return;
+        }
 
+        Http.MultipartFormData.FilePart fileData = itemForm.getFileData();
+        String oldImageFilename = item.getImage();
+        String fileName = itemForm.getFileName();
+        String contentType = itemForm.getContentType();
+        File file = (File) fileData.getFile();
+        itemForm.setFileClientPath(file.getPath());
+        String imageName = UserHelper.generateUniqueFilename(fileName);
+        try
+        {
+            // write image file to disk
+            ImageUtil.writeAvatarToDisk(imageName, ItemHelper.itemImageFolderPath, file);
+            item.setImage(imageName);
+            java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                    () -> ImageUtil.delImage(oldImageFilename, ItemHelper.itemImageFolderPath)
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    ////////////////////ITEM////////////////////////
 
 
 }

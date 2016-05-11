@@ -17,6 +17,7 @@ import static play.mvc.Controller.request;
 public class ItemImageUploadForm {
 
     private String description_id;
+    private String fileNameToDel;
 
 
     private Http.MultipartFormData.FilePart fileData;
@@ -105,5 +106,13 @@ public class ItemImageUploadForm {
 
     public void setDescription_id(String description_id) {
         this.description_id = description_id;
+    }
+
+    public String getFileNameToDel() {
+        return fileNameToDel;
+    }
+
+    public void setFileNameToDel(String fileNameToDel) {
+        this.fileNameToDel = fileNameToDel;
     }
 }

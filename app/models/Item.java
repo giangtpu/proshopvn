@@ -27,7 +27,10 @@ public class Item implements Serializable {
     @Id
     private String id;
     private String name;
+
     private String category_id;
+    private String category_name;
+
     private String description;
     private String description_id;          //su dung de xoa cac data image... da up len
     private String material;
@@ -46,7 +49,8 @@ public class Item implements Serializable {
     private Date datePromotionStart;        //ngay bat dau khuyen mai
     private Date datePromotionEnd;        //ngay ket thuc khuyen mai
 
-    private Map<String,String> techSpecifics; //thong so ky thuat
+    private String[] techkey;           //thong so ky thuat
+    private String[] techvalue;         //thong so ky thuat
 
     private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
 
@@ -56,7 +60,7 @@ public class Item implements Serializable {
     private List<String> comments=new ArrayList<String>();      //phan hoi
 
     public Item() {
-        this.id= ItemHelper.generateId();
+//        this.id= ItemHelper.generateId();
         this.lastModified= DateUtil.now();
     }
 
@@ -251,11 +255,35 @@ public class Item implements Serializable {
         this.numbervote = numbervote;
     }
 
-    public Map<String, String> getTechSpecifics() {
-        return techSpecifics;
+    public String getDescription_id() {
+        return description_id;
     }
 
-    public void setTechSpecifics(Map<String, String> techSpecifics) {
-        this.techSpecifics = techSpecifics;
+    public void setDescription_id(String description_id) {
+        this.description_id = description_id;
+    }
+
+    public String[] getTechkey() {
+        return techkey;
+    }
+
+    public void setTechkey(String[] techkey) {
+        this.techkey = techkey;
+    }
+
+    public String[] getTechvalue() {
+        return techvalue;
+    }
+
+    public void setTechvalue(String[] techvalue) {
+        this.techvalue = techvalue;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 }

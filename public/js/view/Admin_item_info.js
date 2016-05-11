@@ -62,6 +62,8 @@ $(document).ready(function(){
         }
     });
 
+    $('#summernote').summernote('code', summernotecode);
+
     $(window).bind('beforeunload', function(){
         //alert("bye");
         if (!window.submit_clicked){
@@ -127,26 +129,26 @@ function setPromotion(){
         //$('.discoutdiv').show();
         $('#promotion').val(true);
         var divappend="<div id='discoutdiv'>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='discountRate'>"+Messages("Admin.Item.discountRate")+"</label>"+
-                                    "<input type='text' style='display:none'>"+
-                                    "<input name='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
-                                "</div>"+
-                            "</div>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='datePromotionStart'>"+Messages("Admin.Item.datePromotionStart")+"</label>"+
-                                    "<input id='datePromotionStart' required='true' name='datePromotionStart'  type='text' class='form-control datetimepicker'>"+
-                                "</div>"+
-                            "</div>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='datePromotionEnd'>"+Messages("Admin.Item.datePromotionEnd")+"</label>"+
-                                    "<input id='datePromotionEnd' required='true' name='datePromotionEnd' type='text' class='form-control datetimepicker'>"+
-                                "</div>"+
-                            "</div>"+
-                      "</div>";
+            "<div class='col-md-6'>"+
+            "<div class='form-group'>"+
+            "<label for='discountRate'>"+Messages("Admin.Item.discountRate")+"</label>"+
+            "<input type='text' style='display:none'>"+
+            "<input name='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
+            "</div>"+
+            "</div>"+
+            "<div class='col-md-6'>"+
+            "<div class='form-group'>"+
+            "<label for='datePromotionStart'>"+Messages("Admin.Item.datePromotionStart")+"</label>"+
+            "<input id='datePromotionStart' required='true' name='datePromotionStart'  type='text' class='form-control datetimepicker'>"+
+            "</div>"+
+            "</div>"+
+            "<div class='col-md-6'>"+
+            "<div class='form-group'>"+
+            "<label for='datePromotionEnd'>"+Messages("Admin.Item.datePromotionEnd")+"</label>"+
+            "<input id='datePromotionEnd' required='true' name='datePromotionEnd' type='text' class='form-control datetimepicker'>"+
+            "</div>"+
+            "</div>"+
+            "</div>";
         $(divappend).appendTo("#promotiongroup");
         initDateTime();
     }else{
@@ -164,19 +166,19 @@ var techid=0;
 function appendTechSpecific(){
 
     var divappend="<div id='techSpecific"+techid+"'>"+
-                      "<div class='col-md-6'>" +
-                            "<div class='form-group'>" +
-                                    "<label>"+Messages("Admin.Item.techSpecifics.key")+"</label>"+
-                                    "<input id='techkey"+techid+"' name='techkey[]' class='form-control' placeholder='key' type='text' autocomplete='off'>"+
-                            "</div>"+
-                      "</div>"+
-                      "<div class='col-md-6'>" +
-                             "<div class='form-group'>" +
-                                   "<label>"+Messages("Admin.Item.techSpecifics.value")+"</label>"+
-                                   "<input id='techvalue"+techid+"' name='techvalue[]' class='form-control' placeholder='value' type='text' autocomplete='off'>"+
-                             "</div>"+
-                      "</div>"+
-                  "</div>";
+        "<div class='col-md-6'>" +
+        "<div class='form-group'>" +
+        "<label>"+Messages("Admin.Item.techSpecifics.key")+"</label>"+
+        "<input id='techkey"+techid+"' name='techkey[]' class='form-control' placeholder='key' type='text' autocomplete='off'>"+
+        "</div>"+
+        "</div>"+
+        "<div class='col-md-6'>" +
+        "<div class='form-group'>" +
+        "<label>"+Messages("Admin.Item.techSpecifics.value")+"</label>"+
+        "<input id='techvalue"+techid+"' name='techvalue[]' class='form-control' placeholder='value' type='text' autocomplete='off'>"+
+        "</div>"+
+        "</div>"+
+        "</div>";
     $(divappend).appendTo("#techSpecifics");
     techid++;
 }

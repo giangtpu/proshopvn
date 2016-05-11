@@ -334,6 +334,7 @@ public class ImageUtil {
 
 	public static boolean delImageWithPrefix(String prefix,  String folderPath) {
 		logger.debug("delImages with prefix {}", prefix);
+		prefix+="-";
 		try {
 			File directory = new File(folderPath);
 			for(File f: directory.listFiles())

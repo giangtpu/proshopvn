@@ -21,6 +21,12 @@ public class ItemHelper {
 		name=name.replace(" ","-");
 		return name+"-"+getTimeStampID();
 	};
+	public static String generateItemIDbyName(String name)
+	{
+		name=name.trim();
+		name=name.replace(" ","-");
+		return name+"-"+getTimeStampID();
+	};
 
 
 	public static String generateToken(){
