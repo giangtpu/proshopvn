@@ -331,4 +331,21 @@ public class ImageUtil {
 		}
 		return true;
 	}
+
+	public static boolean delImageWithPrefix(String prefix,  String folderPath) {
+		logger.debug("delImages with prefix {}", prefix);
+		try {
+			File directory = new File(folderPath);
+			for(File f: directory.listFiles())
+				if(f.getName().startsWith(prefix))
+					f.delete();
+			logger.debug("delImage OK");
+		}catch (Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+
 }

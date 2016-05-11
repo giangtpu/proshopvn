@@ -61,6 +61,8 @@ public class ItemHelper {
 		public static final String LINK_CATEGORY_IMAGE ="content.link.image.category";
 		public static final String LINK_CATEGORY_DEFAULT ="content.default.linkcategory";
 
+
+		public static final String WEB_LINK_ROOT ="web.link.root";
 	}
 
 	public static String itemImageLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_ITEM_IMAGE);
@@ -70,6 +72,8 @@ public class ItemHelper {
 	public static String categoryImageLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_CATEGORY_IMAGE);
 	public static String categoryDefaultLinkPath = AppHelper.getAppConfigString(StaticContent.LINK_CATEGORY_DEFAULT);
 	public static String categoryImageFolderPath = AppHelper.getAppConfigString(StaticContent.FOLDER_CATEGORY_IMAGE_KEY);
+
+	public static String weblinkroot=AppHelper.getAppConfigString(StaticContent.WEB_LINK_ROOT);
 
 
 

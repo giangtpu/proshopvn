@@ -2,10 +2,7 @@
  * Created by giangbb on 10/05/2016.
  */
 $(document).ready(function(){
-
-
     $('#updateitem').validate({
-
         messages: {
             name:{
                 required:Messages("valid.require"),
@@ -33,12 +30,69 @@ $(document).ready(function(){
             datePromotionEnd:{
                 required:Messages("valid.require"),
             },
+            description_id:{
+                required:Messages("valid.require"),
+            },
 
         }
     });
 
+    $('#summernote').summernote({
+        height: 150,                 // set editor height
+        minHeight: null,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+        lang: 'vi-VN',
+        dialogsInBody: true,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold','italic' ,'underline', 'strikethrough','clear']],
+            ['fontname', ['fontname']],
+            ['group2', ['fontsize']],
+            ['height', ['height']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        callbacks: {
+            onImageUpload: function(files) {
+                sendFile(files[0]);
+            }
+        }
+    });
+
+    $(window).bind('beforeunload', function(){
+        //alert("bye");
+        if (!window.submit_clicked){
+            return 'Are you sure?';
+        }
+
+    });
+    $(window).on('unload', function(){
+        if (!window.submit_clicked){
+            deleteDescripFile();
+        }
+
+    });
 });
 
+////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
+$(function () {
+    $("#wizard-picture").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded(e) {
+    $('#wizardPicturePreview').attr('src', e.target.result);
+};
+////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
+
+/////////////////////////////PROMOTION/////////////////////////////////
 function initDateTime(){
     $('.datetimepicker').datetimepicker({
         sideBySide:true,
@@ -100,20 +154,11 @@ function setPromotion(){
         $("#discoutdiv").remove();
     }
 }
+/////////////////////////////PROMOTION/////////////////////////////////
 
-$(function () {
-    $("#wizard-picture").change(function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = imageIsLoaded;
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-});
-function imageIsLoaded(e) {
-    $('#wizardPicturePreview').attr('src', e.target.result);
-};
 
+
+////////////////////////////TECHSPECIFIC//////////////////////////////////////////////////
 var techid=0;
 function appendTechSpecific(){
 
@@ -145,3 +190,79 @@ function removelastTechSpecific(){
     $(divremove).remove();
 
 }
+////////////////////////////TECHSPECIFIC//////////////////////////////////////////////////
+
+////////////////////////////DESCRIPTION//////////////////////////////////////////////////
+
+var descrip_img=[];
+var r_sendFile=jsRoutes.controllers.ItemController.saveitemImageDescription();
+function sendFile(file) {
+    var description_id=$("#description_id").val();
+    var validator = $( "#updateitem" ).validate();
+    if (!validator.element("#description_id")){
+        alert("description_id null");
+        return;
+    }
+
+    data = new FormData();
+    data.append("image", file);
+    data.append("description_id", description_id);
+    $.ajax({
+        url: r_sendFile.url,
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: r_sendFile.type,
+        success: function(data){
+            console.log(data);
+            if (data.success){
+                descrip_img.push(data.filename);
+                $('#summernote').summernote('insertImage', data.url, data.filename);
+            }
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus+" "+errorThrown);
+        }
+    });
+}
+
+var r_deleteDescripFile=jsRoutes.controllers.ItemController.deleteDescripFile();
+function deleteDescripFile(){
+    var description_id=$("#description_id").val();
+    data = new FormData();
+    data.append("description_id", description_id);
+    $.ajax({
+        url: r_deleteDescripFile.url,
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: r_deleteDescripFile.type,
+        success: function(data){
+            console.log(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus+" "+errorThrown);
+        }
+    });
+
+}
+
+
+$("#submit").click(function(){
+    var validator = $( "#updateitem" ).validate();
+    if (validator.form()){
+        var summernote_code = $('#summernote').summernote('code');
+        for (i=0;i<descrip_img.length;i++){
+            if (summernote_code.search(descrip_img[i])==-1){
+                //xoa no di
+            }
+        }
+
+        window.submit_clicked = true;
+    }
+});
+
+////////////////////////////DESCRIPTION//////////////////////////////////////////////////

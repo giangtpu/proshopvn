@@ -29,6 +29,7 @@ public class Item implements Serializable {
     private String name;
     private String category_id;
     private String description;
+    private String description_id;          //su dung de xoa cac data image... da up len
     private String material;
     private String image;
     private String producer;    //nha san xuat

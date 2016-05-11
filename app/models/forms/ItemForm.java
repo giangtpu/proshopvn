@@ -20,6 +20,7 @@ public class ItemForm {
     private String name;
     private String category_id;
     private String description;
+    private String description_id;          //su dung de xoa cac data image... da up len
     private String material;
     private String image;
     private String producer;    //nha san xuat
@@ -61,12 +62,12 @@ public class ItemForm {
                     errors.add(new ValidationError("image", "wrong format image"));
                 }
 
-//                System.out.println("fileName:" + fileName);
-//                System.out.println("contentType:" + contentType);
-//                System.out.println("fileClientPath:" + fileClientPath);
-//
-//                System.out.println("getPath:" + file.getPath());
-//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+                System.out.println("fileName:" + fileName);
+                System.out.println("contentType:" + contentType);
+                System.out.println("fileClientPath:" + fileClientPath);
+
+                System.out.println("getPath:" + file.getPath());
+                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
             }
         }
 
@@ -267,5 +268,13 @@ public class ItemForm {
 
     public void setTechvalue(String[] techvalue) {
         this.techvalue = techvalue;
+    }
+
+    public String getDescription_id() {
+        return description_id;
+    }
+
+    public void setDescription_id(String description_id) {
+        this.description_id = description_id;
     }
 }
