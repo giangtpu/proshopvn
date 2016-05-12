@@ -7,6 +7,7 @@ import models.Item;
 import models.JSON.ItemImageUpload;
 import models.forms.ItemForm;
 import models.forms.ItemImageUploadForm;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.util.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -63,6 +64,7 @@ public class ItemController extends AbstractController {
 
         item.setId(idGenerate);
 
+
         boolean fillsuccess = itemForm.fillToItem(item);
         if (!fillsuccess) {
             java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
@@ -116,7 +118,7 @@ public class ItemController extends AbstractController {
 
         jsonRespone.setIssuccess(true);
         jsonRespone.setFilename(imageName);
-        String url = ItemHelper.weblinkroot + "/" + ItemHelper.itemImageLinkPath + "/" + imageName;
+        String url = ItemHelper.weblinkroot + ItemHelper.itemImageLinkPath + "/" + imageName;
         jsonRespone.setUrl(url);
 
         return ok(Json.toJson(jsonRespone));
@@ -174,6 +176,8 @@ public class ItemController extends AbstractController {
         {
             return ok("item null");
         }
+        unescapeHTML4Item(item);
+
         String description_id_temp = ItemHelper.generateId();
         return ok(Admin_item_info.render(getUserSession(), getMenu(),item,description_id_temp));
     }

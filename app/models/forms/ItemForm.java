@@ -1,6 +1,7 @@
 package models.forms;
 
 import models.Item;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.util.StringUtils;
 import play.data.validation.ValidationError;
 import play.mvc.Http;
@@ -77,12 +78,15 @@ public class ItemForm {
     }
 
 
-    public boolean fillToItem(Item item){
+    public boolean
+    fillToItem(Item item){
+        item.setName(name);
         item.setCategory_id(category_id);
 
         if (!StringUtils.isEmpty(description))
         {
-            item.setDescription(description);
+            String htmlescape= StringEscapeUtils.escapeHtml4(description);
+            item.setDescription(htmlescape);
         }
 
         item.setDescription_id(description_id);

@@ -10,6 +10,7 @@ import models.User;
 import models.forms.CategoryForm;
 import models.forms.ItemForm;
 import models.forms.UserForm;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.util.StringUtils;
 import play.Logger;
 import play.data.Form;
@@ -265,6 +266,11 @@ public class AbstractController extends Controller{
             e.printStackTrace();
         }
 
+    }
+
+    public void unescapeHTML4Item(Item item){
+        String desciptionOrgin= StringEscapeUtils.unescapeHtml4(item.getDescription());
+        item.setDescription(desciptionOrgin);
     }
     ////////////////////ITEM////////////////////////
 

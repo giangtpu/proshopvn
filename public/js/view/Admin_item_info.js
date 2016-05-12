@@ -38,7 +38,7 @@ $(document).ready(function(){
     });
 
     $('#summernote').summernote({
-        height: 150,                 // set editor height
+        height: 400,                 // set editor height
         minHeight: null,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
         lang: 'vi-VN',
@@ -57,24 +57,32 @@ $(document).ready(function(){
         ],
         callbacks: {
             onImageUpload: function(files) {
+                summernote_loadnewfile=true;
                 sendFile(files[0]);
             }
         }
     });
 
-    $('#summernote').summernote('code', summernotecode);
+    //console.log(summernotecode);
+    $('#summernote').summernote('code', $.parseHTML( summernotecode ));
 
     $(window).bind('beforeunload', function(){
         //alert("bye");
-        if (!window.submit_clicked){
-            return 'Are you sure?';
+        if (summernote_loadnewfile){
+            if (!window.submit_clicked){
+                return 'Are you sure?';
+            }
         }
+
 
     });
     $(window).on('unload', function(){
-        if (!window.submit_clicked){
-            deleteDescripFilePrefix();
+        if (summernote_loadnewfile){
+            if (!window.submit_clicked){
+                deleteDescripFilePrefix();
+            }
         }
+
 
     });
 });
@@ -112,16 +120,29 @@ function initDateTime(){
             minDate:true,           //ky quai !!!!
         },
     });
-    var today=new Date();
-    $( "#datePromotionStart" ).data("DateTimePicker").date( today);
-    $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
-    $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);
-    $( "#datePromotionEnd" ).data("DateTimePicker").minDate( today);
+
+    if(!promo_init){
+        var today=new Date();
+        $( "#datePromotionStart" ).data("DateTimePicker").date( today);
+        $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
+        $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);
+        $( "#datePromotionEnd" ).data("DateTimePicker").minDate( today);
+
+
+    }
+    else{
+        $( "#datePromotionStart" ).data("DateTimePicker").date( startpromot_int);
+        $( "#datePromotionEnd" ).data("DateTimePicker").date( endpromot_int);
+        $( "#datePromotionStart" ).data("DateTimePicker").minDate( startpromot_int);
+        $( "#datePromotionEnd" ).data("DateTimePicker").minDate( endpromot_int);
+        //promo_init=false;
+    }
 
     $("#datePromotionStart").on("dp.change", function(e) {
         $( "#datePromotionEnd" ).data("DateTimePicker").date(e.date);
         $( "#datePromotionEnd" ).data("DateTimePicker").minDate(e.date);
     });
+
 }
 
 function setPromotion(){
@@ -133,7 +154,7 @@ function setPromotion(){
             "<div class='form-group'>"+
             "<label for='discountRate'>"+Messages("Admin.Item.discountRate")+"</label>"+
             "<input type='text' style='display:none'>"+
-            "<input name='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
+            "<input name='discountRate' id='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
             "</div>"+
             "</div>"+
             "<div class='col-md-6'>"+
@@ -150,6 +171,7 @@ function setPromotion(){
             "</div>"+
             "</div>";
         $(divappend).appendTo("#promotiongroup");
+        $( "#discountRate").val(discountRate_init);
         initDateTime();
     }else{
         //$('.discoutdiv').hide();

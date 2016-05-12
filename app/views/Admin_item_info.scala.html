@@ -62,7 +62,7 @@
                                             <div class="col-md-3 imagepadding">
                                                 <div class="image-upload" style="text-align: center;">
                                                     <label for="wizard-picture">
-                                                        <img class="imageitem" src="@routes.Assets.at("img/default-item-image.png")" id="wizardPicturePreview"/>
+                                                        <img class="imageitem" src="@item.getImageLinkPath" id="wizardPicturePreview"/>
                                                     </label>
 
                                                     <input id="wizard-picture" name="image" type="file"/>
@@ -157,11 +157,11 @@
                                             <div class="col-md-6">
                                                 <div class="form-group" >
                                                     <p class="category">@Messages("Admin.Item.promotion")</p>
-                                                    <input  id ="promotionSwitch" type="checkbox" onchange="setPromotion()" data-toggle="switch"/>
+                                                    <input  id ="promotionSwitch" type="checkbox" onchange="setPromotion()" data-toggle="switch" @if(item.isPromotion()){checked}/>
                                                 </div>
 
                                                 <div class="form-group" hidden>
-                                                    <input  id ="promotion" name="promotion" value="false"/>
+                                                    <input  id ="promotion" name="promotion" value="@item.isPromotion()"/>
                                                 </div>
                                             </div>
 
@@ -267,6 +267,7 @@
     <script src="@routes.Assets.at("js/bootstrap-selectpicker.js")" type="text/javascript"></script>
 
     <script type="text/javascript">
+            var promo_init=false;
             $(document).ready(function(){
 
                 @if(flash.containsKey("success")) {
@@ -279,16 +280,27 @@
                 $('#itemmenu').addClass('active');
                 $('#itemmenu #componentitemmenu').collapse('show');
                 $('#itemmenu #itemadd').addClass('active');
+                @if(item.isPromotion()){
+                promo_init=true;
+                discountRate_init="@item.getDiscountRate";
+
+
+                startpromot_int="@DateUtil.convertDatetoString(item.getDatePromotionStart,DateUtil.TIME_ITEM)";
+                endpromot_int="@DateUtil.convertDatetoString(item.getDatePromotionEnd,DateUtil.TIME_ITEM)";
+                setPromotion();
+                }
             });
 
-            var summernotecode="@Html(item.getDescription)";
+            var summernotecode="@item.getDescription";
+            summernotecode=$("<p/>").html(summernotecode).text(); //unescape HTML
 
-
-            alert(summernotecode);
-
-
+            var summernote_loadnewfile=false;
     </script>
     <script src="@routes.Assets.at("js/view/Admin_item_info.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    </script>
+
 
     <script src="@routes.Assets.at("js/ShowNotification.js")" type="text/javascript"></script>
 
