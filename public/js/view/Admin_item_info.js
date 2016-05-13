@@ -121,22 +121,23 @@ function initDateTime(){
         },
     });
 
+    var today=new Date();
+
     if(!promo_init){
-        var today=new Date();
+        alert("not have promot");
         $( "#datePromotionStart" ).data("DateTimePicker").date( today);
         $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
         $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);
-        $( "#datePromotionEnd" ).data("DateTimePicker").minDate( today);
-
 
     }
     else{
         $( "#datePromotionStart" ).data("DateTimePicker").date( startpromot_int);
         $( "#datePromotionEnd" ).data("DateTimePicker").date( endpromot_int);
         $( "#datePromotionStart" ).data("DateTimePicker").minDate( startpromot_int);
-        $( "#datePromotionEnd" ).data("DateTimePicker").minDate( endpromot_int);
-        //promo_init=false;
+
     }
+
+    $( "#datePromotionEnd" ).data("DateTimePicker").minDate( $( "#datePromotionStart").data("DateTimePicker").date( ));
 
     $("#datePromotionStart").on("dp.change", function(e) {
         $( "#datePromotionEnd" ).data("DateTimePicker").date(e.date);
