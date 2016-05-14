@@ -1,10 +1,13 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import dao.CategoryDAO;
 import dao.ItemDAO;
 import models.Category;
 import models.Item;
 import models.JSON.ItemImageUpload;
+import models.JSON.ItemNameId;
+import models.JSON.RelatedItemForm;
 import models.forms.ItemForm;
 import models.forms.ItemImageUploadForm;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -24,6 +27,8 @@ import views.html.Admin_item_info;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -88,6 +93,12 @@ public class ItemController extends AbstractController {
         if (itemForm.getDescription_img()!=null){
             item.setDescription_img(itemForm.getDescription_img());
         }
+
+        if (itemForm.getRelatedItems()!=null){
+            item.setRelatedItems(itemForm.getRelatedItems());
+
+        }
+
 
         writeItemImageTodisk(itemForm, item);
         itemDAO.save(item);
@@ -237,10 +248,21 @@ public class ItemController extends AbstractController {
         }
         item.setCategory_name(category.getName());
 
-//        if (itemForm.getDescription_img()!=null){
-//            item.setDescription_img(itemForm.getDescription_img());
-//        }
-        item.setDescription_img(itemForm.getDescription_img());
+        if (itemForm.getDescription_img()!=null){
+            item.setDescription_img(itemForm.getDescription_img());
+        }
+        else{
+            String [] decs={};
+            item.setDescription_img(decs);
+        }
+
+
+        if (itemForm.getRelatedItems()!=null){
+            item.setRelatedItems(itemForm.getRelatedItems());
+        }else{
+            String [] rels={};
+            item.setDescription_img(rels);
+        }
 
         if (!item.getName().equals(itemForm.getName())){
             item.setName(itemForm.getName());
@@ -261,5 +283,27 @@ public class ItemController extends AbstractController {
 
         flash("success", getMessages().at("Admin.Updatesuccess"));
         return redirect(routes.ItemController.infoitem(item.getId()));
+    }
+
+    ///////////////////////RELATED ITEM////////////////////
+    public Result findRelatedItem() {
+        JsonNode json = request().body().asJson();
+        String related_category_id = json.findPath("related_category_id").textValue();
+        List<Item> items=itemDAO.getbyfield("category_id",related_category_id);
+        RelatedItemForm relatedItemForm=new RelatedItemForm();
+        relatedItemForm.setSuccess(false);
+        if(items!=null && items.size()>0){
+            relatedItemForm.setSuccess(true);
+            List<ItemNameId> itemNameIds=new ArrayList<ItemNameId>();
+            for (Item item:items){
+                ItemNameId itemNameId=new ItemNameId();
+                itemNameId.setId(item.getId());
+                itemNameId.setName(item.getName());
+                itemNameIds.add(itemNameId);
+            }
+            relatedItemForm.setItemNameIds(itemNameIds);
+        }
+
+        return ok(Json.toJson(relatedItemForm));
     }
 }

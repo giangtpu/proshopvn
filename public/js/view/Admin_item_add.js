@@ -63,6 +63,9 @@ $(document).ready(function(){
         }
     });
 
+    $('#related_item').prop('disabled', true);
+    $('#related_item').selectpicker('refresh');
+
     $(window).bind('beforeunload', function(){
         //alert("bye");
         if (isDescripimg){
@@ -77,10 +80,73 @@ $(document).ready(function(){
                 deleteDescripFilePrefix();
             }
         }
-
-
     });
 });
+
+//////////////////////////////////////////RELATED ITEM///////////////////////////////////////
+function showRelatedItem(){
+    $("#relatedItemDiv").show();
+    $("#aRelatedItem").attr("onclick","hideRelatedItem()");
+}
+function hideRelatedItem(){
+    $("#relatedItemDiv").hide();
+    $("#aRelatedItem").attr("onclick","showRelatedItem()");
+}
+
+function relatedModel(){
+    related_category_id="none";
+}
+var r_fillRelatedItem=jsRoutes.controllers.ItemController.findRelatedItem();
+function fillRelatedItem(){
+    var related_category=new relatedModel();
+    related_category.related_category_id= $("#related_cate").val();
+
+    $.ajax({
+        url: r_fillRelatedItem.url,
+        dataType: 'json',
+        data: JSON.stringify(related_category),
+        contentType: "application/json; charset=utf-8",
+        type: r_fillRelatedItem.type,
+        success: function(data){
+            console.log(data);
+            if(data.success){
+                $('#related_item').prop('disabled', false);
+                $('#related_item').selectpicker('refresh');
+                var stringHtml="";
+                for(i=0;i<data.itemNameIds.length;i++){
+                    stringHtml+='<option value="'+data.itemNameIds[i].id+'">'+data.itemNameIds[i].name+'</option>'
+                }
+                $('#related_item').html(stringHtml).selectpicker('refresh');
+
+
+
+            }else{
+                $('#related_item').html('').selectpicker('refresh');
+                $('#related_item').prop('disabled', true);
+                $('#related_item').selectpicker('refresh');
+
+            }
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus+" "+errorThrown);
+        }
+    });
+
+}
+
+
+function SelectRelatedItem(){
+
+    if (!$('#relatedItemValue').tagExist($("#related_item").val())) {
+        $('#relatedItemValue').addTag($("#related_item").val());
+    }
+
+}
+
+
+//////////////////////////////////////////RELATED ITEM///////////////////////////////////////
+
 
 ////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
 $(function () {
@@ -266,6 +332,8 @@ function removelastTechSpecific(){
 }
 ////////////////////////////TECHSPECIFIC//////////////////////////////////////////////////
 
+
+
 ////////////////////////////DESCRIPTION//////////////////////////////////////////////////
 
 var descrip_img=[];
@@ -351,6 +419,7 @@ function deleteDescripFile(fileNameToDel){
 
 
 $("#submit").click(function(){
+
     var validator = $( "#updateitem" ).validate();
     if (validator.form()){
         var summernote_code = $('#summernote').summernote('code');
@@ -373,6 +442,19 @@ $("#submit").click(function(){
             var divString="<input name='description_img[]' type='text' class='form-control' value='"+listDescripImgFinal[i]+"'>"
             $(divString).appendTo("#descriptionDiv")
         }
+
+        var relatedItemValue=$( "#relatedItemValue").val();
+        var relatedItemValues=relatedItemValue.split(',');
+
+        if (relatedItemValues.length>0){
+            alert(relatedItemValues);
+            for (i=0;i<relatedItemValues.length;i++){
+                var divString="<input name='relatedItems[]' type='text' class='form-control' value='"+relatedItemValues[i]+"'>"
+                $(divString).appendTo("#relatedItemValueSubmit")
+                alert(relatedItemValues[i]);
+            }
+        }
+
         window.submit_clicked = true;
     }
 });

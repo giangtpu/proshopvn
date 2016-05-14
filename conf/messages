@@ -132,3 +132,5 @@ Admin.Item.moreimage=Thêm hình (+)
 Admin.Item.image2=Hình 2
 Admin.Item.image3=Hình 3
 Admin.Item.notfound=Không tìm thấy sản phẩm
+Admin.Item.relateditem=Sản phẩm liên quan
+Admin.Item.selectrelateditem=Hãy chọn sản phẩm

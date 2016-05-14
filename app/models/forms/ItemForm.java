@@ -47,6 +47,8 @@ public class ItemForm {
     private String[] techkey;
     private String[] techvalue;
 
+    private String[] relatedItems; //cac san pham co lien quan
+
     private Http.MultipartFormData.FilePart fileData;
     private String contentType;
     private String fileName;
@@ -262,6 +264,21 @@ public class ItemForm {
             item.setTechkey(techkey);
             item.setTechvalue(techvalue);
         }
+
+//        if (relatedItems!=null){
+//            item.setRelatedItems(relatedItems);
+//            for (int i=0;i<relatedItems.length;i++)
+//            {
+//                System.out.println(relatedItems[i]);
+//            }
+//
+//        }
+//        else{
+//            System.out.println("not found relateditems");
+//        }
+
+
+
 
 //        if (description_img!=null){
 //            item.setDescription_img(description_img);
@@ -704,4 +721,11 @@ public class ItemForm {
         this.fileServerPath6 = fileServerPath6;
     }
 
+    public String[] getRelatedItems() {
+        return relatedItems;
+    }
+
+    public void setRelatedItems(String[] relatedItems) {
+        this.relatedItems = relatedItems;
+    }
 }

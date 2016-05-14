@@ -86,7 +86,7 @@
                                                 <div class="form-group">
                                                     <label for="category_id">@Messages("Admin.Category.title")</label>
                                                     <div>
-                                                        <select id="itemcategory_id" name="category_id" class="selectpicker" data-style="form-control" data-menu-style="">
+                                                        <select id="itemcategory_id" name="category_id" class="selectpicker" data-style="form-control" data-menu-style=""  data-live-search="true">
                                                         @for(submenu<-menu.getCategoryList()) {
                                                             <option value= "@submenu.getId" @if(submenu.getId==item.getCategory_id){selected}>@for( level <-1 to submenu.getLevel()) {--------}@submenu.getName</option>
                                                         }
@@ -163,22 +163,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12" >
-                                                <div id="descriptionDiv" class="form-group" style="display: none">
-                                                    <input id="description" name="description" type="text" class="form-control">
-                                                    <input id="description_id" name="description_id" required="true" type="text" class="form-control" value="@item.getDescription_id">
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <label>@Messages("Admin.Category.description")</label>
-                                                    <div id="summernote"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
                                         <div class="row" id="techSpecifics">
                                             <div class="col-md-12" >
                                                 <div class="form-group">
@@ -207,6 +191,68 @@
 
                                             }
                                         </div>
+
+                                        <div class="row" id="relatedItemRow">
+                                            <div class="col-md-12" >
+                                                <div class="form-group">
+                                                    <a id="aRelatedItem" href="javascript:void(0)" onclick="showRelatedItem()">@Messages("Admin.Item.relateditem")</a>
+                                                </div>
+                                            </div>
+                                            <div id="relatedItemDiv" style="display: none">
+                                                <div class="col-md-6" >
+                                                    <div class="form-group">
+                                                        <label for="related_cate">@Messages("Admin.Category.title")</label>
+                                                        <div>
+                                                            <select id="related_cate" class="selectpicker" data-style="form-control" data-menu-style="" data-live-search="true" onchange="fillRelatedItem()">
+                                                                <option value= "none" data-hidden="true">None</option>
+                                                                @for(item<-menu.getCategoryList()) {
+                                                                    <option value= "@item.getId">@for( level <-1 to item.getLevel()) {--------}@item.getName</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" >
+                                                    <div class="form-group">
+                                                        <label for="related_item">@Messages("Admin.Category.title")</label>
+                                                        <div>
+                                                            <select id="related_item" onchange="SelectRelatedItem()" class="selectpicker" data-style="form-control" data-menu-style="" data-live-search="true" title="@Messages("Admin.Item.title")">
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="form-group">
+                                                        <input id="relatedItemValue" class='tagsinput tag-azure'/>
+                                                    </div>
+
+
+                                                    <div id="relatedItemValueSubmit" class="form-group" style="display: none">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12" >
+                                                <div id="descriptionDiv" class="form-group" style="display: none">
+                                                    <input id="description" name="description" type="text" class="form-control">
+                                                    <input id="description_id" name="description_id" required="true" type="text" class="form-control" value="@item.getDescription_id">
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <label>@Messages("Admin.Category.description")</label>
+                                                    <div id="summernote"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
 
                                         <button id="submit" type="submit" class="btn btn-info btn-fill pull-right">@Messages("btnUpdate")</button>
 
@@ -323,12 +369,19 @@
                 techid=@item.getTechkey().length;
             }
 
-
             var summernote_loadnewfile=false;
     </script>
     <script src="@routes.Assets.at("js/view/Admin_item_info.js")" type="text/javascript"></script>
-    <script type="text/javascript">
 
+    <script type="text/javascript">
+            @if(item.getRelatedItems()!=null&&item.getRelatedItems().length>0){
+                showRelatedItem();
+                @for( relitem <-item.getRelatedItems()){
+
+                    $('#relatedItemValue').addTag('@relitem');
+                }
+                $('#relatedItemValue').addTag($("#related_item").val());
+            }
     </script>
 
 

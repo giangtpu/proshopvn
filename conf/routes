@@ -36,6 +36,7 @@ POST         /additem                                    controllers.ItemControl
 POST         /saveitemImageDescription                   controllers.ItemController.saveitemImageDescription()
 POST         /deleteDescripFilePrefix                   controllers.ItemController.deleteDescripFilePrefix()
 POST         /deleteDescripFile                   controllers.ItemController.deleteDescripFile()
+POST         /findRelatedItem                   controllers.ItemController.findRelatedItem()
 
 GET         /infoitem/:id                                    controllers.ItemController.infoitem(id:String)
 POST         /update                                    controllers.ItemController.updateItem()

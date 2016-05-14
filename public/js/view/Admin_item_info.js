@@ -71,6 +71,9 @@ $(document).ready(function(){
     //console.log(summernotecode);
     $('#summernote').summernote('code', $.parseHTML( summernotecode ));
 
+    $('#related_item').prop('disabled', true);
+    $('#related_item').selectpicker('refresh');
+
     $(window).bind('beforeunload', function(){
         //alert("bye");
         if (summernote_loadnewfile){
@@ -91,6 +94,70 @@ $(document).ready(function(){
 
     });
 });
+
+//////////////////////////////////////////RELATED ITEM///////////////////////////////////////
+function showRelatedItem(){
+    $("#relatedItemDiv").show();
+    $("#aRelatedItem").attr("onclick","hideRelatedItem()");
+}
+function hideRelatedItem(){
+    $("#relatedItemDiv").hide();
+    $("#aRelatedItem").attr("onclick","showRelatedItem()");
+}
+
+function relatedModel(){
+    related_category_id="none";
+}
+var r_fillRelatedItem=jsRoutes.controllers.ItemController.findRelatedItem();
+function fillRelatedItem(){
+    var related_category=new relatedModel();
+    related_category.related_category_id= $("#related_cate").val();
+
+    $.ajax({
+        url: r_fillRelatedItem.url,
+        dataType: 'json',
+        data: JSON.stringify(related_category),
+        contentType: "application/json; charset=utf-8",
+        type: r_fillRelatedItem.type,
+        success: function(data){
+            console.log(data);
+            if(data.success){
+                $('#related_item').prop('disabled', false);
+                $('#related_item').selectpicker('refresh');
+                var stringHtml="";
+                for(i=0;i<data.itemNameIds.length;i++){
+                    stringHtml+='<option value="'+data.itemNameIds[i].id+'">'+data.itemNameIds[i].name+'</option>'
+                }
+                $('#related_item').html(stringHtml).selectpicker('refresh');
+
+
+
+            }else{
+                $('#related_item').html('').selectpicker('refresh');
+                $('#related_item').prop('disabled', true);
+                $('#related_item').selectpicker('refresh');
+
+            }
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus+" "+errorThrown);
+        }
+    });
+
+}
+
+
+function SelectRelatedItem(){
+
+    if (!$('#relatedItemValue').tagExist($("#related_item").val())) {
+        $('#relatedItemValue').addTag($("#related_item").val());
+    }
+
+}
+
+
+//////////////////////////////////////////RELATED ITEM///////////////////////////////////////
 
 ////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
 $(function () {
@@ -401,12 +468,25 @@ $("#submit").click(function(){
         $("#description").val(summernote_code);
 
         for (i=0;i<listDescripImgFinal.length;i++){
-            var divString="<input name='description_img[]' type='text' class='form-control' value='"+listDescripImgFinal[i]+"'>"
+            var divString="<input name='description_img[]' type='text' class='form-control' value='"+listDescripImgFinal[i]+"'>";
             $(divString).appendTo("#descriptionDiv")
         }
-        if(listDescripImgFinal.length==0){
-            var divString="<input name='description_img[]' type='text' class='form-control'>"
-            $(divString).appendTo("#descriptionDiv")
+        //if(listDescripImgFinal.length==0){
+        //    var divString="<input name='description_img[]' type='text' class='form-control'>";
+        //    $(divString).appendTo("#descriptionDiv")
+        //}
+
+        var relatedItemValue=$( "#relatedItemValue").val();
+        var relatedItemValues=relatedItemValue.split(',');
+
+        if (relatedItemValues.length>0){
+            for (i=0;i<relatedItemValues.length;i++){
+                var divString="<input name='relatedItems[]' type='text' class='form-control' value='"+relatedItemValues[i]+"'>";
+                $(divString).appendTo("#relatedItemValueSubmit");
+            }
+        }else{
+            var divString="<input name='relatedItems[]' type='text' class='form-control' value=''>";
+            $(divString).appendTo("#relatedItemValueSubmit")
         }
 
         window.submit_clicked = true;
