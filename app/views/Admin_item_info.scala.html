@@ -88,7 +88,7 @@
                                                     <div>
                                                         <select id="itemcategory_id" name="category_id" class="selectpicker" data-style="form-control" data-menu-style=""  data-live-search="true">
                                                         @for(submenu<-menu.getCategoryList()) {
-                                                            <option value= "@submenu.getId" @if(submenu.getId==item.getCategory_id){selected}>@for( level <-1 to submenu.getLevel()) {--------}@submenu.getName</option>
+                                                            <option value= "@submenu.getId" @if(submenu.getId==item.getCategory_id){selected}  @if(!submenu.isItemCategory){disabled}>@for( level <-1 to submenu.getLevel()) {--------}@submenu.getName</option>
                                                         }
                                                         </select>
                                                     </div>

@@ -85,7 +85,7 @@
                                                     <div>
                                                         <select id="itemcategory_id" name="category_id" class="selectpicker" data-style="form-control" data-menu-style="" data-live-search="true">
                                                         @for(item<-menu.getCategoryList()) {
-                                                            <option value= "@item.getId">@for( level <-1 to item.getLevel()) {--------}@item.getName</option>
+                                                            <option value= "@item.getId" @if(!item.isItemCategory){disabled}>@for( level <-1 to item.getLevel()) {--------}@item.getName</option>
                                                         }
                                                         </select>
                                                     </div>
