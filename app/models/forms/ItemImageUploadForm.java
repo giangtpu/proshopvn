@@ -20,7 +20,8 @@ public class ItemImageUploadForm {
     private String fileNameToDel;
 
 
-    private Http.MultipartFormData.FilePart fileData;
+    private Http.MultipartFormData.FilePart<File> fileData;
+    private File file;
     private String contentType;
     private String fileName;
     private String fileClientPath;
@@ -29,21 +30,29 @@ public class ItemImageUploadForm {
 
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<ValidationError>();
-        Http.MultipartFormData data = request().body().asMultipartFormData();
+
+        play.mvc.Http.MultipartFormData<File> data = request().body().asMultipartFormData();
+//        play.mvc.Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+
+
+//        Http.MultipartFormData data = request().body().asMultipartFormData();
 
         if (data!=null&&data.getFile("image") != null){
             if(!StringUtils.isEmpty(data.getFile("image").getFilename())){
                 fileData = data.getFile("image");
                 fileName = fileData.getFilename();
                 contentType = ImageUtil.getImageType(fileName);
-                File file = (File )fileData.getFile();
+                file = (File )fileData.getFile();
                 fileClientPath = file.getParent();
 
                 if(!ImageUtil.checkValidImageType(contentType)){
                     errors.add(new ValidationError("image", "wrong format image"));
                 }
 
+
 //                System.out.println("fileName:" + fileName);
+//                System.out.println("fileSize:" + file.length());
+//
 //                System.out.println("contentType:" + contentType);
 //                System.out.println("fileClientPath:" + fileClientPath);
 //
@@ -58,14 +67,6 @@ public class ItemImageUploadForm {
 
 
     public ItemImageUploadForm() {
-    }
-
-    public Http.MultipartFormData.FilePart getFileData() {
-        return fileData;
-    }
-
-    public void setFileData(Http.MultipartFormData.FilePart fileData) {
-        this.fileData = fileData;
     }
 
     public String getContentType() {
@@ -114,5 +115,21 @@ public class ItemImageUploadForm {
 
     public void setFileNameToDel(String fileNameToDel) {
         this.fileNameToDel = fileNameToDel;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public Http.MultipartFormData.FilePart<File> getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(Http.MultipartFormData.FilePart<File> fileData) {
+        this.fileData = fileData;
     }
 }

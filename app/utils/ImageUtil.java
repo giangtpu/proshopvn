@@ -47,6 +47,11 @@ public class ImageUtil {
 		return resizeAndWriteImageToDisk(filename, folderPath, file, AVATAR_WIDTH_MEDIUM);
 	}
 
+	public static boolean writeAvatarToDiskLargeSize(String filename, String folderPath, File file){
+		logger.debug("writeAvatarToDisk {}", filename);
+		return resizeAndWriteImageToDisk(filename, folderPath, file, AVATAR_WIDTH_LARGE);
+	}
+
 	public static boolean resizeAndWriteImageToDisk(String filename, String folderPath, File file, int width){
 		String imageType = getImageType(filename);
 		if(!checkValidImageType(imageType)){

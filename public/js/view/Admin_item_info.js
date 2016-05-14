@@ -41,7 +41,8 @@ $(document).ready(function(){
     });
 
     $('#summernote').summernote({
-        height: 400,                 // set editor height
+        //height: 400,                 // set editor height
+        maximumImageFileSize: 5242880, // size in bytes, null = no limit
         minHeight: null,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
         lang: 'vi-VN',
@@ -61,6 +62,7 @@ $(document).ready(function(){
         callbacks: {
             onImageUpload: function(files) {
                 summernote_loadnewfile=true;
+                //alert(files[0].size);
                 sendFile(files[0]);
             }
         }
@@ -128,6 +130,45 @@ $(function () {
 });
 function imageIsLoaded3(e) {
     $('#wizardPicturePreview3').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture4").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded4;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded4(e) {
+    $('#wizardPicturePreview4').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture5").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded5;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded5(e) {
+    $('#wizardPicturePreview5').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture6").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded6;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded6(e) {
+    $('#wizardPicturePreview6').attr('src', e.target.result);
 };
 ////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
 
@@ -214,23 +255,23 @@ function setPromotion(){
 
 
 ////////////////////////////TECHSPECIFIC//////////////////////////////////////////////////
-var techid=0;
+
 function appendTechSpecific(){
 
     var divappend="<div id='techSpecific"+techid+"'>"+
-        "<div class='col-md-6'>" +
-        "<div class='form-group'>" +
-        "<label>"+Messages("Admin.Item.techSpecifics.key")+"</label>"+
-        "<input id='techkey"+techid+"' name='techkey[]' class='form-control' placeholder='key' type='text' autocomplete='off'>"+
-        "</div>"+
-        "</div>"+
-        "<div class='col-md-6'>" +
-        "<div class='form-group'>" +
-        "<label>"+Messages("Admin.Item.techSpecifics.value")+"</label>"+
-        "<input id='techvalue"+techid+"' name='techvalue[]' class='form-control' placeholder='value' type='text' autocomplete='off'>"+
-        "</div>"+
-        "</div>"+
-        "</div>";
+                        "<div class='col-md-6'>" +
+                                "<div class='form-group'>" +
+                                    "<label>"+Messages("Admin.Item.techSpecifics.key")+"</label>"+
+                                    "<input id='techkey"+techid+"' name='techkey[]' class='form-control' placeholder='key' type='text' autocomplete='off'>"+
+                                "</div>"+
+                        "</div>"+
+                        "<div class='col-md-6'>" +
+                                "<div class='form-group'>" +
+                                    "<label>"+Messages("Admin.Item.techSpecifics.value")+"</label>"+
+                                    "<input id='techvalue"+techid+"' name='techvalue[]' class='form-control' placeholder='value' type='text' autocomplete='off'>"+
+                                "</div>"+
+                        "</div>"+
+                    "</div>";
     $(divappend).appendTo("#techSpecifics");
     techid++;
 }
@@ -256,10 +297,12 @@ function sendFile(file) {
     var validator = $( "#updateitem" ).validate();
     if (!validator.element("#description_id")){
         alert("description_id null");
+        console.log("description_id null")
         return;
     }
 
-    data = new FormData();
+    //alert(file.size);
+    var data = new FormData();
     data.append("image", file);
     data.append("description_id", description_id);
     $.ajax({
@@ -333,7 +376,8 @@ function dellAllnewDescrip_img(){
     for (i=0;i<descrip_img.length;i++){
         if(jQuery.inArray(descrip_img[i], descrip_img_origin) == -1){
             //xoa no di
-            deleteDescripFile(descrip_img[i])
+            //alert(descrip_img[i]);
+            deleteDescripFile(descrip_img[i]);
         }
     }
 }
@@ -345,7 +389,7 @@ $("#submit").click(function(){
         var listDescripImgFinal=[];
 
         for (i=0;i<descrip_img.length;i++){
-            if (summernote_code.search(descrip_img[i])==-1){
+            if (summernote_code.indexOf(descrip_img[i])<0){
                 //xoa no di
                 deleteDescripFile(descrip_img[i])
             }
@@ -358,6 +402,10 @@ $("#submit").click(function(){
 
         for (i=0;i<listDescripImgFinal.length;i++){
             var divString="<input name='description_img[]' type='text' class='form-control' value='"+listDescripImgFinal[i]+"'>"
+            $(divString).appendTo("#descriptionDiv")
+        }
+        if(listDescripImgFinal.length==0){
+            var divString="<input name='description_img[]' type='text' class='form-control'>"
             $(divString).appendTo("#descriptionDiv")
         }
 

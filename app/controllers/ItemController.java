@@ -113,15 +113,15 @@ public class ItemController extends AbstractController {
             return ok(Json.toJson(jsonRespone));
         }
 
-        Http.MultipartFormData.FilePart fileData = itemForm.getFileData();
+//        Http.MultipartFormData.FilePart fileData = itemForm.getFileData();
         String fileName = itemForm.getFileName();
         String contentType = itemForm.getContentType();
-        File file = (File) fileData.getFile();
+        File file = itemForm.getFile();
         itemForm.setFileClientPath(file.getPath());
         String imageName = itemForm.getDescription_id() + "-" + fileName;
         try {
             // write image file to disk
-            ImageUtil.writeAvatarToDisk(imageName, ItemHelper.itemImageFolderPath, file);
+            ImageUtil.writeAvatarToDiskLargeSize(imageName, ItemHelper.itemImageFolderPath, file);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -237,9 +237,10 @@ public class ItemController extends AbstractController {
         }
         item.setCategory_name(category.getName());
 
-        if (itemForm.getDescription_img()!=null){
-            item.setDescription_img(itemForm.getDescription_img());
-        }
+//        if (itemForm.getDescription_img()!=null){
+//            item.setDescription_img(itemForm.getDescription_img());
+//        }
+        item.setDescription_img(itemForm.getDescription_img());
 
         if (!item.getName().equals(itemForm.getName())){
             item.setName(itemForm.getName());
@@ -258,7 +259,7 @@ public class ItemController extends AbstractController {
         writeItemImageTodisk(itemForm, item);
         itemDAO.save(item);
 
-        flash("success", getMessages().at("Admin.addsuccess"));
+        flash("success", getMessages().at("Admin.Updatesuccess"));
         return redirect(routes.ItemController.infoitem(item.getId()));
     }
 }

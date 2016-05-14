@@ -58,39 +58,7 @@
                                     </div>
                                     <div class="content">
 
-                                        <div class="row">
-                                            <div class="col-md-4 imagepadding" style="text-align: center;">
-                                                <div class="image-upload" style="text-align: center;">
-                                                    <label for="wizard-picture">
-                                                        <img class="imageitem" src="@routes.Assets.at("img/default-item-image.png")" id="wizardPicturePreview"/>
-                                                    </label>
-
-                                                    <input id="wizard-picture" name="image" type="file" multiple/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 imagepadding" style="text-align: center;">
-                                                <div class="image-upload" style="text-align: center;">
-                                                    <label for="wizard-picture2">
-                                                        <img class="imageitem" src="@routes.Assets.at("img/default-item-image.png")" id="wizardPicturePreview2"/>
-                                                    </label>
-
-                                                    <input id="wizard-picture2" name="image2" type="file" multiple/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 imagepadding" style="text-align: center;">
-                                                <div class="image-upload" style="text-align: center;">
-                                                    <label for="wizard-picture3">
-                                                        <img class="imageitem" src="@routes.Assets.at("img/default-item-image.png")" id="wizardPicturePreview3"/>
-                                                    </label>
-
-                                                    <input id="wizard-picture3" name="image3" type="file" multiple/>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
+                                        @views.html.Admin_item_Tag.Admin_item_add_img()
 
                                         <div class="row">
                                             <div class="col-md-6">

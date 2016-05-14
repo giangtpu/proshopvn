@@ -1,0 +1,63 @@
+@import org.springframework.util.StringUtils
+@(item: Item)
+<div class="row">
+    <div class="col-md-2 imagepadding">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(0))){ @item.getImageLinkPath(0)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview"/>
+            </label>
+
+            <input id="wizard-picture" name="image" type="file"/>
+        </div>
+    </div>
+
+    <div class="col-md-2 imagepadding" style="text-align: center;">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture2">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(1))){ @item.getImageLinkPath(1)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview2"/>
+            </label>
+
+            <input id="wizard-picture2" name="image2" type="file" multiple/>
+        </div>
+    </div>
+
+    <div class="col-md-2 imagepadding" style="text-align: center;">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture3">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(2))){ @item.getImageLinkPath(2)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview3"/>
+            </label>
+
+            <input id="wizard-picture3" name="image3" type="file" multiple/>
+        </div>
+    </div>
+
+    <div class="col-md-2 imagepadding" style="text-align: center;">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture4">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(3))){ @item.getImageLinkPath(3)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview4"/>
+            </label>
+
+            <input id="wizard-picture4" name="image4" type="file" multiple/>
+        </div>
+    </div>
+
+    <div class="col-md-2 imagepadding" style="text-align: center;">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture5">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(4))){ @item.getImageLinkPath(4)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview5"/>
+            </label>
+
+            <input id="wizard-picture5" name="image5" type="file" multiple/>
+        </div>
+    </div>
+
+    <div class="col-md-2 imagepadding" style="text-align: center;">
+        <div class="image-upload" style="text-align: center;">
+            <label for="wizard-picture6">
+                <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(5))){ @item.getImageLinkPath(5)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview6"/>
+            </label>
+
+            <input id="wizard-picture6" name="image6" type="file" multiple/>
+        </div>
+    </div>
+</div>

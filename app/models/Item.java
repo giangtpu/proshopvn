@@ -56,7 +56,7 @@ public class Item implements Serializable {
 
 
 
-    private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
+    private String[] relatedItems; //cac san pham co lien quan
 
 
     private double rating=5;     //diem 1-5
@@ -69,6 +69,9 @@ public class Item implements Serializable {
         images.add(0,"");
         images.add(1,"");
         images.add(2,"");
+        images.add(3,"");
+        images.add(4,"");
+        images.add(5,"");
     }
 
     public Item(String id, String name, String category_id, String description, String material, String producer, String origin, int quantity, double price_sell) {
@@ -237,14 +240,6 @@ public class Item implements Serializable {
         this.warrantyTime = warrantyTime;
     }
 
-    public List<String> getRelatedItems() {
-        return relatedItems;
-    }
-
-    public void setRelatedItems(List<String> relatedItems) {
-        this.relatedItems = relatedItems;
-    }
-
     public double getRating() {
         return rating;
     }
@@ -299,5 +294,13 @@ public class Item implements Serializable {
 
     public void setDescription_img(String[] description_img) {
         this.description_img = description_img;
+    }
+
+    public String[] getRelatedItems() {
+        return relatedItems;
+    }
+
+    public void setRelatedItems(String[] relatedItems) {
+        this.relatedItems = relatedItems;
     }
 }

@@ -38,7 +38,8 @@ $(document).ready(function(){
     });
 
     $('#summernote').summernote({
-        height: 400,                 // set editor height
+
+        //height: 400,                 // set editor height
         minHeight: null,             // set minimum height of editor
         maxHeight: null,             // set maximum height of editor
         lang: 'vi-VN',
@@ -119,6 +120,45 @@ $(function () {
 });
 function imageIsLoaded3(e) {
     $('#wizardPicturePreview3').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture4").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded4;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded4(e) {
+    $('#wizardPicturePreview4').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture5").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded5;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded5(e) {
+    $('#wizardPicturePreview5').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture6").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded6;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded6(e) {
+    $('#wizardPicturePreview6').attr('src', e.target.result);
 };
 
 
@@ -318,7 +358,7 @@ $("#submit").click(function(){
         if (isDescripimg){
 
             for (i=0;i<descrip_img.length;i++){
-                if (summernote_code.search(descrip_img[i])==-1){
+                if (summernote_code.indexOf(descrip_img[i])<0){
                     //xoa no di
                     deleteDescripFile(descrip_img[i])
                 }

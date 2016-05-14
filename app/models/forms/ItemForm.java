@@ -65,6 +65,24 @@ public class ItemForm {
     private String fileClientPath3;
     private String fileServerPath3;
 
+    private Http.MultipartFormData.FilePart fileData4;
+    private String contentType4;
+    private String fileName4;
+    private String fileClientPath4;
+    private String fileServerPath4;
+
+    private Http.MultipartFormData.FilePart fileData5;
+    private String contentType5;
+    private String fileName5;
+    private String fileClientPath5;
+    private String fileServerPath5;
+
+    private Http.MultipartFormData.FilePart fileData6;
+    private String contentType6;
+    private String fileName6;
+    private String fileClientPath6;
+    private String fileServerPath6;
+
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<ValidationError>();
         Http.MultipartFormData data = request().body().asMultipartFormData();
@@ -81,12 +99,6 @@ public class ItemForm {
                     if(!ImageUtil.checkValidImageType(contentType)){
                         errors.add(new ValidationError("image", "wrong format image"));
                     }
-//                System.out.println("fileName:" + fileName);
-//                System.out.println("contentType:" + contentType);
-//                System.out.println("fileClientPath:" + fileClientPath);
-//
-//                System.out.println("getPath:" + file.getPath());
-//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
                 }
             }
 
@@ -101,12 +113,6 @@ public class ItemForm {
                     if(!ImageUtil.checkValidImageType(contentType2)){
                         errors.add(new ValidationError("image2", "wrong format image"));
                     }
-//                System.out.println("fileName:" + fileName);
-//                System.out.println("contentType:" + contentType);
-//                System.out.println("fileClientPath:" + fileClientPath);
-//
-//                System.out.println("getPath:" + file.getPath());
-//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
                 }
             }
 
@@ -130,8 +136,47 @@ public class ItemForm {
                 }
             }
 
+            if (data.getFile("image4") != null){
+                if(!StringUtils.isEmpty(data.getFile("image4").getFilename())){
+                    fileData4 = data.getFile("image4");
+                    fileName4 = fileData4.getFilename();
+                    contentType4 = ImageUtil.getImageType(fileName4);
+                    File file = (File )fileData4.getFile();
+                    fileClientPath4 = file.getParent();
 
+                    if(!ImageUtil.checkValidImageType(contentType4)){
+                        errors.add(new ValidationError("image4", "wrong format image"));
+                    }
+                }
+            }
 
+            if (data.getFile("image5") != null){
+                if(!StringUtils.isEmpty(data.getFile("image5").getFilename())){
+                    fileData5 = data.getFile("image5");
+                    fileName5 = fileData5.getFilename();
+                    contentType5 = ImageUtil.getImageType(fileName5);
+                    File file = (File )fileData5.getFile();
+                    fileClientPath5 = file.getParent();
+
+                    if(!ImageUtil.checkValidImageType(contentType5)){
+                        errors.add(new ValidationError("image5", "wrong format image"));
+                    }
+                }
+            }
+
+            if (data.getFile("image6") != null){
+                if(!StringUtils.isEmpty(data.getFile("image6").getFilename())){
+                    fileData6 = data.getFile("image6");
+                    fileName6 = fileData6.getFilename();
+                    contentType6 = ImageUtil.getImageType(fileName6);
+                    File file = (File )fileData6.getFile();
+                    fileClientPath6 = file.getParent();
+
+                    if(!ImageUtil.checkValidImageType(contentType6)){
+                        errors.add(new ValidationError("image6", "wrong format image"));
+                    }
+                }
+            }
         }
 
 
@@ -538,4 +583,125 @@ public class ItemForm {
     public void setDescription_img(String[] description_img) {
         this.description_img = description_img;
     }
+
+    public Http.MultipartFormData.FilePart getFileData4() {
+        return fileData4;
+    }
+
+    public void setFileData4(Http.MultipartFormData.FilePart fileData4) {
+        this.fileData4 = fileData4;
+    }
+
+    public String getContentType4() {
+        return contentType4;
+    }
+
+    public void setContentType4(String contentType4) {
+        this.contentType4 = contentType4;
+    }
+
+    public String getFileName4() {
+        return fileName4;
+    }
+
+    public void setFileName4(String fileName4) {
+        this.fileName4 = fileName4;
+    }
+
+    public String getFileClientPath4() {
+        return fileClientPath4;
+    }
+
+    public void setFileClientPath4(String fileClientPath4) {
+        this.fileClientPath4 = fileClientPath4;
+    }
+
+    public String getFileServerPath4() {
+        return fileServerPath4;
+    }
+
+    public void setFileServerPath4(String fileServerPath4) {
+        this.fileServerPath4 = fileServerPath4;
+    }
+
+    public Http.MultipartFormData.FilePart getFileData5() {
+        return fileData5;
+    }
+
+    public void setFileData5(Http.MultipartFormData.FilePart fileData5) {
+        this.fileData5 = fileData5;
+    }
+
+    public String getContentType5() {
+        return contentType5;
+    }
+
+    public void setContentType5(String contentType5) {
+        this.contentType5 = contentType5;
+    }
+
+    public String getFileName5() {
+        return fileName5;
+    }
+
+    public void setFileName5(String fileName5) {
+        this.fileName5 = fileName5;
+    }
+
+    public String getFileClientPath5() {
+        return fileClientPath5;
+    }
+
+    public void setFileClientPath5(String fileClientPath5) {
+        this.fileClientPath5 = fileClientPath5;
+    }
+
+    public String getFileServerPath5() {
+        return fileServerPath5;
+    }
+
+    public void setFileServerPath5(String fileServerPath5) {
+        this.fileServerPath5 = fileServerPath5;
+    }
+
+    public Http.MultipartFormData.FilePart getFileData6() {
+        return fileData6;
+    }
+
+    public void setFileData6(Http.MultipartFormData.FilePart fileData6) {
+        this.fileData6 = fileData6;
+    }
+
+    public String getContentType6() {
+        return contentType6;
+    }
+
+    public void setContentType6(String contentType6) {
+        this.contentType6 = contentType6;
+    }
+
+    public String getFileName6() {
+        return fileName6;
+    }
+
+    public void setFileName6(String fileName6) {
+        this.fileName6 = fileName6;
+    }
+
+    public String getFileClientPath6() {
+        return fileClientPath6;
+    }
+
+    public void setFileClientPath6(String fileClientPath6) {
+        this.fileClientPath6 = fileClientPath6;
+    }
+
+    public String getFileServerPath6() {
+        return fileServerPath6;
+    }
+
+    public void setFileServerPath6(String fileServerPath6) {
+        this.fileServerPath6 = fileServerPath6;
+    }
+
 }

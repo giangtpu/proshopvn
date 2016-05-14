@@ -264,7 +264,9 @@ public class AbstractController extends Controller{
         }
     }
     public void writeItemImageTodisk(ItemForm itemForm, Item item){
-        if (itemForm.getFileData()==null&&itemForm.getFileData2()==null&&itemForm.getFileData3()==null)
+        if (itemForm.getFileData()==null&&itemForm.getFileData2()==null&&
+                itemForm.getFileData3()==null&&itemForm.getFileData4()==null&&
+                itemForm.getFileData5()==null&&itemForm.getFileData6()==null)
         {
             return;
         }
@@ -277,6 +279,15 @@ public class AbstractController extends Controller{
         }
         if (itemForm.getFileData3()!=null){
             processItemimage(itemForm.getFileData3(),itemForm.getFileName3(),itemForm.getContentType3(),item,2);
+        }
+        if (itemForm.getFileData4()!=null){
+            processItemimage(itemForm.getFileData4(),itemForm.getFileName4(),itemForm.getContentType4(),item,3);
+        }
+        if (itemForm.getFileData5()!=null){
+            processItemimage(itemForm.getFileData5(),itemForm.getFileName5(),itemForm.getContentType5(),item,4);
+        }
+        if (itemForm.getFileData6()!=null){
+            processItemimage(itemForm.getFileData6(),itemForm.getFileName6(),itemForm.getContentType6(),item,5);
         }
     }
 
