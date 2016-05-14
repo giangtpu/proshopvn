@@ -1,7 +1,8 @@
 @import utils.UserHelper
 @import java.util
 @import utils.DateUtil
-@(currentUser:User,menu:Menu,item: Item,descriptionid_temp:String)
+@import org.springframework.util.StringUtils
+@(currentUser:User,menu:Menu,item: Item)
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                        @helper.form(action = routes.ItemController.addItem(), 'enctype -> "multipart/form-data", 'id -> "updateitem"){
+                        @helper.form(action = routes.ItemController.updateItem(), 'enctype -> "multipart/form-data", 'id -> "updateitem"){
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="header">
@@ -59,23 +60,49 @@
                                     <div class="content">
 
                                         <div class="row">
-                                            <div class="col-md-3 imagepadding">
+                                            <div class="col-md-4 imagepadding">
                                                 <div class="image-upload" style="text-align: center;">
                                                     <label for="wizard-picture">
-                                                        <img class="imageitem" src="@item.getImageLinkPath" id="wizardPicturePreview"/>
+                                                        <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(0))){ @item.getImageLinkPath(0)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview"/>
                                                     </label>
 
                                                     <input id="wizard-picture" name="image" type="file"/>
                                                 </div>
                                             </div>
-                                            <div class="col-md-9">
 
+                                            <div class="col-md-4 imagepadding" style="text-align: center;">
+                                                <div class="image-upload" style="text-align: center;">
+                                                    <label for="wizard-picture2">
+                                                        <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(1))){ @item.getImageLinkPath(1)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview2"/>
+                                                    </label>
+
+                                                    <input id="wizard-picture2" name="image2" type="file" multiple/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 imagepadding" style="text-align: center;">
+                                                <div class="image-upload" style="text-align: center;">
+                                                    <label for="wizard-picture3">
+                                                        <img class="imageitem" src="@if(!StringUtils.isEmpty(item.getImages.get(2))){ @item.getImageLinkPath(2)}else{@routes.Assets.at("img/default-item-image.png")}" id="wizardPicturePreview3"/>
+                                                    </label>
+
+                                                    <input id="wizard-picture3" name="image3" type="file" multiple/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group" hidden>
+                                                    <input id="id" name="id" type="text" required="true" class="form-control" placeholder="name"  autocomplete="off" value="@item.getId">
+                                                </div>
                                                 <div class="form-group">
                                                     <label for="name">@Messages("Admin.Item.name")</label>
                                                     <input type="text" style="display:none">
                                                     <input id="itemname" name="name" type="text" required="true" minLength="5" class="form-control" placeholder="name"  autocomplete="off" value="@item.getName">
                                                 </div>
-
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="quantity">@Messages("Admin.Item.quantity")</label>
                                                     <input type="text" style="display:none">
@@ -164,17 +191,13 @@
                                                     <input  id ="promotion" name="promotion" value="@item.isPromotion()"/>
                                                 </div>
                                             </div>
-
-
-
-
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-12" >
-                                                <div class="form-group" style="display: none">
+                                                <div id="descriptionDiv" class="form-group" style="display: none">
                                                     <input id="description" name="description" type="text" class="form-control">
-                                                    <input id="description_id" name="description_id" required="true" type="text" class="form-control" value="@descriptionid_temp">
+                                                    <input id="description_id" name="description_id" required="true" type="text" class="form-control" value="@item.getDescription_id">
                                                 </div>
 
                                                 <div class="form-group">
@@ -293,6 +316,14 @@
 
             var summernotecode="@item.getDescription";
             summernotecode=$("<p/>").html(summernotecode).text(); //unescape HTML
+
+
+            var descrip_img=[];
+            var descrip_img_origin=[];
+            @for( level <-item.getDescription_img()){
+                descrip_img.push('@level');
+                descrip_img_origin.push('@level');
+            }
 
             var summernote_loadnewfile=false;
     </script>

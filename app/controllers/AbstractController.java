@@ -241,31 +241,43 @@ public class AbstractController extends Controller{
     /////////////////////////MENU///////////////////////
 
     ////////////////////ITEM////////////////////////
+
+    public void processItemimage(Http.MultipartFormData.FilePart fileData,String fileName,String contentType,Item item, int position){
+
+
+        try
+        {
+            String oldImageFilename = item.getImages().get(position);
+            File file = (File) fileData.getFile();
+//        itemForm.setFileClientPath(file.getPath());
+            String imageName = UserHelper.generateUniqueFilename(fileName);
+            // write image file to disk
+            ImageUtil.writeAvatarToDisk(imageName, ItemHelper.itemImageFolderPath, file);
+            item.getImages().set(position,imageName);
+            if(!StringUtils.isEmpty(oldImageFilename)){
+                java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                        () -> ImageUtil.delImage(oldImageFilename, ItemHelper.itemImageFolderPath)
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void writeItemImageTodisk(ItemForm itemForm, Item item){
-        if (itemForm.getFileData()==null)
+        if (itemForm.getFileData()==null&&itemForm.getFileData2()==null&&itemForm.getFileData3()==null)
         {
             return;
         }
 
-        Http.MultipartFormData.FilePart fileData = itemForm.getFileData();
-        String oldImageFilename = item.getImage();
-        String fileName = itemForm.getFileName();
-        String contentType = itemForm.getContentType();
-        File file = (File) fileData.getFile();
-        itemForm.setFileClientPath(file.getPath());
-        String imageName = UserHelper.generateUniqueFilename(fileName);
-        try
-        {
-            // write image file to disk
-            ImageUtil.writeAvatarToDisk(imageName, ItemHelper.itemImageFolderPath, file);
-            item.setImage(imageName);
-            java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
-                    () -> ImageUtil.delImage(oldImageFilename, ItemHelper.itemImageFolderPath)
-            );
-        }catch (Exception e){
-            e.printStackTrace();
+        if (itemForm.getFileData()!=null){
+            processItemimage(itemForm.getFileData(),itemForm.getFileName(),itemForm.getContentType(),item,0);
         }
-
+        if (itemForm.getFileData2()!=null){
+            processItemimage(itemForm.getFileData2(),itemForm.getFileName2(),itemForm.getContentType2(),item,1);
+        }
+        if (itemForm.getFileData3()!=null){
+            processItemimage(itemForm.getFileData3(),itemForm.getFileName3(),itemForm.getContentType3(),item,2);
+        }
     }
 
     public void unescapeHTML4Item(Item item){

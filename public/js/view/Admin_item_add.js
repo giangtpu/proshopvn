@@ -64,15 +64,19 @@ $(document).ready(function(){
 
     $(window).bind('beforeunload', function(){
         //alert("bye");
-        if (!window.submit_clicked){
-            return 'Are you sure?';
+        if (isDescripimg){
+            if (!window.submit_clicked){
+                return 'Are you sure?';
+            }
         }
-
     });
     $(window).on('unload', function(){
-        if (!window.submit_clicked){
-            deleteDescripFilePrefix();
+        if (isDescripimg){
+            if (!window.submit_clicked){
+                deleteDescripFilePrefix();
+            }
         }
+
 
     });
 });
@@ -90,6 +94,35 @@ $(function () {
 function imageIsLoaded(e) {
     $('#wizardPicturePreview').attr('src', e.target.result);
 };
+
+$(function () {
+    $("#wizard-picture2").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded2;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded2(e) {
+    $('#wizardPicturePreview2').attr('src', e.target.result);
+};
+
+$(function () {
+    $("#wizard-picture3").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded3;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+function imageIsLoaded3(e) {
+    $('#wizardPicturePreview3').attr('src', e.target.result);
+};
+
+
+
 ////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
 
 /////////////////////////////PROMOTION/////////////////////////////////
@@ -220,6 +253,7 @@ function sendFile(file) {
             if (data.success){
                 descrip_img.push(data.filename);
                 $('#summernote').summernote('insertImage', data.url, data.filename);
+                isDescripimg=true;
             }
 
         },
@@ -280,14 +314,25 @@ $("#submit").click(function(){
     var validator = $( "#updateitem" ).validate();
     if (validator.form()){
         var summernote_code = $('#summernote').summernote('code');
-        for (i=0;i<descrip_img.length;i++){
-            if (summernote_code.search(descrip_img[i])==-1){
-                //xoa no di
-                deleteDescripFile(descrip_img[i])
+        var listDescripImgFinal=[];
+        if (isDescripimg){
+
+            for (i=0;i<descrip_img.length;i++){
+                if (summernote_code.search(descrip_img[i])==-1){
+                    //xoa no di
+                    deleteDescripFile(descrip_img[i])
+                }
+                else{
+                    listDescripImgFinal.push(descrip_img[i])
+                }
             }
         }
         $("#description").val(summernote_code);
 
+        for (i=0;i<listDescripImgFinal.length;i++){
+            var divString="<input name='description_img[]' type='text' class='form-control' value='"+listDescripImgFinal[i]+"'>"
+            $(divString).appendTo("#descriptionDiv")
+        }
         window.submit_clicked = true;
     }
 });

@@ -33,8 +33,10 @@ public class Item implements Serializable {
 
     private String description;
     private String description_id;          //su dung de xoa cac data image... da up len
+    private String[]  description_img;
+
     private String material;
-    private String image;
+    private List<String> images=new ArrayList<String>();
     private String producer;    //nha san xuat
     private String origin; //xuat xu
     private int warrantyTime;       //thoi gian bao hanh - tinh theo thang
@@ -52,6 +54,8 @@ public class Item implements Serializable {
     private String[] techkey;           //thong so ky thuat
     private String[] techvalue;         //thong so ky thuat
 
+
+
     private List<String> relatedItems=new ArrayList<String>(); //cac san pham co lien quan
 
 
@@ -62,23 +66,25 @@ public class Item implements Serializable {
     public Item() {
 //        this.id= ItemHelper.generateId();
         this.lastModified= DateUtil.now();
+        images.add(0,"");
+        images.add(1,"");
+        images.add(2,"");
     }
 
-    public Item(String id, String name, String category_id, String description, String material, String image,String producer, String origin, int quantity, double price_sell) {
+    public Item(String id, String name, String category_id, String description, String material, String producer, String origin, int quantity, double price_sell) {
         this.id = id;
         this.name = name;
         this.category_id = category_id;
         this.description = description;
         this.material = material;
-        this.image = image;
         this.producer=producer;
         this.origin=origin;
         this.quantity = quantity;
         this.price_sell = price_sell;
         this.lastModified= DateUtil.now();
     }
-    public String getImageLinkPath(){
-        return ItemHelper.itemImageLinkPath + "/" + image;
+    public String getImageLinkPath(int position){
+        return ItemHelper.itemImageLinkPath + "/" + getImages().get(position);
     }
 
     public String getId() {
@@ -129,12 +135,12 @@ public class Item implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public double getPrice_receipt() {
@@ -285,5 +291,13 @@ public class Item implements Serializable {
 
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
+    }
+
+    public String[] getDescription_img() {
+        return description_img;
+    }
+
+    public void setDescription_img(String[] description_img) {
+        this.description_img = description_img;
     }
 }

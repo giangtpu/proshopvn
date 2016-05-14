@@ -101,7 +101,7 @@ public class CategoryController extends AbstractController {
         Category category=categoryDAO.getByKey(formcategory.getId());
         if (category==null){
             flash("failed",getMessages().at("Admin.Category.notfound"));
-            return redirect(routes.CategoryController.categoryList());
+            return redirect(routes.CategoryController.categoryInfo(formcategory.getId()));
         }
 
         if (!category.getName().equals(formcategory.getName())){
@@ -111,7 +111,7 @@ public class CategoryController extends AbstractController {
             String idGenerate=ItemHelper.generateCategoryIDbyName(formcategory.getName());
             if(categoryDAO.getByKey(idGenerate)!=null){
                 flash("failed",getMessages().at("Admin.Category.existed"));
-                return redirect(routes.CategoryController.addCategoryView());
+                return redirect(routes.CategoryController.categoryInfo(formcategory.getId()));
             }
 
             List<Category> categories=categoryDAO.getAll();

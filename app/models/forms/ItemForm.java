@@ -24,8 +24,12 @@ public class ItemForm {
     private String category_id;
     private String description;
     private String description_id;          //su dung de xoa cac data image... da up len
+    private String[] description_img;
+
     private String material;
     private String image;
+    private String image2;
+    private String image3;
     private String producer;    //nha san xuat
     private String origin; //xuat xu
     private int warrantyTime;       //thoi gian bao hanh - tinh theo thang
@@ -49,28 +53,85 @@ public class ItemForm {
     private String fileClientPath;
     private String fileServerPath;
 
+    private Http.MultipartFormData.FilePart fileData2;
+    private String contentType2;
+    private String fileName2;
+    private String fileClientPath2;
+    private String fileServerPath2;
+
+    private Http.MultipartFormData.FilePart fileData3;
+    private String contentType3;
+    private String fileName3;
+    private String fileClientPath3;
+    private String fileServerPath3;
+
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<ValidationError>();
         Http.MultipartFormData data = request().body().asMultipartFormData();
+        if (data!=null){
 
-        if (data!=null&&data.getFile("image") != null){
-            if(!StringUtils.isEmpty(data.getFile("image").getFilename())){
-                fileData = data.getFile("image");
-                fileName = fileData.getFilename();
-                contentType = ImageUtil.getImageType(fileName);
-                File file = (File )fileData.getFile();
-                fileClientPath = file.getParent();
+            if (data.getFile("image") != null){
+                if(!StringUtils.isEmpty(data.getFile("image").getFilename())){
+                    fileData = data.getFile("image");
+                    fileName = fileData.getFilename();
+                    contentType = ImageUtil.getImageType(fileName);
+                    File file = (File )fileData.getFile();
+                    fileClientPath = file.getParent();
 
-                if(!ImageUtil.checkValidImageType(contentType)){
-                    errors.add(new ValidationError("image", "wrong format image"));
-                }
+                    if(!ImageUtil.checkValidImageType(contentType)){
+                        errors.add(new ValidationError("image", "wrong format image"));
+                    }
 //                System.out.println("fileName:" + fileName);
 //                System.out.println("contentType:" + contentType);
 //                System.out.println("fileClientPath:" + fileClientPath);
 //
 //                System.out.println("getPath:" + file.getPath());
 //                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+                }
             }
+
+            if (data.getFile("image2") != null){
+                if(!StringUtils.isEmpty(data.getFile("image2").getFilename())){
+                    fileData2 = data.getFile("image2");
+                    fileName2 = fileData2.getFilename();
+                    contentType2 = ImageUtil.getImageType(fileName2);
+                    File file = (File )fileData2.getFile();
+                    fileClientPath2 = file.getParent();
+
+                    if(!ImageUtil.checkValidImageType(contentType2)){
+                        errors.add(new ValidationError("image2", "wrong format image"));
+                    }
+//                System.out.println("fileName:" + fileName);
+//                System.out.println("contentType:" + contentType);
+//                System.out.println("fileClientPath:" + fileClientPath);
+//
+//                System.out.println("getPath:" + file.getPath());
+//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+                }
+            }
+
+            if (data.getFile("image3") != null){
+                if(!StringUtils.isEmpty(data.getFile("image3").getFilename())){
+                    fileData3 = data.getFile("image3");
+                    fileName3 = fileData3.getFilename();
+                    contentType3 = ImageUtil.getImageType(fileName3);
+                    File file = (File )fileData3.getFile();
+                    fileClientPath3 = file.getParent();
+
+                    if(!ImageUtil.checkValidImageType(contentType3)){
+                        errors.add(new ValidationError("image3", "wrong format image"));
+                    }
+//                System.out.println("fileName:" + fileName);
+//                System.out.println("contentType:" + contentType);
+//                System.out.println("fileClientPath:" + fileClientPath);
+//
+//                System.out.println("getPath:" + file.getPath());
+//                System.out.println("getAbsolutePath:" + file.getAbsolutePath());
+                }
+            }
+
+
+
         }
 
 
@@ -80,7 +141,7 @@ public class ItemForm {
 
     public boolean
     fillToItem(Item item){
-        item.setName(name);
+
         item.setCategory_id(category_id);
 
         if (!StringUtils.isEmpty(description))
@@ -156,6 +217,10 @@ public class ItemForm {
             item.setTechkey(techkey);
             item.setTechvalue(techvalue);
         }
+
+//        if (description_img!=null){
+//            item.setDescription_img(description_img);
+//        }
 
 
         return true;
@@ -368,5 +433,109 @@ public class ItemForm {
 
     public void setDescription_id(String description_id) {
         this.description_id = description_id;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public Http.MultipartFormData.FilePart getFileData2() {
+        return fileData2;
+    }
+
+    public void setFileData2(Http.MultipartFormData.FilePart fileData2) {
+        this.fileData2 = fileData2;
+    }
+
+    public String getContentType2() {
+        return contentType2;
+    }
+
+    public void setContentType2(String contentType2) {
+        this.contentType2 = contentType2;
+    }
+
+    public String getFileName2() {
+        return fileName2;
+    }
+
+    public void setFileName2(String fileName2) {
+        this.fileName2 = fileName2;
+    }
+
+    public String getFileClientPath2() {
+        return fileClientPath2;
+    }
+
+    public void setFileClientPath2(String fileClientPath2) {
+        this.fileClientPath2 = fileClientPath2;
+    }
+
+    public String getFileServerPath2() {
+        return fileServerPath2;
+    }
+
+    public void setFileServerPath2(String fileServerPath2) {
+        this.fileServerPath2 = fileServerPath2;
+    }
+
+    public Http.MultipartFormData.FilePart getFileData3() {
+        return fileData3;
+    }
+
+    public void setFileData3(Http.MultipartFormData.FilePart fileData3) {
+        this.fileData3 = fileData3;
+    }
+
+    public String getContentType3() {
+        return contentType3;
+    }
+
+    public void setContentType3(String contentType3) {
+        this.contentType3 = contentType3;
+    }
+
+    public String getFileName3() {
+        return fileName3;
+    }
+
+    public void setFileName3(String fileName3) {
+        this.fileName3 = fileName3;
+    }
+
+    public String getFileClientPath3() {
+        return fileClientPath3;
+    }
+
+    public void setFileClientPath3(String fileClientPath3) {
+        this.fileClientPath3 = fileClientPath3;
+    }
+
+    public String getFileServerPath3() {
+        return fileServerPath3;
+    }
+
+    public void setFileServerPath3(String fileServerPath3) {
+        this.fileServerPath3 = fileServerPath3;
+    }
+
+    public String[] getDescription_img() {
+        return description_img;
+    }
+
+    public void setDescription_img(String[] description_img) {
+        this.description_img = description_img;
     }
 }

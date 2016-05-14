@@ -38,6 +38,7 @@ POST         /deleteDescripFilePrefix                   controllers.ItemControll
 POST         /deleteDescripFile                   controllers.ItemController.deleteDescripFile()
 
 GET         /infoitem/:id                                    controllers.ItemController.infoitem(id:String)
+POST         /update                                    controllers.ItemController.updateItem()
 
 
 GET         /                                       controllers.Admin.index()

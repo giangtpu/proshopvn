@@ -53,6 +53,7 @@ public class ItemController extends AbstractController {
         ItemForm itemForm = itemFormForm.bindFromRequest().get();
 
         Item item = new Item();
+        item.setName(itemForm.getName());
         String idGenerate = ItemHelper.generateItemIDbyName(itemForm.getName());
         if (itemDAO.getByKey(idGenerate) != null) {
             java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
@@ -83,12 +84,21 @@ public class ItemController extends AbstractController {
             return redirect(routes.ItemController.addItemView());
         }
         item.setCategory_name(category.getName());
+
+        if (itemForm.getDescription_img()!=null){
+            item.setDescription_img(itemForm.getDescription_img());
+        }
+
         writeItemImageTodisk(itemForm, item);
         itemDAO.save(item);
 
         flash("success", getMessages().at("Admin.addsuccess"));
         return redirect(routes.ItemController.addItemView());
     }
+
+
+
+
 
     public Result saveitemImageDescription() {
         Form<ItemImageUploadForm> itemFormForm = formFactory.form(ItemImageUploadForm.class);
@@ -178,7 +188,77 @@ public class ItemController extends AbstractController {
         }
         unescapeHTML4Item(item);
 
-        String description_id_temp = ItemHelper.generateId();
-        return ok(Admin_item_info.render(getUserSession(), getMenu(),item,description_id_temp));
+        return ok(Admin_item_info.render(getUserSession(), getMenu(),item));
+    }
+
+    public void deleteNotUserDescriptImageWhenUpdateFail(String[] itemimgs, String[] formimgs){
+            for (String img:formimgs){
+                boolean initem=false;
+                for (String itemimg:itemimgs){
+                    if (img.equals(itemimg)){
+                        initem=true;
+                        break;
+                    }
+                }
+                if(!initem){
+                    java.util.concurrent.CompletionStage<Boolean> promiseOfDelImg = CompletableFuture.supplyAsync(
+                            () -> ImageUtil.delImage(img, ItemHelper.itemImageFolderPath)
+                    );
+                }
+            }
+    }
+
+    public Result updateItem() {
+        Form<ItemForm> itemFormForm = formFactory.form(ItemForm.class);
+        if (itemFormForm.hasErrors()) {
+            flash("failed", getMessages().at("form.error"));
+            return redirect(routes.ItemController.addItemView());
+        }
+        ItemForm itemForm = itemFormForm.bindFromRequest().get();
+
+        Item item=itemDAO.getByKey(itemForm.getId());
+        if (item==null) {
+            flash("failed", getMessages().at("Admin.Item.notfound"));
+            return redirect(routes.ItemController.infoitem(itemForm.getId()));
+        }
+
+        boolean fillsuccess = itemForm.fillToItem(item);
+        if (!fillsuccess) {
+            deleteNotUserDescriptImageWhenUpdateFail(item.getDescription_img(),itemForm.getDescription_img());
+            flash("failed", getMessages().at("form.error"));
+            return redirect(routes.ItemController.infoitem(itemForm.getId()));
+        }
+
+        Category category= categoryDAO.getByKey(item.getCategory_id());
+        if (category==null) {
+            deleteNotUserDescriptImageWhenUpdateFail(item.getDescription_img(),itemForm.getDescription_img());
+            flash("failed", getMessages().at("Admin.Category.notfound"));
+            return redirect(routes.ItemController.infoitem(itemForm.getId()));
+        }
+        item.setCategory_name(category.getName());
+
+        if (itemForm.getDescription_img()!=null){
+            item.setDescription_img(itemForm.getDescription_img());
+        }
+
+        if (!item.getName().equals(itemForm.getName())){
+            item.setName(itemForm.getName());
+            String idGenerate = ItemHelper.generateItemIDbyName(itemForm.getName());
+            if (itemDAO.getByKey(idGenerate) != null) {
+                deleteNotUserDescriptImageWhenUpdateFail(item.getDescription_img(),itemForm.getDescription_img());
+                flash("failed", getMessages().at("Admin.Item.existed"));
+                return redirect(routes.ItemController.infoitem(itemForm.getId()));
+            }
+            item.setId(idGenerate);
+
+            itemDAO.deleteByKey(itemForm.getId());
+        }
+
+
+        writeItemImageTodisk(itemForm, item);
+        itemDAO.save(item);
+
+        flash("success", getMessages().at("Admin.addsuccess"));
+        return redirect(routes.ItemController.infoitem(item.getId()));
     }
 }
