@@ -7,20 +7,27 @@ $().ready(function(){
 function InitValue(){
     for(i=0; i<array_list.length ; i++){
         var element = $('#' + array_list[i]);
-        if(current_array_list !=null){
-            //console.log(current_array_list.indexOf(array_list[i]));
-            if(current_array_list.indexOf(array_list[i]) != -1){
-                if( element.is(':hidden')) {
-                    element.show();
-                }
-            }else{
-                element.hideAndReset();
-            }
-            //console.log(current_array_list.indexOf( array_list[i]));
-        }else{
-            element.hideAndReset();
-        }
+        element.hideAndReset();
+        //if(current_array_list !=null){
+        //    //console.log(current_array_list.indexOf(array_list[i]));
+        //    if(current_array_list.indexOf(array_list[i]) != -1){
+        //        //if( element.is(':hidden')) {
+        //        //    element.show();
+        //        //}
+        //        element.hide();
+        //        current_array_list.splice(current_array_list.indexOf(array_list[i]),1);
+        //    }else{
+        //        element.hideAndReset();
+        //    }
+        //    //console.log(current_array_list.indexOf( array_list[i]));
+        //}else{
+        //    element.hideAndReset();
+        //}
+        //element.hideAndReset();
     }
+
+    current_array_list=[];
+
 }
 
 //Add filter event handler
@@ -39,8 +46,9 @@ function  ChangeFilterValue(value){
 //Click on tag a to hide field div
 $('.filedHide').click(function() {
 
-    var searchFieldId =(($(this).parent().parent().parent()).attr('id'));
-    //console.log($(this).parent().parent().parent());
+    var searchFieldId =(($(this).parent().parent()).attr('id'));
+    console.log($(this).parent().parent());
+    console.log(($(this).parent().parent()).attr('id'));
     var indexOfField =current_array_list.indexOf(searchFieldId);
     //console.log(current_array_list);
     if( indexOfField !=-1){
@@ -48,23 +56,23 @@ $('.filedHide').click(function() {
     }
     //console.log(current_array_list);
     //$('#ChooseFilter').val(current_array_list).change();
-    $(this).parent().parent().parent().hideAndReset();
+    $(this).parent().parent().hideAndReset();
     $('#ChooseFilter').val(current_array_list).change();
     //console.log( $('#ChooseFilter').val());
 });
 
 //Display date to div when option is between
-$('.DateOption').change(function() {
-    if($(this).val() == "between") {
-       if( ($(this).closest('.search-field').find('.search-field-date-to')).is(':hidden')) {
-            $(this).closest('.search-field').find('.search-field-date-to').show();
-       }
-    }else{
-        if( !($(this).closest('.search-field').find('.search-field-date-to')).is(':hidden')) {
-            $(this).closest('.search-field').find('.search-field-date-to').hideAndReset();
-        }
-    }
-});
+//$('.DateOption').change(function() {
+//    if($(this).val() == "between") {
+//       if( ($(this).closest('.search-field').find('.search-field-date-to')).is(':hidden')) {
+//            $(this).closest('.search-field').find('.search-field-date-to').show();
+//       }
+//    }else{
+//        if( !($(this).closest('.search-field').find('.search-field-date-to')).is(':hidden')) {
+//            $(this).closest('.search-field').find('.search-field-date-to').hideAndReset();
+//        }
+//    }
+//});
 
 //Awesome function bind hide event to customer event
 (function($) {

@@ -1,14 +1,27 @@
 @import models.forms.SearchFilterForm
 @(searchFilterForm:SearchFilterForm, searchFieldArray: List[String] )
 
-<script src="@routes.Assets.at("js/bootstrap-datepicker.js")" type="text/javascript"></script>
-<script src="@routes.Assets.at("js/moment.js")" type="text/javascript"></script>
+
 <script src="@routes.Assets.at("js/SearchDevice.js")" type="text/javascript"></script>
 <script>
+
+    $('.datetimepicker').datetimepicker({
+        format:"DD/MM/YYYY HH:mm",
+        sideBySide:true,
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove',
+        },
+    });
+
     //Init value
-    var nowTemp = new Date();
-    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-    var nowString = moment(nowTemp).format('DD-MM-YYYY');
     var array_list=[];
     @for((item, index) <- searchFieldArray.zipWithIndex) {
         @if(index % 2 == 1) {
@@ -18,47 +31,41 @@
 
     @for((item, index) <- searchFieldArray.zipWithIndex) {
         @if(item.equals("Date")) {
-            var dateTo@searchFieldArray(index+1) = $('#dateTo'+'@searchFieldArray(index+1)').datepicker({
-                format: 'dd-mm-yyyy',
-                onRender: function(date) {
-                    return date.valueOf() > now.valueOf() ? 'disabled' : '';
-                }
-            }).on('changeDate', function(ev) {
-                console.log($(this));
-                $('.datepicker').hide();
-            }).data('datepicker');
 
-            var dateFrom@searchFieldArray(index+1) = $('#dateFrom'+'@searchFieldArray(index+1)').datepicker({
-                format: 'dd-mm-yyyy',
-                onRender: function(date) {
-                    return date.valueOf() > now.valueOf() ? 'disabled' : '';
-                }
-            }).on('changeDate', function(ev) {
-                console.log($(this));
-                $('.datepicker').hide();
-            }).data('datepicker');
+            $('#dateFrom'+'@searchFieldArray(index+1)').on("dp.change", function(e) {
+                $(  '#dateTo'+'@searchFieldArray(index+1)'  ).data("DateTimePicker").date(e.date);
+                $(  '#dateTo'+'@searchFieldArray(index+1)' ).data("DateTimePicker").minDate(e.date);
+            });
         }
     }
 
     $().ready(function(){
-            //init value for search;
+        //init value for search;
         @if(searchFilterForm.getFilter != null) {
-             @for(filter <- searchFilterForm.getFilter) { current_array_list.push('@filter');}
+            @for(filter <- searchFilterForm.getFilter) { current_array_list.push('@filter');}
         }
         @if(searchFilterForm.isResetCondition) {
             current_array_list = array_list;
             $('body').resetValue();
         }
         InitValue();
-        $('.DateOption').change(); //Trigger change
-        });
+//        $('.DateOption').change(); //Trigger change
+    });
 
     function ApplyFilter(page, pageSize, isResetPage) {
-		$('[name=page]').val(page);
-		$('[name=pageSize]').val(pageSize );
-		$('[name=isResetPage]').val(isResetPage );
-	    //$('[name=filter]').val(current_array_list );
-	    $('#ChooseFilter').val(current_array_list );
-	    $('#filterDeviceInfoList').submit();
+        $('[name=page]').val(page);
+        $('[name=pageSize]').val(pageSize );
+        $('[name=isResetPage]').val(isResetPage );
+        //$('[name=filter]').val(current_array_list );
+        $('#ChooseFilter').val(current_array_list );
+        $('#filterDeviceInfoList').submit();
     }
-    </script>
+    var applyButton = document.getElementById('ApplyFilter');
+
+    $(document).keypress(function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            applyButton.click();
+        }
+    });
+</script>

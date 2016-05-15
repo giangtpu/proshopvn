@@ -9,8 +9,8 @@
 @(currentUser: User,divRoot:String,conditionName:String,conditionStart: SearchConditionForm, conditionEnd: SearchConditionForm,i: Int)
 
 <div id="@divRoot" class="search-field col-md-12">
-    <div  class="search-field-date-from col-md-12">
-        <div class="col-md-2">
+
+        <div class="col-md-2" >
             @if(currentUser.getRole==1) {
                 <a class="filedHide">
                     <i class="pe-7s-less" style="font-size : 18px ;"></i>
@@ -34,15 +34,14 @@
         <div class="col-md-6">
             <input name="conditionList[@i].fieldValue" class="conditionIntValue form-control"  placeholder="123..."  value="@conditionStart.getFieldValue">
         </div>
-    </div>
-    <div class="search-field-date-to col-md-12">
-        <div class="col-md-2"></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-6">
+
+
+
+        <div class="col-md-6 col-md-offset-4" style=" padding-top: 10px">
             <input name="conditionList[@(i+1)].fieldName"  value="@conditionName" class="form-control"  style="display: none">
             <input name="conditionList[@(i+1)].compQueryOp"  value="<=" class="form-control"  style="display: none">
             <input name="conditionList[@(i+1)].fieldType"  value="Int" class="form-control" style="display: none">
             <input name="conditionList[@(i+1)].fieldValue" class="conditionIntValue form-control"  placeholder="123..." value="@conditionEnd.getFieldValue">
         </div>
-    </div>
+
 </div>

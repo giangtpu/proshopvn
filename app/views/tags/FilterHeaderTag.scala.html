@@ -1,12 +1,13 @@
+
 @import models.forms.SearchFilterForm
 @(currentUser: User,searchFilterForm:SearchFilterForm , searchFieldArray: List[String], actionForm:String)
-@import java.math.BigInteger; var iterator = 0;
-<div class="advanced-search col-md-12">
-    <form action=@actionForm method="POST" id="filterDeviceInfoList">
-        <div class="col-md-12 search-field-header">
-            @if(currentUser.getRole==1) {
-                <div class="col-md-2">@Messages("Admin.Filters")</div>
-            }
+    @import java.math.BigInteger; var iterator = 0;
+    <div class="advanced-search col-md-12">
+        <form action=@actionForm method="POST" id="filterDeviceInfoList">
+            <div class="col-md-12 search-field-header">
+                @if(currentUser.getRole==1) {
+                    <div class="col-md-2">@Messages("Admin.Filters")</div>
+                }
             <input name="page"  value="@searchFilterForm.getPage"  style="display: none">
             <input name="pageSize"  value="@searchFilterForm.getPageSize"   style="display: none">
             <input name="isResetPage"  value="@searchFilterForm.isResetPage"   style="display: none">
@@ -15,117 +16,101 @@
             <div class="col-md-6" >
                 <div style="display: none">
                     <select id="ChooseFilter" name="filter[]"  multiple data-title="Choose Filters" class="selectpicker" data-style="btn-info btn-fill btn-block" data-menu-style="dropdown-blue">
-                              @for((item, index) <- searchFieldArray.zipWithIndex) {
-                                  @if(index % 2 == 1) {
-                                      <option value="@item">@item</option>
-                                  }
-                              }
+                    @for((item, index) <- searchFieldArray.zipWithIndex) {
+                        @if(index % 2 == 1) {
+                            <option value="@item">@item</option>
+                        }
+                    }
                     </select>
                 </div>
             </div>
 
-            @if(currentUser.getRole==1) {
-            <div class="col-md-2" style="padding: 0px">
-                <div class="dropdown" style="float: right">
-                    <button class="btn btn-primary btn-fill btn-wd dropdown-toggle" type="button" id="" data-toggle="dropdown">
-                        @Messages("Admin.Filters.add")
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                        @for((item, index) <- searchFieldArray.zipWithIndex) {
-                            @if(index % 2 == 1) {
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" onclick="ChangeFilterValue('@item')">@Messages(item)</a></li>
+                @if(currentUser.getRole==1) {
+                    <div class="col-md-2" style="padding: 0px">
+                        <div class="dropdown" style="float: right">
+                            <button class="btn btn-primary btn-fill btn-wd dropdown-toggle" type="button" id="" data-toggle="dropdown">
+                                @Messages("Admin.Filters.add")
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                            @for((item, index) <- searchFieldArray.zipWithIndex) {
+                                @if(index % 2 == 1) {
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)" onclick="ChangeFilterValue('@item')">@Messages(item)</a></li>
+                                }
                             }
+                            </ul>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            @if(searchFilterForm.getConditionList.size() <2){
+
+                @for((item, index) <- searchFieldArray.zipWithIndex) {
+                    @if(index % 2 == 0) {
+                        @if(searchFieldArray(index).equals("String")){
+                            @views.html.tags.FilterConditionStringTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
+                            @{iterator+=1}
                         }
-                    </ul>
+                        @if(searchFieldArray(index).equals("Boolean")){
+                            @views.html.tags.FilterConditionBooleanTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
+                            @{iterator+=1}
+                        }
+                        @if(searchFieldArray(index).equals("Date")){
+                            @views.html.tags.FilterConditionDatetimeTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
+                            @{iterator+=2}
+                        }
+                        @if(searchFieldArray(index).equals("Int")){
+                            @views.html.tags.FilterConditionIntTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
+                            @{iterator+=2}
+                        }
+                        @if(searchFieldArray(index).equals("Double")){
+                            @views.html.tags.FilterConditionDoubleTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
+                            @{iterator+=2}
+                        }
+                    }
+                }
+
+            }else {
+
+                @for((item, index) <- searchFieldArray.zipWithIndex) {
+                    @if(index % 2 == 0) {
+                        @if(searchFieldArray(index).equals("String")){
+                            @views.html.tags.FilterConditionStringTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
+                            @{iterator+=1}
+                        }
+                        @if(searchFieldArray(index).equals("Boolean")){
+                            @views.html.tags.FilterConditionBooleanTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
+                            @{iterator+=1}
+                        }
+                        @if(searchFieldArray(index).equals("Date")){
+                            @views.html.tags.FilterConditionDatetimeTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
+                            @{iterator+=2}
+                        }
+                        @if(searchFieldArray(index).equals("Int")){
+                            @views.html.tags.FilterConditionIntTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
+                            @{iterator+=2}
+                        }
+                        @if(searchFieldArray(index).equals("Double")){
+                            @views.html.tags.FilterConditionDoubleTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
+                            @{iterator+=2}
+                        }
+                    }
+                }
+            }
+            <div class="search-field col-md-12">
+                <div class="col-md-2">
+                    <a id="ApplyFilter" class="btn btn-primary btn-fill" onclick="ApplyFilter(@searchFilterForm.getPage,@searchFilterForm.getPageSize,true);">@Messages("Admin.Filters.apply")<i class="fa fa-filter"></i></a>
                 </div>
             </div>
-            }
-
+        </form>
+        <div class="col-md-12" style="margin : 20px 0px ; font-size: large; color : #2465F2 ;">
+            <span class="result">@Messages("Admin.Filters.result")</span>
+            <span class="total">@searchFilterForm.getTotalResult</span>
         </div>
-
-        @if(searchFilterForm.getConditionList.size() <2){
-
-            @for((item, index) <- searchFieldArray.zipWithIndex) {
-                @if(index % 2 == 0) {
-                    @if(searchFieldArray(index).equals("String")){
-                        @views.html.tags.FilterConditionStringTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Boolean")){
-                        @views.html.tags.FilterConditionBooleanTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Action")){
-                        @views.html.tags.FilterActionServerLog(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("ObjName")){
-                        @views.html.tags.FilterObjNameServerLog(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Date")){
-                        @views.html.tags.FilterConditionDatetimeTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=2}
-                    }
-                    @if(searchFieldArray(index).equals("Int")){
-                        @views.html.tags.FilterConditionIntTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=2}
-                    }
-                    @if(searchFieldArray(index).equals("Double")){
-                        @views.html.tags.FilterConditionDoubleTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(0), searchFilterForm.getConditionList.get(0), iterator)
-                        @{iterator+=2}
-                    }
-                }
-            }
-
-        }else {
-
-            @for((item, index) <- searchFieldArray.zipWithIndex) {
-                @if(index % 2 == 0) {
-                    @if(searchFieldArray(index).equals("String")){
-                        @views.html.tags.FilterConditionStringTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Boolean")){
-                        @views.html.tags.FilterConditionBooleanTag(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Action")){
-                        @views.html.tags.FilterActionServerLog(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("ObjName")){
-                        @views.html.tags.FilterObjNameServerLog(currentUser,searchFieldArray(index+1), searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), iterator)
-                        @{iterator+=1}
-                    }
-                    @if(searchFieldArray(index).equals("Date")){
-                        @views.html.tags.FilterConditionDatetimeTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
-                        @{iterator+=2}
-                    }
-                    @if(searchFieldArray(index).equals("Int")){
-                        @views.html.tags.FilterConditionIntTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
-                        @{iterator+=2}
-                    }
-                    @if(searchFieldArray(index).equals("Double")){
-                        @views.html.tags.FilterConditionDoubleTag(currentUser,searchFieldArray(index+1),searchFieldArray(index+1), searchFilterForm.getConditionList.get(iterator), searchFilterForm.getConditionList.get(iterator+1), iterator)
-                        @{iterator+=2}
-                    }
-                }
-            }
-        }
-        <div class="search-field col-md-12">
-            <div class="col-md-2">
-                <a id="ApplyFilter" class="btn btn-primary btn-fill" onclick="ApplyFilter(@searchFilterForm.getPage,@searchFilterForm.getPageSize,true);">@Messages("Admin.Filters.apply")<i class="fa fa-filter"></i></a>
-            </div>
-        </div>
-    </form>
-    <div class="col-md-12" style="margin : 20px 0px ; font-size: large; color : #2465F2 ;">
-        <span class="result">@Messages("Admin.Filters.result")</span>
-        <span class="total">@searchFilterForm.getTotalResult</span>
     </div>
-</div>
-<div style="clear:both;"></div>
+    <div style="clear:both;"></div>
 
 
 

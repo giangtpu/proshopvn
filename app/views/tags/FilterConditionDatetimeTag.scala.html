@@ -9,14 +9,14 @@
 @(currentUser: User,divRoot:String,conditionName:String,conditionStart: SearchConditionForm, conditionEnd: SearchConditionForm,i: Int)
 
 <div id="@divRoot" class="search-field col-md-12">
-    <div  class="search-field-date-from col-md-12">
+    <div  class="search-field-date-from col-md-12" style="padding: 0">
         <div class="col-md-2">
             @if(currentUser.getRole==1) {
                 <a class="filedHide">
                     <i class="pe-7s-less" style="font-size : 18px ;"></i>
                 </a>
             }
-                <span class="navitem" style="font-size: 18px">@Messages(conditionName)</span>
+        <span class="navitem" style="font-size: 18px">@Messages(conditionName)</span>
         </div>
         <div class="col-md-2" style="display: none" >
             <input name="conditionList[@i].fieldName"  value="@conditionName" class="form-control"  style="display: none">
@@ -29,138 +29,15 @@
                 <option value= "between"  @if(conditionStart.getCompQueryOp.equals("between")){selected} >between</option>
             </select>
         </div>
-        <div class="col-md-6" @if(currentUser.getRole==1) {style="padding-left: 15px;" }>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="col-sm-12" style = " padding:0">
-                        <div class="col-sm-5" style ="padding : 0 ">
-                            <select id = "fromHour" name="conditionList[@i].optionHourValue" class="selectpicker conditionHourValue" data-style="form-control" data-menu-style="">
-                                <option value= "00:" @if(conditionStart.getOptionHourValue.equals("00:")){selected}>00</option>
-                                <option value= "01:" @if(conditionStart.getOptionHourValue.equals("01:")){selected}>01</option>
-                                <option value= "02:" @if(conditionStart.getOptionHourValue.equals("02:")){selected}>02</option>
-                                <option value= "03:" @if(conditionStart.getOptionHourValue.equals("03:")){selected}>03</option>
-                                <option value= "04:" @if(conditionStart.getOptionHourValue.equals("04:")){selected}>04</option>
-                                <option value= "05:" @if(conditionStart.getOptionHourValue.equals("05:")){selected}>05</option>
-                                <option value= "06:" @if(conditionStart.getOptionHourValue.equals("06:")){selected}>06</option>
-                                <option value= "07:" @if(conditionStart.getOptionHourValue.equals("07:")){selected}>07</option>
-                                <option value= "08:" @if(conditionStart.getOptionHourValue.equals("08:")){selected}>08</option>
-                                <option value= "09:" @if(conditionStart.getOptionHourValue.equals("09:")){selected}>09</option>
-                                <option value= "10:" @if(conditionStart.getOptionHourValue.equals("10:")){selected}>10</option>
-                                <option value= "11:" @if(conditionStart.getOptionHourValue.equals("11:")){selected}>11</option>
-                                <option value= "12:" @if(conditionStart.getOptionHourValue.equals("12:")){selected}>12</option>
-                                <option value= "13:" @if(conditionStart.getOptionHourValue.equals("13:")){selected}>13</option>
-                                <option value= "14:" @if(conditionStart.getOptionHourValue.equals("14:")){selected}>14</option>
-                                <option value= "15:" @if(conditionStart.getOptionHourValue.equals("15:")){selected}>15</option>
-                                <option value= "16:" @if(conditionStart.getOptionHourValue.equals("16:")){selected}>16</option>
-                                <option value= "17:" @if(conditionStart.getOptionHourValue.equals("17:")){selected}>17</option>
-                                <option value= "18:" @if(conditionStart.getOptionHourValue.equals("18:")){selected}>18</option>
-                                <option value= "19:" @if(conditionStart.getOptionHourValue.equals("19:")){selected}>19</option>
-                                <option value= "20:" @if(conditionStart.getOptionHourValue.equals("20:")){selected}>20</option>
-                                <option value= "21:" @if(conditionStart.getOptionHourValue.equals("21:")){selected}>21</option>
-                                <option value= "22:" @if(conditionStart.getOptionHourValue.equals("22:")){selected}>22</option>
-                                <option value= "23:" @if(conditionStart.getOptionHourValue.equals("23:")){selected}>23</option>
-                            </select>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <h6 align =center >:</h6>
-                        </div>
-
-                        <div class="col-sm-5 " style="padding:0">
-                            <select id = "fromMinute" name="conditionList[@i].optionMinuteValue" class="selectpicker conditionMinuteValue" data-style="form-control" data-menu-style="">
-                                <option value= "00" @if(conditionStart.getOptionMinuteValue.equals("00")){selected}>00</option>
-                                <option value= "05" @if(conditionStart.getOptionMinuteValue.equals("05")){selected}>05</option>
-                                <option value= "10" @if(conditionStart.getOptionMinuteValue.equals("10")){selected}>10</option>
-                                <option value= "15" @if(conditionStart.getOptionMinuteValue.equals("15")){selected}>15</option>
-                                <option value= "20" @if(conditionStart.getOptionMinuteValue.equals("20")){selected}>20</option>
-                                <option value= "25" @if(conditionStart.getOptionMinuteValue.equals("25")){selected}>25</option>
-                                <option value= "30" @if(conditionStart.getOptionMinuteValue.equals("30")){selected}>30</option>
-                                <option value= "35" @if(conditionStart.getOptionMinuteValue.equals("35")){selected}>35</option>
-                                <option value= "40" @if(conditionStart.getOptionMinuteValue.equals("40")){selected}>40</option>
-                                <option value= "45" @if(conditionStart.getOptionMinuteValue.equals("45")){selected}>45</option>
-                                <option value= "50" @if(conditionStart.getOptionMinuteValue.equals("50")){selected}>50</option>
-                                <option value= "55" @if(conditionStart.getOptionMinuteValue.equals("55")){selected}>55</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="section-no-padding">
-                        <input id="dateFrom@conditionName" name="conditionList[@i].fieldValue" class="form-control conditionDateValue" type="text" @if(conditionStart.getFieldValue !=null &&conditionStart.getFieldValue.length >0){value='@conditionStart.getFieldValue'}else{ value=''}/>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4" @if(currentUser.getRole==1) {style="padding-left: 15px;" }>
+            <input id="dateFrom@conditionName" name="conditionList[@i].fieldValue" class="form-control datetimepicker" type="text" @if(conditionStart.getFieldValue !=null &&conditionStart.getFieldValue.length >0){value='@conditionStart.getFieldValue'}else{ value=''}/>
+        </div>
+        <div class="col-md-4" @if(currentUser.getRole==1) {style="padding-left: 15px;" }>
+            <input name="conditionList[@(i+1)].fieldName"  value="@conditionName" class="form-control"  style="display: none">
+            <input name="conditionList[@(i+1)].compQueryOp"  value="<=" class="form-control"  style="display: none">
+            <input name="conditionList[@(i+1)].fieldType"  value="Date" class="form-control"  style="display: none">
+            <input id="dateTo@conditionName" name="conditionList[@(i+1)].fieldValue" class="form-control datetimepicker" type="text" @if(conditionEnd.getFieldValue !=null&&conditionEnd.getFieldValue.length >0){value='@conditionEnd.getFieldValue'}else{ value=''}/>
         </div>
     </div>
-    <div class="search-field-date-to col-md-12">
-        <div class="col-md-2"></div>
-        <div class="col-md-2" style="display: none"></div>
-        <div class="col-md-6" @if(currentUser.getRole==1) {style="padding-left: 15px;" }>
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <div class="col-sm-12" style = " padding:0">
-                        <div class="col-sm-5" style ="padding : 0 ">
-                            <input name="conditionList[@(i+1)].fieldName"  value="@conditionName" class="form-control"  style="display: none">
-                            <input name="conditionList[@(i+1)].compQueryOp"  value="<=" class="form-control"  style="display: none">
-                            <input name="conditionList[@(i+1)].fieldType"  value="Date" class="form-control"  style="display: none">
-                            <select id = "toHour" name="conditionList[@(i+1)].optionHourValue" class="selectpicker conditionHourValue" data-style="form-control" data-menu-style="">
-                                <option value= "00:" @if(conditionEnd.getOptionHourValue.equals("00:")){selected}>00</option>
-                                <option value= "01:" @if(conditionEnd.getOptionHourValue.equals("01:")){selected}>01</option>
-                                <option value= "02:" @if(conditionEnd.getOptionHourValue.equals("02:")){selected}>02</option>
-                                <option value= "03:" @if(conditionEnd.getOptionHourValue.equals("03:")){selected}>03</option>
-                                <option value= "04:" @if(conditionEnd.getOptionHourValue.equals("04:")){selected}>04</option>
-                                <option value= "05:" @if(conditionEnd.getOptionHourValue.equals("05:")){selected}>05</option>
-                                <option value= "06:" @if(conditionEnd.getOptionHourValue.equals("06:")){selected}>06</option>
-                                <option value= "07:" @if(conditionEnd.getOptionHourValue.equals("07:")){selected}>07</option>
-                                <option value= "08:" @if(conditionEnd.getOptionHourValue.equals("08:")){selected}>08</option>
-                                <option value= "09:" @if(conditionEnd.getOptionHourValue.equals("09:")){selected}>09</option>
-                                <option value= "10:" @if(conditionEnd.getOptionHourValue.equals("10:")){selected}>10</option>
-                                <option value= "11:" @if(conditionEnd.getOptionHourValue.equals("11:")){selected}>11</option>
-                                <option value= "12:" @if(conditionEnd.getOptionHourValue.equals("12:")){selected}>12</option>
-                                <option value= "13:" @if(conditionEnd.getOptionHourValue.equals("13:")){selected}>13</option>
-                                <option value= "14:" @if(conditionEnd.getOptionHourValue.equals("14:")){selected}>14</option>
-                                <option value= "15:" @if(conditionEnd.getOptionHourValue.equals("15:")){selected}>15</option>
-                                <option value= "16:" @if(conditionEnd.getOptionHourValue.equals("16:")){selected}>16</option>
-                                <option value= "17:" @if(conditionEnd.getOptionHourValue.equals("17:")){selected}>17</option>
-                                <option value= "18:" @if(conditionEnd.getOptionHourValue.equals("18:")){selected}>18</option>
-                                <option value= "19:" @if(conditionEnd.getOptionHourValue.equals("19:")){selected}>19</option>
-                                <option value= "20:" @if(conditionEnd.getOptionHourValue.equals("20:")){selected}>20</option>
-                                <option value= "21:" @if(conditionEnd.getOptionHourValue.equals("21:")){selected}>21</option>
-                                <option value= "22:" @if(conditionEnd.getOptionHourValue.equals("22:")){selected}>22</option>
-                                <option value= "23:" @if(conditionEnd.getOptionHourValue.equals("23:")){selected}>23</option>
-                            </select>
-                        </div>
 
-                        <div class="col-sm-1">
-                            <h6 align =center >:</h6>
-                        </div>
-
-                        <div class="col-sm-5 " style="padding:0">
-                            <select id = "toMinute" name="conditionList[@(i+1)].optionMinuteValue" class="selectpicker conditionMinuteValue" data-style="form-control" data-menu-style="">
-                                <option value= "00" @if(conditionEnd.getOptionMinuteValue.equals("00")){selected}>00</option>
-                                <option value= "05" @if(conditionEnd.getOptionMinuteValue.equals("05")){selected}>05</option>
-                                <option value= "10" @if(conditionEnd.getOptionMinuteValue.equals("10")){selected}>10</option>
-                                <option value= "15" @if(conditionEnd.getOptionMinuteValue.equals("15")){selected}>15</option>
-                                <option value= "20" @if(conditionEnd.getOptionMinuteValue.equals("20")){selected}>20</option>
-                                <option value= "25" @if(conditionEnd.getOptionMinuteValue.equals("25")){selected}>25</option>
-                                <option value= "30" @if(conditionEnd.getOptionMinuteValue.equals("30")){selected}>30</option>
-                                <option value= "35" @if(conditionEnd.getOptionMinuteValue.equals("35")){selected}>35</option>
-                                <option value= "40" @if(conditionEnd.getOptionMinuteValue.equals("40")){selected}>40</option>
-                                <option value= "45" @if(conditionEnd.getOptionMinuteValue.equals("45")){selected}>45</option>
-                                <option value= "50" @if(conditionEnd.getOptionMinuteValue.equals("50")){selected}>50</option>
-                                <option value= "55" @if(conditionEnd.getOptionMinuteValue.equals("55")){selected}>55</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="section-no-padding">
-                        <input id="dateTo@conditionName" name="conditionList[@(i+1)].fieldValue" class="form-control conditionDateValue" type="text" @if(conditionEnd.getFieldValue !=null&&conditionEnd.getFieldValue.length >0){value='@conditionEnd.getFieldValue'}else{ value=''}/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

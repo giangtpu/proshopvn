@@ -381,6 +381,7 @@ public abstract class AbstractDAO<KeyType, T> extends AbstractCache<KeyType, T> 
         }
         return objList;
     }
+
     public Criteria createMultiCriteria (List<SearchCondition> searchConditionList){
         Criteria criteria = new Criteria();
         Integer mulConditionTotal = searchConditionList.size();
