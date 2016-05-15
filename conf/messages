@@ -135,6 +135,9 @@ Admin.Item.image3=Hình 3
 Admin.Item.notfound=Không tìm thấy sản phẩm
 Admin.Item.relateditem=Sản phẩm liên quan
 Admin.Item.selectrelateditem=Hãy chọn sản phẩm
+Admin.Item.Addreciept=Thêm nhập kho
+Admin.Item.reciept=Nhập kho
+Admin.Item.issue=Xuất kho
 
 Admin.Filters.rowvisible=Số dòng hiển thị
 Admin.Filters.result=Kết quả:

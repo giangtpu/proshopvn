@@ -23,8 +23,8 @@ public class RecieptIssue implements Serializable {
 
 
     public enum Types {
-        reciept(1),
-        issue(2)
+        reciept(1),             //nhap kho-chi phi
+        issue(2)            //xuat kho-doanh thu
         ;
 
         private final int code;

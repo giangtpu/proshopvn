@@ -63,6 +63,9 @@
                                             <th data-field="id">@Messages("Admin.user.usrid")</th>
                                             <th data-field="name">@Messages("Admin.Item.name")</th>
                                             <th data-field="categoryname">@Messages("Admin.Category.name")</th>
+                                            <th data-field="quantity">@Messages("Admin.Item.quantity")</th>
+                                            <th data-field="reciept">@Messages("Admin.Item.reciept")</th>
+                                            <th data-field="issue">@Messages("Admin.Item.issue")</th>
                                             <th data-field="actions">@Messages("Admin.action")</th>
                                         </thead>
                                         <tbody align="left">
@@ -71,6 +74,23 @@
                                                 <td>@item.getId</td>
                                                 <td>@item.getName</td>
                                                 <td>@item.getCategory_name</td>
+                                                <td>@item.getQuantity</td>
+                                                <td>
+                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs" href="javascript:void(0)"  data-toggle="modal" data-target="#addReciept">
+                                                        <i class="fa fa-plus"></i>
+                                                    </a>
+                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"   >
+                                                        <i class="fa fa-list"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs" href="javascript:void(0)"  >
+                                                        <i class="fa fa-plus"></i>
+                                                    </a>
+                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
+                                                        <i class="fa fa-list"></i>
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     @if(UserHelper.isAdmin(currentUser)) {
                                                         <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@item.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
@@ -102,26 +122,48 @@
         </div>
 
 
-
-            <div class="modal fade" id="deleteconfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="myModalLabel">@Messages("Admin.confirmDelete")</h4>
+        <div class="modal fade" id="deleteconfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" style="color:#FB404B;" id="myModalLabel">@Messages("Admin.confirmDelete")</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" hidden>
+                            <input id="id" class="form-control" name="id">
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group" hidden>
-                                <input id="id" class="form-control" name="id">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
-                            <button type="button" class="btn btn-info btn-simple" onclick="delItem()" data-dismiss="modal" style="margin:0">@Messages("btnDelete")</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                        <button type="button" class="btn btn-danger btn-simple" onclick="delItem()" data-dismiss="modal" style="margin:0">@Messages("btnDelete")</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="modal fade" id="addReciept" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">@Messages("Admin.Item.Addreciept")</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                        </div>
+                        <div class="form-group" hidden>
+                            <input id="id" class="form-control" name="id">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                        <button type="button" class="btn btn-info btn-simple" onclick="delItem()" data-dismiss="modal" style="margin:0">@Messages("btnAdd")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
