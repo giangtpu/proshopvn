@@ -32,7 +32,8 @@ public class JsController extends Controller {
                         routes.javascript.ItemController.saveitemImageDescription(),
                         routes.javascript.ItemController.deleteDescripFilePrefix(),
                         routes.javascript.ItemController.deleteDescripFile(),
-                        routes.javascript.ItemController.findRelatedItem()
+                        routes.javascript.ItemController.findRelatedItem(),
+                        routes.javascript.ItemController.deleteItem()
 
 
                 )

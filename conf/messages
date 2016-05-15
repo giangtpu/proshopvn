@@ -88,6 +88,7 @@ Admin.menu.User=Quản lý user
 Admin.menu.User.list=User list
 Admin.addsuccess=Thêm mới thành công
 Admin.deletesuccess=Xóa thành công
+Admin.deletefailed=Xóa không thành công
 Admin.Updatesuccess=Cập nhật thành công
 
 Admin.action=Action
@@ -142,3 +143,5 @@ Admin.Filters.add=Thêm tìm kiếm
 Admin.Filters=Tìm kiếm: {0}
 Admin.expande=(+)
 Admin.collapse=(-)
+Admin.Filters.prev=trước
+Admin.Filters.next=sau

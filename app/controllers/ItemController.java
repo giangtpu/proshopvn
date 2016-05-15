@@ -5,10 +5,7 @@ import dao.CategoryDAO;
 import dao.ItemDAO;
 import models.Category;
 import models.Item;
-import models.JSON.ItemImageUpload;
-import models.JSON.ItemNameId;
-import models.JSON.RelatedItemForm;
-import models.JSON.SearchItemData;
+import models.JSON.*;
 import models.SearchCondition;
 import models.SearchFilter;
 import models.forms.ItemForm;
@@ -798,14 +795,14 @@ public class ItemController extends AbstractController {
         }
 
 
-        for (SearchCondition searchCondition:searchConditionList){
-            System.out.println("getFieldName:"+searchCondition.getFieldName());
-            System.out.println("getFieldType:"+searchCondition.getFieldType());
-            System.out.println("getFieldValue:"+searchCondition.getFieldValue());
-            System.out.println("getCompQueryOp:"+searchCondition.getCompQueryOp());
-            System.out.println("getMulCondition:"+searchCondition.getMulCondition());
-            System.out.println("-----------------------------------");
-        }
+//        for (SearchCondition searchCondition:searchConditionList){
+//            System.out.println("getFieldName:"+searchCondition.getFieldName());
+//            System.out.println("getFieldType:"+searchCondition.getFieldType());
+//            System.out.println("getFieldValue:"+searchCondition.getFieldValue());
+//            System.out.println("getCompQueryOp:"+searchCondition.getCompQueryOp());
+//            System.out.println("getMulCondition:"+searchCondition.getMulCondition());
+//            System.out.println("-----------------------------------");
+//        }
 
         searchFilter.setConditionList(searchConditionList);
         searchFilter.setSortFieldName(sortFieldName);
@@ -867,6 +864,25 @@ public class ItemController extends AbstractController {
         return ok(Admin_item_list.render(getUserSession(), searchItemData, searchArray));
     }
     /////////////////////////////////ITEM LIST///////////////////////////////////////////
+
+    ////////////////////////DEL ITEM///////////////////////////////////////////////////////
+    public Result deleteItem(){
+
+        JsonNode json = request().body().asJson();
+        String id = json.findPath("id").textValue();
+
+        ItemDelForm itemDelForm=new ItemDelForm();
+        itemDelForm.setSuccess(false);
+
+        itemDAO.deleteByKey(id);
+        itemDelForm.setSuccess(true);
+        itemDelForm.setId(id);
+
+        return ok(Json.toJson(itemDelForm));
+
+    }
+
+    ////////////////////////DEL ITEM///////////////////////////////////////////////////////
 
 
 }

@@ -9,7 +9,7 @@
 @(currentUser: User,divRoot:String,conditionName:String,conditionStart: SearchConditionForm, conditionEnd: SearchConditionForm,i: Int)
 
 <div id="@divRoot" class="search-field col-md-12">
-    <div  class="search-field-date-from col-md-12" style="padding: 0">
+
         <div class="col-md-2 col-md-offset-1">
             @if(currentUser.getRole==1) {
                 <a class="filedHide">
@@ -38,6 +38,6 @@
             <input name="conditionList[@(i+1)].fieldType"  value="Date" class="form-control"  style="display: none">
             <input id="dateTo@conditionName" name="conditionList[@(i+1)].fieldValue" class="form-control datetimepicker" type="text" @if(conditionEnd.getFieldValue !=null&&conditionEnd.getFieldValue.length >0){value='@conditionEnd.getFieldValue'}else{ value=''}/>
         </div>
-    </div>
+
 
 </div>

@@ -78,6 +78,7 @@ $('.filedHide').click(function() {
         this.each( function() {
             $(this).find('.conditionTextValue').val('');
             $(this).find('.conditionIntValue').val('');
+            $(this).find('.conditionDoubleValue').val('');
             $(this).find('.conditionBooleanValue').val("any").change();
             $(this).find('.conditionHourValue').val('00:').change();
             $(this).find('.conditionMinuteValue').val('00').change();

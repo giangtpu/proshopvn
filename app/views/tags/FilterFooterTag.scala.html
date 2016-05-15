@@ -26,7 +26,7 @@
         <ul class="pagination" style="float: right!important;">
             @if(searchFilterForm.getPage >1){
                 <li><a onclick="ApplyFilter(1,@searchFilterForm.getPageSize,false)"><<</a></li>
-                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage-1),@searchFilterForm.getPageSize,false)">@Messages("Admin.Filters.prev")</a></li>
+                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage-1),@searchFilterForm.getPageSize,false)"><</a></li>
             }
 
             @for(item<-(1 to 3).reverse){
@@ -34,7 +34,7 @@
                     <li><a onclick="ApplyFilter(@(searchFilterForm.getPage-item),@searchFilterForm.getPageSize,false)">@(searchFilterForm.getPage-item)</a></li>
                 }
             }
-        <li><a onclick="ApplyFilter(@searchFilterForm.getPage,@searchFilterForm.getPageSize,false)" style="border-color: #666666;">@(searchFilterForm.getPage)</a></li>
+        <li><a onclick="ApplyFilter(@searchFilterForm.getPage,@searchFilterForm.getPageSize,false)" style="border-color: rgb(84, 36, 14);font-weight: 600;color: rgb(84, 36, 14);">@(searchFilterForm.getPage)</a></li>
 
             @for(item<-1 to 3){
                 @if((searchFilterForm.getPage + item) <= searchFilterForm.getTotalPage) {
@@ -42,7 +42,7 @@
                 }
             }
             @if(searchFilterForm.getPage < searchFilterForm.getTotalPage) {
-                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage + 1), @searchFilterForm.getPageSize,false)">@Messages("Admin.Filters.next")</a></li>
+                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage + 1), @searchFilterForm.getPageSize,false)">></a></li>
                 <li><a onclick="ApplyFilter( @(searchFilterForm.getTotalPage),@searchFilterForm.getPageSize,false)">>></a></li>
             }
         </ul>

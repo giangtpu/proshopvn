@@ -40,6 +40,38 @@ $().ready(function(){
 
 });
 
+function itemModel(){
+    id="";
+}
+
+var r_delItem=jsRoutes.controllers.ItemController.deleteItem();
+function delItem(){
+    var item=new itemModel();
+    item.id=$('#deleteconfirm input[name=id]').val();
+    $.ajax({
+        url: r_delItem.url,
+        dataType: 'json',
+        data: JSON.stringify(item),
+        contentType: "application/json; charset=utf-8",
+        type: r_delItem.type,
+        success: function(data){
+            console.log(data);
+            if(data.success){
+                showNotification('top','center','success',Messages("Admin.deletesuccess"),'pe-7s-like2');
+                $("#fresh-table").bootstrapTable("remove", {field:"id", values:[data.id]});
+
+            }else{
+                showNotification('top','center','danger',Messages("Admin.deletefailed"),'pe-7s-close-circle');
+            }
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus+" "+errorThrown);
+        }
+    });
+}
+
+
 function setdelid(id){
-    $('#deletecategory input[name=id]').val(id);
+    $('#deleteconfirm input[name=id]').val(id);
 }

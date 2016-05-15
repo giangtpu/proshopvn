@@ -77,7 +77,7 @@
                                                             <i class="fa fa-remove"></i>
                                                         </a>
                                                     }
-                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" href="@routes.ItemController.infoitem(item.getId())">
+                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" target="_newtab" href="@routes.ItemController.infoitem(item.getId())">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 </td>
@@ -102,7 +102,7 @@
         </div>
 
 
-        <form action="@routes.CategoryController.deleteCategory()" method="POST" id="deletecategory">
+
             <div class="modal fade" id="deleteconfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -117,12 +117,12 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
-                            <input type="submit" class="btn btn-info btn-simple" id="submit" value="@Messages("btnDelete")" style="margin:0">
+                            <button type="button" class="btn btn-info btn-simple" onclick="delItem()" data-dismiss="modal" style="margin:0">@Messages("btnDelete")</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+
 
 
 
@@ -130,6 +130,7 @@
 
     </body>
     <script type="text/javascript" src="@routes.JsController.jsMessages()"></script>
+    <script type="text/javascript" src="@routes.JsController.javascriptRoutes"></script>
 
         <!--   Core JS Files   -->
     <script src="@routes.Assets.at("js/jquery.min.js")" type="text/javascript"></script>
@@ -155,12 +156,6 @@
 
         <!--  Charts Plugin -->
         <!-- <script src="routes.Assets.at("js/chartist-admin.min.js")"></script>-->
-
-
-
-
-
-
 
 
     <script type="text/javascript">

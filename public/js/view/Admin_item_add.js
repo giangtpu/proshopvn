@@ -447,11 +447,11 @@ $("#submit").click(function(){
         var relatedItemValues=relatedItemValue.split(',');
 
         if (relatedItemValues.length>0){
-            alert(relatedItemValues);
+            //alert(relatedItemValues);
             for (i=0;i<relatedItemValues.length;i++){
                 var divString="<input name='relatedItems[]' type='text' class='form-control' value='"+relatedItemValues[i]+"'>"
                 $(divString).appendTo("#relatedItemValueSubmit")
-                alert(relatedItemValues[i]);
+                //alert(relatedItemValues[i]);
             }
         }
 

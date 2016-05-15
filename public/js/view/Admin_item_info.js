@@ -261,7 +261,7 @@ function initDateTime(){
     var today=new Date();
 
     if(!promo_init){
-        alert("not have promot");
+        //alert("not have promot");
         $( "#datePromotionStart" ).data("DateTimePicker").date( today);
         $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
         $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);

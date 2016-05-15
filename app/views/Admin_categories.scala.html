@@ -61,19 +61,25 @@
                                             <th data-field="actions">@Messages("Admin.action")</th>
                                         </thead>
                                         <tbody align="left">
-                                        @for(item<-menu.getCategoryList()) {
+                                        @for(submenu<-menu.getCategoryList()) {
                                             <tr>
-                                                <td>@item.getLevel</td>
-                                                <td>@for( level <-1 to item.getLevel()) {--------}@item.getName</td>
+                                                <td>@submenu.getLevel</td>
+                                                <td>@for( level <-1 to submenu.getLevel()) {--------}@submenu.getName</td>
                                                 <td>
                                                     @if(UserHelper.isAdmin(currentUser)) {
-                                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@item.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
+                                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@submenu.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
                                                             <i class="fa fa-remove"></i>
                                                         </a>
                                                     }
-                                                    <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" href="@routes.CategoryController.categoryInfo(item.getId())">
+                                                    <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" target="_newtab"  href="@routes.CategoryController.categoryInfo(submenu.getId())">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
+
+                                                    @if(submenu.isItemCategory){
+                                                        <a rel="tooltip" title="Items" class="btn btn-warning btn-simple btn-xs"   onclick="finditems('@submenu.getId()')">
+                                                            <i class="fa fa-gift"></i>
+                                                        </a>
+                                                    }
                                                 </td>
                                             </tr>
                                         }
@@ -90,6 +96,21 @@
                 @views.html.tags.AdminFooterTag()
             </div>
         </div>
+
+        <form action="@routes.ItemController.filteritemList()" method="POST" id="finditemform" target="_blank">
+            <div style="display: none">
+                <input name="page"  value="1"  style="display: none">
+                <input name="pageSize"  value="50"   style="display: none">
+                <input name="isResetPage"  value="false"   style="display: none">
+                <input name="sortFieldName"  value="lastModified"   style="display: none">
+                <input name="isDesc"  value="true"   style="display: none">
+                <input name="filter[0]"  value="category_id"   style="display: none">
+                <input name="conditionList[0].compQueryOp"  value="="   style="display: none">
+                <input name="conditionList[0].fieldName"  value="category_id" class="form-control"  style="display: none">
+                <input name="conditionList[0].fieldType"  value="String" class="form-control"  style="display:none">
+                <input id ="fieldValue" name="conditionList[0].fieldValue" style="display:none">
+            </div>
+        </form>
 
 
         <form action="@routes.CategoryController.deleteCategory()" method="POST" id="deletecategory">

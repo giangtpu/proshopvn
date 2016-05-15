@@ -43,3 +43,8 @@ $().ready(function(){
 function setdelid(id){
     $('#deletecategory input[name=id]').val(id);
 }
+
+function finditems(id){
+    $('#finditemform input[id=fieldValue]').val(id);
+    $('#finditemform').submit();
+}

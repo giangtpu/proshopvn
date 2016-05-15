@@ -43,6 +43,7 @@ POST         /update                                    controllers.ItemControll
 
 GET         /itemlist                                   controllers.ItemController.itemList()
 POST         /itemlist                              controllers.ItemController.filteritemList()
+POST         /deleteItem                              controllers.ItemController.deleteItem()
 
 GET         /                                       controllers.Admin.index()
 
