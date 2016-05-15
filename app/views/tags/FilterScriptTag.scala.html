@@ -31,7 +31,6 @@
 
     @for((item, index) <- searchFieldArray.zipWithIndex) {
         @if(item.equals("Date")) {
-
             $('#dateFrom'+'@searchFieldArray(index+1)').on("dp.change", function(e) {
                 $(  '#dateTo'+'@searchFieldArray(index+1)'  ).data("DateTimePicker").date(e.date);
                 $(  '#dateTo'+'@searchFieldArray(index+1)' ).data("DateTimePicker").minDate(e.date);
@@ -62,10 +61,25 @@
     }
     var applyButton = document.getElementById('ApplyFilter');
 
+    function showAdminFilter(){
+        $("#filterDeviceInfoListForm").show();
+        $("#aShowAdminFilter").attr("onclick","hideAdminFilter()");
+        $("#aShowAdminFilter2").attr("onclick","hideAdminFilter()");
+        $("#aShowAdminFilter2").text(Messages("Admin.collapse"));
+    }
+    function hideAdminFilter(){
+        $("#filterDeviceInfoListForm").hide();
+        $("#aShowAdminFilter").attr("onclick","showAdminFilter()");
+        $("#aShowAdminFilter2").attr("onclick","showAdminFilter()");
+        $("#aShowAdminFilter2").text(Messages("Admin.expande"));
+    }
+
     $(document).keypress(function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
             applyButton.click();
         }
     });
+
+
 </script>

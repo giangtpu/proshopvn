@@ -1,10 +1,12 @@
 .advanced-search{
     margin-bottom : 30px ;
-    margin-top: 10px;
     background-color: #FFE7C2;
     padding: 10px 10px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
 }
 .search-field{
     display: block;
@@ -25,9 +27,9 @@
 .select-multiple .selected{
     background-color: #007AFF;
 }
-.search-field-header .col-md-8{
-    padding-left : 15px ;
-}
+/*.search-field-header .col-md-8{*/
+    /*padding-left : 15px ;*/
+/*}*/
 .search-field-header{
     margin: 10px 0px;
 }

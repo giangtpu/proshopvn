@@ -5,28 +5,25 @@ $().ready(function(){
 
     });
 function InitValue(){
+
     for(i=0; i<array_list.length ; i++){
         var element = $('#' + array_list[i]);
-        element.hideAndReset();
-        //if(current_array_list !=null){
-        //    //console.log(current_array_list.indexOf(array_list[i]));
-        //    if(current_array_list.indexOf(array_list[i]) != -1){
-        //        //if( element.is(':hidden')) {
-        //        //    element.show();
-        //        //}
-        //        element.hide();
-        //        current_array_list.splice(current_array_list.indexOf(array_list[i]),1);
-        //    }else{
-        //        element.hideAndReset();
-        //    }
-        //    //console.log(current_array_list.indexOf( array_list[i]));
-        //}else{
-        //    element.hideAndReset();
-        //}
-        //element.hideAndReset();
+        if(current_array_list !=null){
+            //console.log(current_array_list.indexOf(array_list[i]));
+            if(current_array_list.indexOf(array_list[i]) != -1){
+                if( element.is(':hidden')) {
+                    element.show();
+                }
+            }else{
+                element.hideAndReset();
+            }
+            //console.log(current_array_list.indexOf( array_list[i]));
+        }else{
+            element.hideAndReset();
+        }
     }
 
-    current_array_list=[];
+    //current_array_list=[];
 
 }
 

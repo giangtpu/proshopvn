@@ -10,7 +10,7 @@
 @(currentUser: User,divRoot:String,conditionName:String,condition: SearchConditionForm, i: Int)
 <div id="@divRoot" class="search-field col-md-12" >
 
-    <div class="col-md-2">
+    <div class="col-md-2 col-md-offset-1">
         @if(currentUser.getRole==1) {
             <a class="filedHide">
                 <i class="pe-7s-less" style="font-size : 18px ;"></i>

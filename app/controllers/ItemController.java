@@ -630,19 +630,11 @@ public class ItemController extends AbstractController {
                 conditionItems++;
 
             }else  if (searchConditionForm.getFieldType().equals("Date") ) {
-
-//                String datefromString = searchConditionForm.getFieldValue();
-//                String dateHourfromString = searchConditionForm.getFieldValue() + "," + searchConditionForm.getOptionHourValue() + searchConditionForm.getOptionMinuteValue();
-
                 String datefromString = searchConditionForm.getFieldValue();
                 conditionItems++;
                 searchConditionForm = searchConditionFormList.get(conditionItems);
-//                String datetoString = searchConditionForm.getFieldValue();
-//                String dateHourtoString  = searchConditionForm.getFieldValue() + "," + searchConditionForm.getOptionHourValue() + searchConditionForm.getOptionMinuteValue();
                 String datetoString= searchConditionForm.getFieldValue();
                 conditionItems++;
-//                System.out.println("dateHourfromString:"+dateHourfromString);
-//                System.out.println("dateHourtoString:"+dateHourtoString);
                 if (StringUtils.isEmpty(datefromString) &&StringUtils.isEmpty(datetoString)  ) {
                     continue;
                 }else if( !StringUtils.isEmpty(datefromString) && StringUtils.isEmpty(datetoString) ){
@@ -804,11 +796,7 @@ public class ItemController extends AbstractController {
                 conditionItems++;
             }
         }
-        /*for( SearchCondition s : searchConditionList) {
-                System.out.println(s.getFieldName());
-                System.out.println(s.getCompQueryOp());
-                System.out.println(s.getFieldValue());
-        }*/
+
 
         for (SearchCondition searchCondition:searchConditionList){
             System.out.println("getFieldName:"+searchCondition.getFieldName());
@@ -840,7 +828,7 @@ public class ItemController extends AbstractController {
         searchItemData.setSearchFilterForm(searchFilterForm);
         searchItemData.setItemList(itemList);
 
-        System.out.println("itemList"+itemList.size());
+//        System.out.println("itemList"+itemList.size());
 
         List<String> searchArray = new ArrayList<String>();
         searchArray.add("String");

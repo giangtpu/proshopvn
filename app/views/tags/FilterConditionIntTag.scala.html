@@ -10,7 +10,7 @@
 
 <div id="@divRoot" class="search-field col-md-12">
 
-        <div class="col-md-2" >
+        <div class="col-md-2 col-md-offset-1" >
             @if(currentUser.getRole==1) {
                 <a class="filedHide">
                     <i class="pe-7s-less" style="font-size : 18px ;"></i>
@@ -37,7 +37,7 @@
 
 
 
-        <div class="col-md-6 col-md-offset-4" style=" padding-top: 10px">
+        <div class="col-md-6 col-md-offset-5" style=" padding-top: 10px">
             <input name="conditionList[@(i+1)].fieldName"  value="@conditionName" class="form-control"  style="display: none">
             <input name="conditionList[@(i+1)].compQueryOp"  value="<=" class="form-control"  style="display: none">
             <input name="conditionList[@(i+1)].fieldType"  value="Int" class="form-control" style="display: none">
