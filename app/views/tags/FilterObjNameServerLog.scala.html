@@ -1,0 +1,46 @@
+@import helper._
+@import play.mvc.Http._
+@import play.data.Form
+@import models.User
+@import models.forms.SearchConditionForm
+@import java.util
+@import utils.StaticData
+@import utils.DateUtil
+
+@(currentUser: User,divRoot:String,conditionName:String,condition: SearchConditionForm, i: Int)
+<div id="@divRoot" class="search-field col-md-12">
+    <div class="col-md-2">
+        <div>
+            @if(currentUser.getRole==1) {
+                <a class="filedHide">
+                    <i class="pe-7s-less" style="font-size : 18px ;"></i>
+                </a>
+            }
+            <span class="navitem" style="font-size: 18px">@Messages(conditionName)</span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <input name="conditionList[@i].fieldName"  value="@conditionName" class="form-control"  style="display: none">
+        <input name="conditionList[@i].fieldType"  value="ObjName" class="form-control"  style="display:none">
+        <input name="conditionList[@i].compQueryOp"  value="=" class="form-control"  style="display:none">
+        <select name="conditionList[@i].fieldValue" class="conditionObjNameServerLogValue selectpicker" data-style="form-control" data-menu-style="">
+            <option value= "any" @if(condition.getFieldValue.equals("any") || condition.getFieldValue == null ) {selected} >any</option>
+            <option value= "1" @if(condition.getFieldValue.equals("1") || condition.getFieldValue == null ) {selected} >DeviceInfo</option>
+            <option value= "2"  @if(condition.getFieldValue.equals("2") ){selected}>DeviceGPS</option>
+            <option value= "3"  @if(condition.getFieldValue.equals("3")){selected}>UserMkid</option>
+            <option value= "4"  @if(condition.getFieldValue.equals("4")){selected}>UserAdmin</option>
+            <option value= "5"  @if(condition.getFieldValue.equals("5") ){selected}>UserDevice</option>
+            <option value= "6"  @if(condition.getFieldValue.equals("6") ){selected}>SimPackage</option>
+            <option value= "7"  @if(condition.getFieldValue.equals("7") ){selected}>AppConfig</option>
+            <option value= "8"  @if(condition.getFieldValue.equals("8") ){selected}>KeyDeviceList</option>
+            <option value= "9"  @if(condition.getFieldValue.equals("9") ){selected}>LockPhoneList</option>
+            <option value= "10"  @if(condition.getFieldValue.equals("10") ){selected}>FirmwareKey</option>
+            <option value= "11" @if(condition.getFieldValue.equals("11") ){selected}>ViettelOrder</option>
+            <option value= "12"  @if(condition.getFieldValue.equals("12") ){selected}>ClearCache</option>
+            <option value= "13"  @if(condition.getFieldValue.equals("13") ){selected}>SetDevKey</option>
+            <option value= "14"  @if(condition.getFieldValue.equals("14") ){selected}>ServerLog</option>
+        </select>
+    </div>
+</div>
+
+

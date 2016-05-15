@@ -22,6 +22,7 @@ import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Http;
 import services.UserService;
+import utils.DateUtil;
 import utils.ImageUtil;
 import utils.ItemHelper;
 import utils.UserHelper;
@@ -195,6 +196,7 @@ public class AbstractController extends Controller{
         }
         List<Category> categories=getListCategoryMenu();
         menu.setCategoryList(categories);
+        menu.setLastUpdate(DateUtil.now());
         menuDAO.save(menu);
     }
 

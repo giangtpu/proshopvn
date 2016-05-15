@@ -1,0 +1,37 @@
+@import helper._
+@import play.mvc.Http._
+@import play.data.Form
+@import models.User
+@import models.forms.SearchConditionForm
+@import java.util
+@import utils.StaticData
+@import utils.DateUtil
+
+@(currentUser: User,divRoot:String,conditionName:String,condition: SearchConditionForm, i: Int)
+<div id="@divRoot" class="search-field col-md-12">
+    <div class="col-md-2">
+        <div>
+            @if(currentUser.getRole==1) {
+                <a class="filedHide">
+                    <i class="pe-7s-less" style="font-size : 18px ;"></i>
+                </a>
+            }
+            <span class="navitem" style="font-size: 18px">@Messages(conditionName)</span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <input name="conditionList[@i].fieldName"  value="@conditionName" class="form-control"  style="display: none">
+        <input name="conditionList[@i].fieldType"  value="Action" class="form-control"  style="display:none">
+        <input name="conditionList[@i].compQueryOp"  value="=" class="form-control"  style="display:none">
+        <select name="conditionList[@i].fieldValue" class="conditionActionServerLogValue selectpicker" data-style="form-control" data-menu-style="">
+            <option value= "any" @if(condition.getFieldValue.equals("any") || condition.getFieldValue == null ) {selected} >any</option>
+            <option value= "1" @if(condition.getFieldValue.equals("1") || condition.getFieldValue == null ) {selected} >New</option>
+            <option value= "2"  @if(condition.getFieldValue.equals("2") ){selected}>Edit</option>
+            <option value= "3"  @if(condition.getFieldValue.equals("3")){selected}>Delete</option>
+            <option value= "4"  @if(condition.getFieldValue.equals("4")){selected}>Clear</option>
+            <option value= "5"  @if(condition.getFieldValue.equals("5") ){selected}>SendSMS</option>
+            <option value= "6"  @if(condition.getFieldValue.equals("6") ){selected}>Access</option>
+        </select>
+    </div>
+</div>
+

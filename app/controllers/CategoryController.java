@@ -9,6 +9,7 @@ import play.Logger;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Security;
+import utils.DateUtil;
 import utils.ItemHelper;
 import views.html.Admin_categories;
 import views.html.Admin_category_add;
@@ -156,6 +157,7 @@ public class CategoryController extends AbstractController {
 
         category.setDescription(formcategory.getDescription());
         writeCatagoryImageTodisk(formcategory,category);
+        category.setLastModified(DateUtil.now());
         categoryDAO.save(category);
         updateMenu();
 

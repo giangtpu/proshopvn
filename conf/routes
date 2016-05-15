@@ -41,6 +41,8 @@ POST         /findRelatedItem                   controllers.ItemController.findR
 GET         /infoitem/:id                                    controllers.ItemController.infoitem(id:String)
 POST         /update                                    controllers.ItemController.updateItem()
 
+GET         /itemlist                                   controllers.ItemController.itemList()
+POST         /itemlist                              controllers.ItemController.filteritemList()
 
 GET         /                                       controllers.Admin.index()
 

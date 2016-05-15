@@ -1,0 +1,52 @@
+@import models.forms.SearchFilterForm
+@(searchFilterForm:SearchFilterForm )
+<div class="fresh-table">
+    <div class="fixed-table-pagination">
+        <div class="col-md-6 pull-left pagination-detail">
+            <span class="pagination-info"></span>
+            <span class="page-list"></span>
+            <span class="btn-group dropup">
+                <button type="button" class="btn btn-default  dropdown-toggle" data-toggle="dropdown">
+                    <span class="pagesize">@searchFilterForm.getPageSize</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:ApplyFilter(1,10,true)">10</a></li>
+                    <li><a href="javascript:ApplyFilter(1,20,true)">20</a></li>
+                    <li><a href="javascript:ApplyFilter(1,50,true)">50</a></li>
+                    <li><a href="javascript:ApplyFilter(1,100,true)">100</a></li>
+                    <li><a href="javascript:ApplyFilter(1,200,true)">200</a></li>
+                </ul>
+            </span>
+
+            <span style="margin-left:10px">@Messages("Admin.Filters.rowvisible")</span>
+        </div>
+
+
+        <ul class="pagination" style="float: right!important;">
+            @if(searchFilterForm.getPage >1){
+                <li><a onclick="ApplyFilter(1,@searchFilterForm.getPageSize,false)"><<</a></li>
+                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage-1),@searchFilterForm.getPageSize,false)">@Messages("Admin.Filters.prev")</a></li>
+            }
+
+            @for(item<-(1 to 3).reverse){
+                @if( (searchFilterForm.getPage - item) >0){
+                    <li><a onclick="ApplyFilter(@(searchFilterForm.getPage-item),@searchFilterForm.getPageSize,false)">@(searchFilterForm.getPage-item)</a></li>
+                }
+            }
+        <li><a onclick="ApplyFilter(@searchFilterForm.getPage,@searchFilterForm.getPageSize,false)" style="border-color: #666666;">@(searchFilterForm.getPage)</a></li>
+
+            @for(item<-1 to 3){
+                @if((searchFilterForm.getPage + item) <= searchFilterForm.getTotalPage) {
+                    <li><a onclick="ApplyFilter(@(searchFilterForm.getPage + item),@searchFilterForm.getPageSize,false)">@(searchFilterForm.getPage + item)</a></li>
+                }
+            }
+            @if(searchFilterForm.getPage < searchFilterForm.getTotalPage) {
+                <li><a onclick="ApplyFilter(@(searchFilterForm.getPage + 1), @searchFilterForm.getPageSize,false)">@Messages("Admin.Filters.next")</a></li>
+                <li><a onclick="ApplyFilter( @(searchFilterForm.getTotalPage),@searchFilterForm.getPageSize,false)">>></a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+

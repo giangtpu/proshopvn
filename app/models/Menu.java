@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,10 +14,11 @@ import java.util.List;
 @ModelData(collection = "Menu", mapCacheName = "", mapCacheTTL = 86400)
 @Document(collection = "Menu")
 public class Menu implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     @Id
     private String id;
     private List<Category> categoryList;
+    private Date lastUpdate;
 
     public Menu() {
     }
@@ -35,5 +37,13 @@ public class Menu implements Serializable {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

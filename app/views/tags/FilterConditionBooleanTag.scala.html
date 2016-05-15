@@ -1,0 +1,32 @@
+@import helper._
+@import play.mvc.Http._
+@import play.data.Form
+@import models.User
+@import models.forms.SearchConditionForm
+@import java.util
+@import utils.StaticData
+@import utils.DateUtil
+
+@(currentUser: User,divRoot:String,conditionName:String,condition: SearchConditionForm, i: Int)
+<div id="@divRoot" class="search-field col-md-12">
+    <div class="col-md-2">
+        <div>
+            @if(currentUser.getRole==1) {
+                <a class="filedHide">
+                    <i class="pe-7s-less" style="font-size : 18px ;"></i>
+                </a>
+            }
+            <span class="navitem" style="font-size: 18px">@Messages(conditionName)</span>
+        </div>
+    </div>
+    <div class="col-md-2"  @if(currentUser.getRole!=1) {style="padding-left: 0px;"}>
+        <input name="conditionList[@i].fieldName"  value="@conditionName" class="form-control"  style="display: none">
+        <input name="conditionList[@i].fieldType"  value="Boolean" class="form-control"  style="display:none">
+        <input name="conditionList[@i].compQueryOp"  value="=" class="form-control"  style="display:none">
+        <select name="conditionList[@i].fieldValue" class="conditionBooleanValue selectpicker" data-style="form-control" data-menu-style="">
+            <option value= "true" @if(condition.getFieldValue.equals("true") ){selected} >true</option>
+            <option value= "false"  @if(condition.getFieldValue.equals("false") || condition.getFieldValue == null){selected}>false</option>
+            <option value= "any"  @if(condition.getFieldValue.equals("any") || condition.getFieldValue == null){selected}> </option>
+        </select>
+    </div>
+</div>

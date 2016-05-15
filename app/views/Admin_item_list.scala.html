@@ -5,7 +5,8 @@
 @import java.util
 @import utils.StaticData
 @import utils.UserHelper
-@(currentUser:User,menu:Menu)
+@import models.JSON.SearchItemData
+@(currentUser:User,searchResultData:SearchItemData,searchField:List[String])
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,6 +31,7 @@
         <link href="@routes.Assets.versioned("css/pe-icon-7-stroke.css")" rel="stylesheet" />
 
 
+        <link href="@routes.Assets.versioned("css/SearchDevice.css")" rel="stylesheet" />
 
             <!--  CSS for Demo Purpose, don't include it in your project     -->
             <!-- <link href="routes.Assets.versioned("css/demo-admin.css")" rel="stylesheet" />-->
@@ -44,41 +46,48 @@
                 @views.html.tags.AdminNavBarTag()
 
                 <div class="content">
+                        <!-- Include field search here  -->
+
+                    @views.html.tags.FilterHeaderTag(currentUser,searchResultData.getSearchFilterForm,searchField,"/itemlist")
+
                     <div class="container-fluid">
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="toolbar">
 
                                     </div>
-
-
                                     <table id="fresh-table" class="table">
-
                                         <thead>
-                                            <th data-field="level">@Messages("Admin.Category.level")</th>
-                                            <th data-field="name">@Messages("Admin.Category.name")</th>
+                                            <th data-field="id">@Messages("Admin.user.usrid")</th>
+                                            <th data-field="name">@Messages("Admin.Item.name")</th>
+                                            <th data-field="categoryname">@Messages("Admin.Category.name")</th>
                                             <th data-field="actions">@Messages("Admin.action")</th>
                                         </thead>
                                         <tbody align="left">
-                                        @for(item<-menu.getCategoryList()) {
+                                        @for((item,index)<-searchResultData.getItemList.zipWithIndex) {
                                             <tr>
-                                                <td>@item.getLevel</td>
-                                                <td>@for( level <-1 to item.getLevel()) {--------}@item.getName</td>
+                                                <td>@item.getId</td>
+                                                <td>@item.getName</td>
+                                                <td>@item.getCategory_name</td>
                                                 <td>
                                                     @if(UserHelper.isAdmin(currentUser)) {
                                                         <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@item.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
                                                             <i class="fa fa-remove"></i>
                                                         </a>
                                                     }
-                                                    <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" href="@routes.CategoryController.categoryInfo(item.getId())">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" href="@routes.ItemController.infoitem(item.getId())">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
                                                 </td>
                                             </tr>
                                         }
                                         </tbody>
                                     </table>
+
+                                        <!-- Include page size and paging of search result here  -->
+                                    @views.html.tags.FilterFooterTag(searchResultData.getSearchFilterForm)
 
                                 </div>
                             </div>
@@ -147,25 +156,27 @@
 
 
     <script type="text/javascript">
-    	$(document).ready(function(){
+            $(document).ready(function(){
 
-            @if(flash.containsKey("success")) {
-            showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
-            }
-            @if(flash.containsKey("failed")) {
-            showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
-            }
+                @if(flash.containsKey("success")) {
+                showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
+                }
+                @if(flash.containsKey("failed")) {
+                showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
+                }
 
 
-            $('#categorymenu').addClass('active');
-            $('#categorymenu #componentcategorymenu').collapse('show');
-            $('#categorymenu #categorylist').addClass('active');
+                $('#itemmenu').addClass('active');
+                $('#itemmenu #componentitemmenu').collapse('show');
+                $('#itemmenu #itemlist').addClass('active');
 
-    	});
-	</script>
+            });
+    </script>
 
-    <script src="@routes.Assets.at("js/view/Admin_categories.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/view/Admin_item_list.js")" type="text/javascript"></script>
 
     <script src="@routes.Assets.at("js/ShowNotification.js")" type="text/javascript"></script>
+
+    @views.html.tags.FilterScriptTag(searchResultData.getSearchFilterForm,searchField)
 
 </html>
