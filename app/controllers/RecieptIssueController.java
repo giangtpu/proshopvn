@@ -61,7 +61,36 @@ public class RecieptIssueController extends AbstractController {
     }
 
     public Result addIssue() {
-        return ok();
+        Form<ReceiptForm> recieptIssueFormForm = formFactory.form(ReceiptForm.class);
+
+        ReceiptForm responeForm=new ReceiptForm();
+        responeForm.setSuccess(false);
+        if (recieptIssueFormForm.hasErrors()) {
+            responeForm.setErrorMessage(getMessages().at("form.error"));
+            return ok(Json.toJson(responeForm));
+        }
+        ReceiptForm recieptIssueForm=recieptIssueFormForm.bindFromRequest().get();
+        RecieptIssue recieptIssue=new RecieptIssue();
+        recieptIssueForm.fillToRecieptIssue(recieptIssue);
+        Item item=itemDAO.getByKey(recieptIssue.getItem_id());
+        if(item==null){
+            responeForm.setErrorMessage(getMessages().at("Admin.Item.notfound"));
+            return ok(Json.toJson(responeForm));
+        }
+
+        if(item.getQuantity()-recieptIssue.getQuantity()<0){
+            responeForm.setErrorMessage(getMessages().at("Admin.issue.overquantity"));
+            return ok(Json.toJson(responeForm));
+        }
+
+        item.setQuantity(item.getQuantity()-recieptIssue.getQuantity());
+
+        itemDAO.save(item);
+        recieptIssueDAO.save(recieptIssue);
+        responeForm.setSuccess(true);
+        responeForm.setQuantity(item.getQuantity());
+        responeForm.setItem_id(item.getId());
+        return ok(Json.toJson(responeForm));
     }
 
 }

@@ -1,7 +1,9 @@
 package models.JSON;
 
 import models.RecieptIssue;
+import org.springframework.util.StringUtils;
 import utils.DateUtil;
+import utils.StringUtil;
 
 import java.util.Date;
 
@@ -27,6 +29,7 @@ public class ReceiptForm {
 
     public void fillToRecieptIssue(RecieptIssue recieptIssue){
 
+
         recieptIssue.setItem_id(getItem_id());
         recieptIssue.setItem_name(getItem_name());
         recieptIssue.setPrice(getPrice());
@@ -38,6 +41,11 @@ public class ReceiptForm {
                 DateUtil.TIME_ITEM));
 
         recieptIssue.setDatePurchase(datePurc);
+
+        if(!StringUtils.isEmpty(getDescription()))
+        {
+            recieptIssue.setDescription(getDescription());
+        }
 
     }
 

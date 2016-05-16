@@ -90,3 +90,26 @@ $("#addRecieptForm").submit(function(e) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });
 
+var r_addIssueForm=jsRoutes.controllers.RecieptIssueController.addIssue();
+$("#addIssueForm").submit(function(e) {
+    $.ajax({
+        type: r_addIssueForm.type,
+        url: r_addIssueForm.url,
+        data: $("#addIssueForm").serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+            $("#addIssue").modal('hide');
+            if(data.success){
+                var positionTable=$("#fresh-table").bootstrapTable("findrow", {field:"id", values:[data.item_id]});
+                $("#fresh-table").bootstrapTable("updateCell", {rowIndex:positionTable,fieldName:"quantity", fieldValue:data.quantity});
+                showNotification('top','center','success',Messages("Admin.issue.addsuccess"),'pe-7s-like2');
+
+            }else{
+                showNotification('top','center','danger',data.errorMessage,'pe-7s-close-circle');
+            }
+
+
+        }
+    });
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});

@@ -152,3 +152,7 @@ Admin.Filters.next=sau
 Admin.reciept.datepurchase=Ngày nhập
 Admin.reciept.addsuccess=Thêm nhập kho thành công
 Admin.reciept.addfailed=Thêm không thành công
+
+Admin.issue.overquantity=Số lượng sản phẩm còn lại ko đủ để xuất kho
+Admin.issue.datepurchase=Ngày xuất
+Admin.issue.addsuccess=Thêm xuất kho thành công
