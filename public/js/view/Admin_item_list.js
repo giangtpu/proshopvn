@@ -36,9 +36,8 @@ $().ready(function(){
     $(window).resize(function () {
         $table.bootstrapTable('resetView');
     });
-
-
 });
+
 
 function itemModel(){
     id="";
@@ -75,3 +74,4 @@ function delItem(){
 function setdelid(id){
     $('#deleteconfirm input[name=id]').val(id);
 }
+

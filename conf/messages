@@ -148,3 +148,7 @@ Admin.expande=(+)
 Admin.collapse=(-)
 Admin.Filters.prev=trước
 Admin.Filters.next=sau
+
+Admin.reciept.datepurchase=Ngày nhập
+Admin.reciept.addsuccess=Thêm nhập kho thành công
+Admin.reciept.addfailed=Thêm không thành công

@@ -70,9 +70,10 @@ public class RecieptIssue implements Serializable {
     private String item_id;
     private String item_name;       //neu ko tim thay item - day la chi phi phat sinh khac
     private String description;
-    private int quality;
+    private int quantity;
     private double price; //gia xuat - nhap kho
     private Date datePurchase;    //ngay xuat - nhap kho
+    private Date lastmodifide;
 
 
 
@@ -80,7 +81,7 @@ public class RecieptIssue implements Serializable {
 
     public RecieptIssue() {
         this.id= ItemHelper.generateId();
-        this.datePurchase= DateUtil.now();
+        this.lastmodifide=DateUtil.now();
     }
 
     public String getId() {
@@ -107,12 +108,20 @@ public class RecieptIssue implements Serializable {
         this.description = description;
     }
 
-    public int getQuality() {
-        return quality;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Date getLastmodifide() {
+        return lastmodifide;
+    }
+
+    public void setLastmodifide(Date lastmodifide) {
+        this.lastmodifide = lastmodifide;
     }
 
     public int getType() {

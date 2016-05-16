@@ -2260,6 +2260,11 @@
         this.checkBy_(false, obj);
     };
 
+    //Giangbb
+    BootstrapTable.prototype.findrow = function (obj) {
+        this.findrow(obj);
+    };
+
     BootstrapTable.prototype.checkBy_ = function (checked, obj) {
         if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
             return;
@@ -2280,6 +2285,29 @@
         });
         this.updateSelected();
         this.trigger(checked ? 'check-some' : 'uncheck-some', rows);
+    };
+
+    //Giangbb
+    BootstrapTable.prototype.findrow = function (obj) {
+        //values la 1 array
+        if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
+            return;
+        }
+        var that = this,
+            rows = [],
+            positions=[];
+
+        $.each(this.options.data, function (index, row) {
+            if (!row.hasOwnProperty(obj.field)) {
+                return false;
+            }
+            //alert("row field:"+row[obj.field]+" obj.values:"+obj.values);
+            if ($.inArray(row[obj.field], obj.values) > -1) {
+                //alert("row in array");
+                positions.push(index);
+            }
+        });
+        return positions;
     };
 
     BootstrapTable.prototype.destroy = function () {
@@ -2419,6 +2447,9 @@
         'checkAll', 'uncheckAll',
         'check', 'uncheck',
         'checkBy', 'uncheckBy',
+        //giangbb
+        'findrow',
+        //giangbb
         'refresh',
         'resetView',
         'resetWidth',

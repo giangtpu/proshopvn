@@ -45,6 +45,11 @@ GET         /itemlist                                   controllers.ItemControll
 POST         /itemlist                              controllers.ItemController.filteritemList()
 POST         /deleteItem                              controllers.ItemController.deleteItem()
 
+
+POST        /addReciept                             controllers.RecieptIssueController.addReciept()
+POST        /addIssue                             controllers.RecieptIssueController.addIssue()
+
+
 GET         /                                       controllers.Admin.index()
 
 

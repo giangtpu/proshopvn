@@ -32,6 +32,7 @@
 
 
         <link href="@routes.Assets.versioned("css/SearchDevice.css")" rel="stylesheet" />
+        <link href="@routes.Assets.versioned("css/view/Admin_item_list.css")" rel="stylesheet" />
 
             <!--  CSS for Demo Purpose, don't include it in your project     -->
             <!-- <link href="routes.Assets.versioned("css/demo-admin.css")" rel="stylesheet" />-->
@@ -76,15 +77,17 @@
                                                 <td>@item.getCategory_name</td>
                                                 <td>@item.getQuantity</td>
                                                 <td>
-                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs" href="javascript:void(0)"  data-toggle="modal" data-target="#addReciept">
+                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs"  data-toggle="modal" data-target="#addReciept"
+                                                    onclick="initReceipt('@item.getId','@item.getName')">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
-                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"   >
+                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
                                                         <i class="fa fa-list"></i>
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs" href="javascript:void(0)"  >
+                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs"  data-toggle="modal" data-target="#addIssue"
+                                                    onclick="initIssue('@item.getId','@item.getName')">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                                                     <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
@@ -142,29 +145,9 @@
             </div>
         </div>
 
-        <div class="modal fade" id="addReciept" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="myModalLabel">@Messages("Admin.Item.Addreciept")</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
 
-                        </div>
-                        <div class="form-group" hidden>
-                            <input id="id" class="form-control" name="id">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
-                        <button type="button" class="btn btn-info btn-simple" onclick="delItem()" data-dismiss="modal" style="margin:0">@Messages("btnAdd")</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @views.html.Admin_item_Tag.Admin_item_list_receipt()
+        @views.html.Admin_item_Tag.Admin_item_list_issue()
 
 
 
@@ -192,6 +175,11 @@
     <script src="@routes.Assets.at("js/moment.min.js")"></script>
     <script src="@routes.Assets.at("js/bootstrap-datetimepicker.js")" type="text/javascript"></script>
 
+        <!--  Forms Validations Plugin -->
+    <script src="@routes.Assets.at("js/jquery.validate.min.js")"></script>
+    <script src="@routes.Assets.at("js/additional-methods.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/jquery-validate-extended.js")" type="text/javascript"></script>
+
 
         <!--  Checkbox, Radio & Switch Plugins -->
         <!-- <script src="routes.Assets.at("js/bootstrap-checkbox-radio-switch.js")"></script>-->
@@ -217,6 +205,7 @@
     </script>
 
     <script src="@routes.Assets.at("js/view/Admin_item_list.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("js/view/Admin_item_list_RecieptIssue.js")" type="text/javascript"></script>
 
     <script src="@routes.Assets.at("js/ShowNotification.js")" type="text/javascript"></script>
 

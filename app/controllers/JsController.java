@@ -33,9 +33,9 @@ public class JsController extends Controller {
                         routes.javascript.ItemController.deleteDescripFilePrefix(),
                         routes.javascript.ItemController.deleteDescripFile(),
                         routes.javascript.ItemController.findRelatedItem(),
-                        routes.javascript.ItemController.deleteItem()
-
-
+                        routes.javascript.ItemController.deleteItem(),
+                        routes.javascript.RecieptIssueController.addReciept(),
+                        routes.javascript.RecieptIssueController.addIssue()
                 )
 
         ).as("text/javascript");
