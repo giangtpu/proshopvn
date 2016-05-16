@@ -93,4 +93,8 @@ public class RecieptIssueController extends AbstractController {
         return ok(Json.toJson(responeForm));
     }
 
+
+    public Result recieptIssueList(){
+        return ok();
+    }
 }

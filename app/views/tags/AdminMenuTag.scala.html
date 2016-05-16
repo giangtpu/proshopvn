@@ -95,6 +95,15 @@
                 </li>
             }
 
+            @if(UserHelper.isAdmin(currentUser)) {
+                <li id="recieptissuemenu">
+                    <a href="@routes.Admin.index()">
+                        <i class="pe-7s-repeat"></i>
+                        <p>@Messages("Admin.recieptissue.menu")</p>
+                    </a>
+                </li>
+            }
+
 
         </ul>
     </div>
