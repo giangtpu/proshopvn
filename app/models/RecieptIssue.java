@@ -19,7 +19,7 @@ import java.util.Map;
 @ModelData(collection = "RecieptIssue", mapCacheName = "", mapCacheTTL = 86400)
 @Document(collection = "RecieptIssue")
 public class RecieptIssue implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
 
     public enum Types {
@@ -75,6 +75,7 @@ public class RecieptIssue implements Serializable {
     private Date datePurchase;    //ngay xuat - nhap kho
     private Date lastmodified;
 
+    private double total;
 
 
 
@@ -154,5 +155,13 @@ public class RecieptIssue implements Serializable {
 
     public void setItem_name(String item_name) {
         this.item_name = item_name;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

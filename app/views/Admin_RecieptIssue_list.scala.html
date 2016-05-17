@@ -73,7 +73,7 @@
                                             <tr>
                                                 <td>@recieptIssue.getId</td>
                                                 <td>@RecieptIssue.Types.getNameByCode(recieptIssue.getType)</td>
-                                                <td><a href="@routes.ItemController.infoitem(recieptIssue.getItem_id())" target="_newtab">@recieptIssue.getItem_name</a></td>
+                                                <td><a target="_blank" href="@routes.ItemController.infoitem(recieptIssue.getItem_id())" >@recieptIssue.getItem_name</a></td>
                                                 <td>@recieptIssue.getQuantity</td>
                                                 <td>@recieptIssue.getPrice</td>
                                                 <td>@recieptIssue.getDatePurchase</td>

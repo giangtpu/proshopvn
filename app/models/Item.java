@@ -39,11 +39,11 @@ public class Item implements Serializable {
     private List<String> images=new ArrayList<String>();
     private String producer;    //nha san xuat
     private String origin; //xuat xu
-    private int warrantyTime;       //thoi gian bao hanh - tinh theo thang
+    private int warrantyTime=0;       //thoi gian bao hanh - tinh theo thang
 
-    private int quantity;
-    private double price_receipt;   //gia nhap hang
-    private double price_sell;      //gia ban
+    private int quantity=0;
+    private double price_receipt;   //gia nhap hang --> ko dung nua
+    private double price_sell=0;      //gia ban
     private Date lastModified;
 
     private boolean promotion=false;    //khuyen mai

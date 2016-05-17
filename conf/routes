@@ -51,6 +51,8 @@ POST        /addIssue                             controllers.RecieptIssueContro
 
 GET        /recieptList                             controllers.RecieptIssueController.recieptList()
 POST        /recieptList                             controllers.RecieptIssueController.filterrecieptList()
+
+
 GET        /issueList                             controllers.RecieptIssueController.issueList()
 POST        /issueList                             controllers.RecieptIssueController.filterissueList()
 

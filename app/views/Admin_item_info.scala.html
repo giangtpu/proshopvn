@@ -76,7 +76,7 @@
                                                 <div class="form-group">
                                                     <label for="quantity">@Messages("Admin.Item.quantity")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="quantity" type="text" required="true" number="true" class="form-control" placeholder="quantity"  autocomplete="off" value="@item.getQuantity">
+                                                    <input name="quantity" type="text" readonly class="form-control" placeholder="quantity"  autocomplete="off" value="@item.getQuantity">
                                                 </div>
                                             </div>
                                         </div>
@@ -99,22 +99,12 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="price_receipt">@Messages("Admin.Item.price_receipt")</label>
-                                                    <input type="text" style="display:none">
-                                                    <input name="price_receipt" required="true" number="true" type="text" class="form-control" placeholder="price_receipt"  autocomplete="off" value="@item.getPrice_receipt">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
                                                     <label for="price_sell">@Messages("Admin.Item.price_sell")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="price_sell" required="true" number="true" type="text" class="form-control" placeholder="price_sell"  autocomplete="off" value="@item.getPrice_sell">
+                                                    <input name="price_sell" number="true" type="text" class="form-control" placeholder="price_sell"  autocomplete="off" value="@item.getPrice_sell">
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="producer">@Messages("Admin.Item.producer")</label>
@@ -122,7 +112,9 @@
                                                     <input name="producer" type="text" class="form-control" placeholder="producer"  autocomplete="off" value="@item.getProducer">
                                                 </div>
                                             </div>
+                                        </div>
 
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="origin">@Messages("Admin.Item.origin")</label>
@@ -130,9 +122,7 @@
                                                     <input name="origin" type="text" class="form-control" placeholder="origin"  autocomplete="off" value="@item.getOrigin">
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="material">@Messages("Admin.Item.material")</label>
@@ -140,12 +130,14 @@
                                                     <input name="material" type="text" class="form-control" placeholder="material"  autocomplete="off" value="@item.getMaterial">
                                                 </div>
                                             </div>
+                                        </div>
 
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="warrantyTime">@Messages("Admin.Item.warrantyTime")</label>
                                                     <input type="text" style="display:none">
-                                                    <input name="warrantyTime" required="true"  number="true" type="text" class="form-control" placeholder="warrantyTime"  autocomplete="off" value="@item.getWarrantyTime">
+                                                    <input name="warrantyTime"   number="true" type="text" class="form-control" placeholder="warrantyTime"  autocomplete="off" value="@item.getWarrantyTime">
                                                 </div>
                                             </div>
                                         </div>
@@ -205,8 +197,8 @@
                                                         <div>
                                                             <select id="related_cate" class="selectpicker" data-style="form-control" data-menu-style="" data-live-search="true" onchange="fillRelatedItem()">
                                                                 <option value= "none" data-hidden="true">None</option>
-                                                                @for(item<-menu.getCategoryList()) {
-                                                                    <option value= "@item.getId">@for( level <-1 to item.getLevel()) {--------}@item.getName</option>
+                                                                @for(submenu<-menu.getCategoryList()) {
+                                                                    <option value= "@submenu.getId" @if(!submenu.isItemCategory){disabled}>@for( level <-1 to submenu.getLevel()) {--------}@submenu.getName</option>
                                                                 }
                                                             </select>
                                                         </div>

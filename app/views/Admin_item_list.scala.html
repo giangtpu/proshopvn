@@ -81,7 +81,7 @@
                                                     onclick="initReceipt('@item.getId','@item.getName')">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
-                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
+                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" onclick="findReceiptByItem('@item.getId')">
                                                         <i class="fa fa-list"></i>
                                                     </a>
                                                 </td>
@@ -90,7 +90,7 @@
                                                     onclick="initIssue('@item.getId','@item.getName')">
                                                         <i class="fa fa-minus"></i>
                                                     </a>
-                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
+                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" onclick="findIssueByItem('@item.getId')" >
                                                         <i class="fa fa-list"></i>
                                                     </a>
                                                 </td>
@@ -100,7 +100,7 @@
                                                             <i class="fa fa-remove"></i>
                                                         </a>
                                                     }
-                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" target="_newtab" href="@routes.ItemController.infoitem(item.getId())">
+                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" target="_blank" href="@routes.ItemController.infoitem(item.getId())">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 </td>
@@ -145,14 +145,9 @@
             </div>
         </div>
 
-
+        @views.html.Admin_item_Tag.Admin_item_list_reciept_issue_by_Item()
         @views.html.Admin_item_Tag.Admin_item_list_receipt()
         @views.html.Admin_item_Tag.Admin_item_list_issue()
-
-
-
-
-
     </body>
     <script type="text/javascript" src="@routes.JsController.jsMessages()"></script>
     <script type="text/javascript" src="@routes.JsController.javascriptRoutes"></script>

@@ -1,0 +1,120 @@
+<form action="@routes.RecieptIssueController.filterrecieptList()" method="POST" id="findRecieptByItemform" target="_blank">
+    <div style="display: none">
+        <input name="page"  value="1"  style="display: none">
+        <input name="pageSize"  value="50"   style="display: none">
+        <input name="isResetPage"  value="false"   style="display: none">
+        <input name="isResetCondition"  value="false"   style="display: none">
+        <input name="sortFieldName"  value="datePurchase"   style="display: none">
+        <input name="isDesc"  value="true"   style="display: none">
+
+
+        <input name="filter[0]"  value="type"   style="display: none">
+        <input name="filter[1]"  value="item_id"   style="display: none">
+
+
+        <input name="conditionList[0].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[0].fieldName"  value="id" class="form-control"  style="display: none">
+        <input name="conditionList[0].fieldType"  value="String" class="form-control"  style="display:none">
+        <input name="conditionList[0].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[1].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[1].fieldName"  value="type" class="form-control"  style="display: none">
+        <input name="conditionList[1].fieldType"  value="Int" class="form-control"  style="display:none">
+        <input name="conditionList[1].fieldValue"  value="1" class="form-control"  style="display:none">
+        <input name="conditionList[2].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[2].fieldName"  value="type" class="form-control"  style="display: none">
+        <input name="conditionList[2].fieldType"  value="Int" class="form-control"  style="display:none">
+        <input name="conditionList[2].fieldValue"  value="1" class="form-control"  style="display:none">
+
+        <input name="conditionList[3].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[3].fieldName"  value="item_id" class="form-control"  style="display: none">
+        <input name="conditionList[3].fieldType"  value="String" class="form-control"  style="display:none">
+        <input id="id" name="conditionList[3].fieldValue"  class="form-control"  style="display:none">
+
+        <input name="conditionList[4].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[4].fieldName"  value="item_name" class="form-control"  style="display: none">
+        <input name="conditionList[4].fieldType"  value="String" class="form-control"  style="display:none">
+        <input name="conditionList[4].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[5].compQueryOp"  value="between"   style="display: none">
+        <input name="conditionList[5].fieldName"  value="datePurchase" class="form-control"  style="display: none">
+        <input name="conditionList[5].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[5].fieldValue"  value="" class="form-control"  style="display:none">
+        <input name="conditionList[6].compQueryOp"  value="<="   style="display: none">
+        <input name="conditionList[6].fieldName"  value="datePurchase" class="form-control"  style="display: none">
+        <input name="conditionList[6].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[6].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[7].compQueryOp"  value="between"   style="display: none">
+        <input name="conditionList[7].fieldName"  value="lastmodified" class="form-control"  style="display: none">
+        <input name="conditionList[7].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[7].fieldValue"  value="" class="form-control"  style="display:none">
+        <input name="conditionList[8].compQueryOp"  value="<="   style="display: none">
+        <input name="conditionList[8].fieldName"  value="lastmodified" class="form-control"  style="display: none">
+        <input name="conditionList[8].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[8].fieldValue"  value="" class="form-control"  style="display:none">
+
+
+    </div>
+</form>
+
+
+<form action="@routes.RecieptIssueController.filterissueList()" method="POST" id="findIssueByItemform" target="_blank">
+    <div style="display: none">
+        <input name="page"  value="1"  style="display: none">
+        <input name="pageSize"  value="50"   style="display: none">
+        <input name="isResetPage"  value="false"   style="display: none">
+        <input name="isResetCondition"  value="false"   style="display: none">
+        <input name="sortFieldName"  value="datePurchase"   style="display: none">
+        <input name="isDesc"  value="true"   style="display: none">
+
+
+        <input name="filter[0]"  value="type"   style="display: none">
+        <input name="filter[1]"  value="item_id"   style="display: none">
+
+
+        <input name="conditionList[0].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[0].fieldName"  value="id" class="form-control"  style="display: none">
+        <input name="conditionList[0].fieldType"  value="String" class="form-control"  style="display:none">
+        <input name="conditionList[0].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[1].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[1].fieldName"  value="type" class="form-control"  style="display: none">
+        <input name="conditionList[1].fieldType"  value="Int" class="form-control"  style="display:none">
+        <input name="conditionList[1].fieldValue"  value="2" class="form-control"  style="display:none">
+        <input name="conditionList[2].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[2].fieldName"  value="type" class="form-control"  style="display: none">
+        <input name="conditionList[2].fieldType"  value="Int" class="form-control"  style="display:none">
+        <input name="conditionList[2].fieldValue"  value="2" class="form-control"  style="display:none">
+
+        <input name="conditionList[3].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[3].fieldName"  value="item_id" class="form-control"  style="display: none">
+        <input name="conditionList[3].fieldType"  value="String" class="form-control"  style="display:none">
+        <input id="id" name="conditionList[3].fieldValue"  class="form-control"  style="display:none">
+
+        <input name="conditionList[4].compQueryOp"  value="="   style="display: none">
+        <input name="conditionList[4].fieldName"  value="item_name" class="form-control"  style="display: none">
+        <input name="conditionList[4].fieldType"  value="String" class="form-control"  style="display:none">
+        <input name="conditionList[4].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[5].compQueryOp"  value="between"   style="display: none">
+        <input name="conditionList[5].fieldName"  value="datePurchase" class="form-control"  style="display: none">
+        <input name="conditionList[5].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[5].fieldValue"  value="" class="form-control"  style="display:none">
+        <input name="conditionList[6].compQueryOp"  value="<="   style="display: none">
+        <input name="conditionList[6].fieldName"  value="datePurchase" class="form-control"  style="display: none">
+        <input name="conditionList[6].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[6].fieldValue"  value="" class="form-control"  style="display:none">
+
+        <input name="conditionList[7].compQueryOp"  value="between"   style="display: none">
+        <input name="conditionList[7].fieldName"  value="lastmodified" class="form-control"  style="display: none">
+        <input name="conditionList[7].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[7].fieldValue"  value="" class="form-control"  style="display:none">
+        <input name="conditionList[8].compQueryOp"  value="<="   style="display: none">
+        <input name="conditionList[8].fieldName"  value="lastmodified" class="form-control"  style="display: none">
+        <input name="conditionList[8].fieldType"  value="Date" class="form-control"  style="display:none">
+        <input name="conditionList[8].fieldValue"  value="" class="form-control"  style="display:none">
+
+
+    </div>
+</form>

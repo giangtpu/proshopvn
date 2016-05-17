@@ -8,6 +8,7 @@ import models.JSON.SearchRecieptIssueData;
 import models.RecieptIssue;
 import models.SearchCondition;
 import models.SearchFilter;
+import models.forms.ItemForm;
 import models.forms.SearchConditionForm;
 import models.forms.SearchFilterForm;
 import org.springframework.util.StringUtils;
@@ -46,12 +47,7 @@ public class RecieptIssueController extends AbstractController {
             return ok(Json.toJson(responeForm));
         }
         ReceiptForm recieptIssueForm=recieptIssueFormForm.bindFromRequest().get();
-//        System.out.println("getItem_id:"+recieptIssueForm.getItem_id());
-//        System.out.println("getItem_name:"+recieptIssueForm.getItem_name());
-//        System.out.println("getPrice:"+recieptIssueForm.getPrice());
-//        System.out.println("getQuantity:"+recieptIssueForm.getQuantity());
-//        System.out.println("getType:"+recieptIssueForm.getType());
-//        System.out.println("getDatePurchase:"+recieptIssueForm.getDatePurchase());
+
 
         RecieptIssue recieptIssue=new RecieptIssue();
         recieptIssueForm.fillToRecieptIssue(recieptIssue);
@@ -63,6 +59,7 @@ public class RecieptIssueController extends AbstractController {
         }
 
         item.setQuantity(item.getQuantity()+recieptIssue.getQuantity());
+        recieptIssue.setTotal(recieptIssue.getPrice()*recieptIssue.getQuantity());
 
         itemDAO.save(item);
         recieptIssueDAO.save(recieptIssue);
@@ -96,6 +93,8 @@ public class RecieptIssueController extends AbstractController {
         }
 
         item.setQuantity(item.getQuantity()-recieptIssue.getQuantity());
+
+        recieptIssue.setTotal(recieptIssue.getPrice()*recieptIssue.getQuantity());
 
         itemDAO.save(item);
         recieptIssueDAO.save(recieptIssue);
@@ -196,6 +195,7 @@ public class RecieptIssueController extends AbstractController {
         if(filter !=null) {
             if (filter.size() != 0) {
                 for (String s : filter) {
+
                     if (s.equals("id")) {
                         isID = true;
                     }
@@ -454,6 +454,15 @@ public class RecieptIssueController extends AbstractController {
             }
         }
 
+//                for (SearchCondition searchCondition:searchConditionList){
+//            System.out.println("getFieldName:"+searchCondition.getFieldName());
+//            System.out.println("getFieldType:"+searchCondition.getFieldType());
+//            System.out.println("getFieldValue:"+searchCondition.getFieldValue());
+//            System.out.println("getCompQueryOp:"+searchCondition.getCompQueryOp());
+//            System.out.println("getMulCondition:"+searchCondition.getMulCondition());
+//            System.out.println("-----------------------------------");
+//        }
+
         searchFilter.setConditionList(searchConditionList);
         searchFilter.setSortFieldName(sortFieldName);
         searchFilter.setIsDesc(isDesc);
@@ -474,6 +483,15 @@ public class RecieptIssueController extends AbstractController {
 
         searchRecieptIssueData.setSearchFilterForm(searchFilterForm);
         searchRecieptIssueData.setRecieptIssueList(recieptIssueList);
+
+
+//        for (RecieptIssue recieptIssue:recieptIssueList){
+//            System.out.println("recieptIssue:"+Json.toJson(recieptIssue));
+//        }
+//
+//        for (SearchConditionForm searchConditionForm:searchRecieptIssueData.getSearchFilterForm().getConditionList()){
+//            System.out.println("searchConditionForm:"+Json.toJson(searchConditionForm));
+//        }
         return searchRecieptIssueData;
     }
 
@@ -487,6 +505,8 @@ public class RecieptIssueController extends AbstractController {
         SearchFilterForm searchFilterForm = searchGenericFormForm.bindFromRequest().get();
         return ok(Admin_RecieptIssue_list.render(getUserSession(),filterSearchRecieptIssueData(searchFilterForm),initSearchArray(),"recieptList"));
     }
+
+
 
     ////////////////////////////ISSUE////////////////////////////////////////////////////////
 

@@ -11,16 +11,7 @@ $(document).ready(function(){
                 required:Messages("valid.require"),
                 minlength:Messages("valid.minlength",5),
             },
-            quantity:{
-                required:Messages("valid.require"),
-                number:Messages("valid.number"),
-            },
-            price_receipt:{
-                required:Messages("valid.require"),
-                number:Messages("valid.number"),
-            },
             price_sell:{
-                required:Messages("valid.require"),
                 number:Messages("valid.number"),
             },
             discountRate:{
@@ -35,6 +26,9 @@ $(document).ready(function(){
             },
             description_id:{
                 required:Messages("valid.require"),
+            },
+            warrantyTime:{
+                number:Messages("valid.number"),
             },
 
         }

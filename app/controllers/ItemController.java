@@ -90,6 +90,10 @@ public class ItemController extends AbstractController {
             flash("failed", getMessages().at("Admin.Category.notfound"));
             return redirect(routes.ItemController.addItemView());
         }
+        if (!category.isItemCategory()){
+            flash("failed", getMessages().at("Admin.Category.notforItem"));
+            return redirect(routes.ItemController.addItemView());
+        }
         item.setCategory_name(category.getName());
 
         if (itemForm.getDescription_img()!=null){
@@ -242,6 +246,10 @@ public class ItemController extends AbstractController {
             deleteNotUserDescriptImageWhenUpdateFail(item.getDescription_img(),itemForm.getDescription_img());
             flash("failed", getMessages().at("Admin.Category.notfound"));
             return redirect(routes.ItemController.infoitem(itemForm.getId()));
+        }
+        if (!category.isItemCategory()){
+            flash("failed", getMessages().at("Admin.Category.notforItem"));
+            return redirect(routes.ItemController.addItemView());
         }
         item.setCategory_name(category.getName());
 
@@ -860,6 +868,10 @@ public class ItemController extends AbstractController {
 //        searchArray.add("producer");
         //        searchArray.add("Int");
 //        searchArray.add("quantity");
+
+//        for (SearchConditionForm searchConditionForm:searchItemData.getSearchFilterForm().getConditionList()){
+//            System.out.println("searchConditionForm:"+Json.toJson(searchConditionForm));
+//        }
 
         return ok(Admin_item_list.render(getUserSession(), searchItemData, searchArray));
     }

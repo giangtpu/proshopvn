@@ -7,6 +7,7 @@ import play.data.validation.ValidationError;
 import play.mvc.Http;
 import utils.DateUtil;
 import utils.ImageUtil;
+import utils.ParseUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,11 +33,11 @@ public class ItemForm {
     private String image3;
     private String producer;    //nha san xuat
     private String origin; //xuat xu
-    private int warrantyTime;       //thoi gian bao hanh - tinh theo thang
+    private String warrantyTime;       //thoi gian bao hanh - tinh theo thang
 
     private int quantity;
-    private double price_receipt;   //gia nhap hang
-    private double price_sell;      //gia ban
+    private String price_receipt;   //gia nhap hang
+    private String price_sell;      //gia ban
     private Date lastModified;
 
     private boolean promotion=false;    //khuyen mai
@@ -216,22 +217,22 @@ public class ItemForm {
 
         if (!StringUtils.isEmpty(warrantyTime))
         {
-            item.setWarrantyTime(warrantyTime);
+            item.setWarrantyTime(ParseUtil.parseInt(warrantyTime));
         }
 
-        if (!StringUtils.isEmpty(quantity))
-        {
-            item.setQuantity(quantity);
-        }
+//        if (!StringUtils.isEmpty(quantity))
+//        {
+//            item.setQuantity(quantity);
+//        }
 
-        if (!StringUtils.isEmpty(price_receipt))
-        {
-            item.setPrice_receipt(price_receipt);
-        }
+//        if (!StringUtils.isEmpty(price_receipt))
+//        {
+//            item.setPrice_receipt(price_receipt);
+//        }
 
         if (!StringUtils.isEmpty(price_sell))
         {
-            item.setPrice_sell(price_sell);
+            item.setPrice_sell(ParseUtil.parseDouble(price_sell));
         }
 
         if (promotion){
@@ -265,34 +266,9 @@ public class ItemForm {
             item.setTechvalue(techvalue);
         }
 
-//        if (relatedItems!=null){
-//            item.setRelatedItems(relatedItems);
-//            for (int i=0;i<relatedItems.length;i++)
-//            {
-//                System.out.println(relatedItems[i]);
-//            }
-//
-//        }
-//        else{
-//            System.out.println("not found relateditems");
-//        }
-
-
-
-
-//        if (description_img!=null){
-//            item.setDescription_img(description_img);
-//        }
-
-
         return true;
 
-
-
     }
-
-
-
 
     public ItemForm() {
     }
@@ -361,13 +337,7 @@ public class ItemForm {
         this.origin = origin;
     }
 
-    public int getWarrantyTime() {
-        return warrantyTime;
-    }
 
-    public void setWarrantyTime(int warrantyTime) {
-        this.warrantyTime = warrantyTime;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -377,21 +347,6 @@ public class ItemForm {
         this.quantity = quantity;
     }
 
-    public double getPrice_receipt() {
-        return price_receipt;
-    }
-
-    public void setPrice_receipt(double price_receipt) {
-        this.price_receipt = price_receipt;
-    }
-
-    public double getPrice_sell() {
-        return price_sell;
-    }
-
-    public void setPrice_sell(double price_sell) {
-        this.price_sell = price_sell;
-    }
 
     public Date getLastModified() {
         return lastModified;
@@ -727,5 +682,29 @@ public class ItemForm {
 
     public void setRelatedItems(String[] relatedItems) {
         this.relatedItems = relatedItems;
+    }
+
+    public String getWarrantyTime() {
+        return warrantyTime;
+    }
+
+    public void setWarrantyTime(String warrantyTime) {
+        this.warrantyTime = warrantyTime;
+    }
+
+    public String getPrice_receipt() {
+        return price_receipt;
+    }
+
+    public void setPrice_receipt(String price_receipt) {
+        this.price_receipt = price_receipt;
+    }
+
+    public String getPrice_sell() {
+        return price_sell;
+    }
+
+    public void setPrice_sell(String price_sell) {
+        this.price_sell = price_sell;
     }
 }

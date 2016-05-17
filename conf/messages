@@ -108,6 +108,7 @@ Admin.Category.add=Thêm mới danh mục
 Admin.Category.notfound=Không tìm thấy danh mục
 Admin.Category.childconsist=Danh mục còn chứa danh mục con
 Admin.Category.existed=Danh mục đã tồn tại
+Admin.Category.notforItem=Danh mục không thể chứa item
 
 Admin.Item.title=Sản phẩm
 Admin.Item.id=id sản phẩm

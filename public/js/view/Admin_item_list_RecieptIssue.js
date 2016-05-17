@@ -113,3 +113,16 @@ $("#addIssueForm").submit(function(e) {
     });
     e.preventDefault(); // avoid to execute the actual submit of the form.
 });
+
+function findReceiptByItem(id){
+    $('#findRecieptByItemform input[id=id]').val(id);
+
+    $('#findRecieptByItemform').submit();
+}
+
+
+function findIssueByItem(id){
+    $('#findIssueByItemform input[id=id]').val(id);
+
+    $('#findIssueByItemform').submit();
+}
