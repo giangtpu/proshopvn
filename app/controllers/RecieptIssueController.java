@@ -95,6 +95,7 @@ public class RecieptIssueController extends AbstractController {
 
 
     public Result recieptIssueList(){
+        //test
         return ok();
     }
 }
