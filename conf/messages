@@ -110,6 +110,7 @@ Admin.Category.childconsist=Danh mục còn chứa danh mục con
 Admin.Category.existed=Danh mục đã tồn tại
 
 Admin.Item.title=Sản phẩm
+Admin.Item.id=id sản phẩm
 Admin.Item.name=Tên sản phẩm
 Admin.Item.producer=Nhà sản xuất
 Admin.Item.origin=Xuất xứ
@@ -158,3 +159,6 @@ Admin.issue.datepurchase=Ngày xuất
 Admin.issue.addsuccess=Thêm xuất kho thành công
 
 Admin.recieptissue.menu=Quản lý xuất nhập kho
+Admin.recieptissue.type=Loại
+Admin.recieptissue.price=Giá
+Admin.recieptissue.datepurchase=Ngày thực hiện

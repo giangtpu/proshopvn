@@ -5,8 +5,8 @@
 @import java.util
 @import utils.StaticData
 @import utils.UserHelper
-@import models.JSON.SearchItemData
-@(currentUser:User,searchResultData:SearchItemData,searchField:List[String])
+@import models.JSON.SearchRecieptIssueData
+@(currentUser:User,searchResultData: SearchRecieptIssueData,searchField:List[String],typetag: String)
 <!DOCTYPE html>
 <html>
     <head>
@@ -48,7 +48,7 @@
                 <div class="content">
                         <!-- Include field search here  -->
 
-                    @views.html.tags.FilterHeaderTag(currentUser,searchResultData.getSearchFilterForm,searchField,"/itemlist")
+                    @views.html.tags.FilterHeaderTag(currentUser,searchResultData.getSearchFilterForm,searchField,"/"+typetag)
 
                     <div class="container-fluid">
 
@@ -60,48 +60,32 @@
                                     </div>
                                     <table id="fresh-table" class="table">
                                         <thead>
-                                            <th data-field="id">@Messages("Admin.user.usrid")</th>
-                                            <th data-field="name">@Messages("Admin.Item.name")</th>
-                                            <th data-field="categoryname">@Messages("Admin.Category.name")</th>
+                                            <th data-field="id" data-visible="false">@Messages("Admin.user.usrid")</th>
+                                            <th data-field="type" data-visible="false">@Messages("Admin.recieptissue.type")</th>
+                                            <th data-field="item_name">@Messages("Admin.Item.name")</th>
                                             <th data-field="quantity">@Messages("Admin.Item.quantity")</th>
-                                            <th data-field="reciept">@Messages("Admin.Item.reciept")</th>
-                                            <th data-field="issue">@Messages("Admin.Item.issue")</th>
+                                            <th data-field="price">@Messages("Admin.recieptissue.price")</th>
+                                            <th data-field="datePurchase">@Messages("Admin.recieptissue.datepurchase")</th>
                                             <th data-field="actions">@Messages("Admin.action")</th>
                                         </thead>
                                         <tbody align="left">
-                                        @for((item,index)<-searchResultData.getItemList.zipWithIndex) {
+                                        @for((recieptIssue,index)<-searchResultData.getRecieptIssueList.zipWithIndex) {
                                             <tr>
-                                                <td>@item.getId</td>
-                                                <td>@item.getName</td>
-                                                <td>@item.getCategory_name</td>
-                                                <td>@item.getQuantity</td>
-                                                <td>
-                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs"  data-toggle="modal" data-target="#addReciept"
-                                                    onclick="initReceipt('@item.getId','@item.getName')">
-                                                        <i class="fa fa-plus"></i>
-                                                    </a>
-                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
-                                                        <i class="fa fa-list"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a rel="tooltip" title="New" class="btn btn-warning btn-simple btn-xs"  data-toggle="modal" data-target="#addIssue"
-                                                    onclick="initIssue('@item.getId','@item.getName')">
-                                                        <i class="fa fa-plus"></i>
-                                                    </a>
-                                                    <a rel="tooltip" title="List" class="btn btn-info btn-simple btn-xs" href="javascript:void(0)"  >
-                                                        <i class="fa fa-list"></i>
-                                                    </a>
-                                                </td>
+                                                <td>@recieptIssue.getId</td>
+                                                <td>@RecieptIssue.Types.getNameByCode(recieptIssue.getType)</td>
+                                                <td><a href="@routes.ItemController.infoitem(recieptIssue.getItem_id())" target="_newtab">@recieptIssue.getItem_name</a></td>
+                                                <td>@recieptIssue.getQuantity</td>
+                                                <td>@recieptIssue.getPrice</td>
+                                                <td>@recieptIssue.getDatePurchase</td>
                                                 <td>
                                                     @if(UserHelper.isAdmin(currentUser)) {
-                                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@item.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
+                                                        <a rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" onclick="setdelid('@recieptIssue.getId')" href="javascript:void(0)" data-toggle="modal" data-target="#deleteconfirm" >
                                                             <i class="fa fa-remove"></i>
                                                         </a>
                                                     }
-                                                <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" target="_newtab" href="@routes.ItemController.infoitem(item.getId())">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
+                                                    <a rel="tooltip" title="Edit" class="btn btn-info btn-simple btn-xs" onclick=""  href="javascript:void(0)" data-toggle="modal" data-target="">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         }
@@ -182,17 +166,23 @@
 
     <script type="text/javascript">
             $(document).ready(function(){
-
                 @if(flash.containsKey("success")) {
-                showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
+                    showNotification('top','center','success','@flash.get("success")','pe-7s-like2');
                 }
                 @if(flash.containsKey("failed")) {
-                showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
+                    showNotification('top','center','danger','@flash.get("failed")','pe-7s-close-circle');
                 }
-                $('#itemmenu').addClass('active');
-                $('#itemmenu #componentitemmenu').collapse('show');
-                $('#itemmenu #itemlist').addClass('active');
-
+                @if(typetag.equals("recieptList")){
+                    $('#recieptissuemenu').addClass('active');
+                    $('#recieptissuemenu #componentrecieptissuemenu').collapse('show');
+                    $('#recieptissuemenu #recieptlist').addClass('active');
+                }else {
+                    @if(typetag.equals("issueList")){
+                        $('#recieptissuemenu').addClass('active');
+                        $('#recieptissuemenu #componentrecieptissuemenu').collapse('show');
+                        $('#recieptissuemenu #issuelist').addClass('active');
+                    }
+                }
             });
     </script>
 

@@ -352,7 +352,7 @@ public class ItemController extends AbstractController {
 
         searchFilterForm.setTotalPage(pageTotal);
         searchFilterForm.setTotalResult(countTotal);
-        searchFilterForm.setIsResetCondition(true);
+        searchFilterForm.setIsResetCondition(false);
 
         searchItemData.setSearchFilterForm(searchFilterForm);
         searchItemData.setItemList(itemList);

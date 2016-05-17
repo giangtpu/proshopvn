@@ -49,6 +49,10 @@ POST         /deleteItem                              controllers.ItemController
 POST        /addReciept                             controllers.RecieptIssueController.addReciept()
 POST        /addIssue                             controllers.RecieptIssueController.addIssue()
 
+GET        /recieptList                             controllers.RecieptIssueController.recieptList()
+POST        /recieptList                             controllers.RecieptIssueController.filterrecieptList()
+GET        /issueList                             controllers.RecieptIssueController.issueList()
+POST        /issueList                             controllers.RecieptIssueController.filterissueList()
 
 GET         /                                       controllers.Admin.index()
 

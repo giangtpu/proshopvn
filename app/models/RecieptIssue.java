@@ -66,14 +66,14 @@ public class RecieptIssue implements Serializable {
     @Id
     private String id;
 
-    private int type;       //issue - reciept
+    private int type;       //2issue - 1reciept
     private String item_id;
     private String item_name;       //neu ko tim thay item - day la chi phi phat sinh khac
     private String description;
     private int quantity;
     private double price; //gia xuat - nhap kho
     private Date datePurchase;    //ngay xuat - nhap kho
-    private Date lastmodifide;
+    private Date lastmodified;
 
 
 
@@ -81,7 +81,7 @@ public class RecieptIssue implements Serializable {
 
     public RecieptIssue() {
         this.id= ItemHelper.generateId();
-        this.lastmodifide=DateUtil.now();
+        this.lastmodified=DateUtil.now();
     }
 
     public String getId() {
@@ -116,12 +116,12 @@ public class RecieptIssue implements Serializable {
         this.quantity = quantity;
     }
 
-    public Date getLastmodifide() {
-        return lastmodifide;
+    public Date getLastmodified() {
+        return lastmodified;
     }
 
-    public void setLastmodifide(Date lastmodifide) {
-        this.lastmodifide = lastmodifide;
+    public void setLastmodified(Date lastmodified) {
+        this.lastmodified = lastmodified;
     }
 
     public int getType() {

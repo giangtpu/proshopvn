@@ -96,11 +96,20 @@
             }
 
             @if(UserHelper.isAdmin(currentUser)) {
+
                 <li id="recieptissuemenu">
-                    <a href="@routes.Admin.index()">
+                    <a id="recieptissuemenutoggle" data-toggle="collapse" href="#componentrecieptissuemenu">
                         <i class="pe-7s-repeat"></i>
-                        <p>@Messages("Admin.recieptissue.menu")</p>
+                        <p>@Messages("Admin.recieptissue.menu")
+                            <b class="caret"></b>
+                        </p>
                     </a>
+                    <div class="collapse" id="componentrecieptissuemenu">
+                        <ul class="nav">
+                            <li id="recieptlist"><a href="@routes.RecieptIssueController.recieptList()">@Messages("Admin.Item.reciept")</a></li>
+                            <li id="issuelist"><a href="@routes.RecieptIssueController.issueList()">@Messages("Admin.Item.issue")</a></li>
+                        </ul>
+                    </div>
                 </li>
             }
 
