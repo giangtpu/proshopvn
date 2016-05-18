@@ -10,9 +10,8 @@ import java.util.Date;
 /**
  * Created by giangdaika on 16/05/2016.
  */
-public class ReceiptForm {
-    private boolean success=false;
-    private String errorMessage;
+public class ReceiptForm extends  ResultForm{
+
 
     private int type;       //issue - reciept
     private String item_id;
@@ -21,7 +20,6 @@ public class ReceiptForm {
     private int quantity;
     private double price; //gia xuat - nhap kho
     private String datePurchase;    //ngay xuat - nhap kho
-
 
 
     public ReceiptForm() {
@@ -47,14 +45,6 @@ public class ReceiptForm {
             recieptIssue.setDescription(getDescription());
         }
 
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
     }
 
     public int getType() {
@@ -113,11 +103,5 @@ public class ReceiptForm {
         this.datePurchase = datePurchase;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
 }

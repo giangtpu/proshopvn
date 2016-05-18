@@ -36,7 +36,7 @@ public class ItemForm {
     private String warrantyTime;       //thoi gian bao hanh - tinh theo thang
 
     private int quantity;
-    private String price_receipt;   //gia nhap hang
+//    private String price_receipt;   //gia nhap hang
     private String price_sell;      //gia ban
     private Date lastModified;
 
@@ -235,35 +235,41 @@ public class ItemForm {
             item.setPrice_sell(ParseUtil.parseDouble(price_sell));
         }
 
-        if (promotion){
-
-            item.setPromotion(promotion);
-            if (!StringUtils.isEmpty(discountRate))
-            {
-                item.setDiscountRate(discountRate);
-            }
-            Date datestart= (DateUtil.convertStringtoDate(
-                    datePromotionStart,
-                    DateUtil.TIME_ITEM));
-
-            Date dateend = (DateUtil.convertStringtoDate(
-                    datePromotionEnd,
-                    DateUtil.TIME_ITEM));
-
-            if (datestart.after(dateend))
-            {
-                return false;
-            }
-
-            item.setDatePromotionStart(datestart);
-            item.setDatePromotionEnd(dateend);
-
-
-        }
+//        if (promotion){
+//
+//            item.setPromotion(promotion);
+//            if (!StringUtils.isEmpty(discountRate))
+//            {
+//                item.setDiscountRate(discountRate);
+//            }
+//            Date datestart= (DateUtil.convertStringtoDate(
+//                    datePromotionStart,
+//                    DateUtil.TIME_ITEM));
+//
+//            Date dateend = (DateUtil.convertStringtoDate(
+//                    datePromotionEnd,
+//                    DateUtil.TIME_ITEM));
+//
+//            if (datestart.after(dateend))
+//            {
+//                return false;
+//            }
+//
+//            item.setDatePromotionStart(datestart);
+//            item.setDatePromotionEnd(dateend);
+//
+//
+//        }
 
         if (techkey!=null&&techvalue!=null){
             item.setTechkey(techkey);
             item.setTechvalue(techvalue);
+        }else{
+            String [] tech={};
+            String [] val={};
+            item.setTechkey(tech);
+            item.setTechvalue(val);
+
         }
 
         return true;
@@ -692,13 +698,13 @@ public class ItemForm {
         this.warrantyTime = warrantyTime;
     }
 
-    public String getPrice_receipt() {
-        return price_receipt;
-    }
-
-    public void setPrice_receipt(String price_receipt) {
-        this.price_receipt = price_receipt;
-    }
+//    public String getPrice_receipt() {
+//        return price_receipt;
+//    }
+//
+//    public void setPrice_receipt(String price_receipt) {
+//        this.price_receipt = price_receipt;
+//    }
 
     public String getPrice_sell() {
         return price_sell;

@@ -22,7 +22,7 @@ import java.util.Map;
 @ModelData(collection = "Item", mapCacheName = "", mapCacheTTL = 86400)
 @Document(collection = "Item")
 public class Item implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     private String id;
@@ -42,14 +42,14 @@ public class Item implements Serializable {
     private int warrantyTime=0;       //thoi gian bao hanh - tinh theo thang
 
     private int quantity=0;
-    private double price_receipt;   //gia nhap hang --> ko dung nua
+//    private double price_receipt;   //gia nhap hang --> ko dung nua
     private double price_sell=0;      //gia ban
     private Date lastModified;
 
-    private boolean promotion=false;    //khuyen mai
-    private double discountRate=0;        // tinh theo %
-    private Date datePromotionStart;        //ngay bat dau khuyen mai
-    private Date datePromotionEnd;        //ngay ket thuc khuyen mai
+//    private boolean promotion=false;    //khuyen mai
+//    private double discountRate=0;        // tinh theo %
+//    private Date datePromotionStart;        //ngay bat dau khuyen mai
+//    private Date datePromotionEnd;        //ngay ket thuc khuyen mai
 
     private String[] techkey;           //thong so ky thuat
     private String[] techvalue;         //thong so ky thuat
@@ -146,13 +146,6 @@ public class Item implements Serializable {
         this.images = images;
     }
 
-    public double getPrice_receipt() {
-        return price_receipt;
-    }
-
-    public void setPrice_receipt(double price_receipt) {
-        this.price_receipt = price_receipt;
-    }
 
     public double getPrice_sell() {
         return price_sell;
@@ -178,42 +171,6 @@ public class Item implements Serializable {
 
     public void setComments(List<String> comments) {
         this.comments = comments;
-    }
-
-    public boolean isPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(boolean promotion) {
-        this.promotion = promotion;
-    }
-
-    public double getDiscountRate() {
-        return discountRate;
-    }
-
-    public void setDiscountRate(double discountRate) {
-        this.discountRate = discountRate;
-    }
-
-    public double getPromotionPrice() {
-        return (price_sell-(price_sell*(discountRate/100)));
-    }
-
-    public Date getDatePromotionStart() {
-        return datePromotionStart;
-    }
-
-    public void setDatePromotionStart(Date datePromotionStart) {
-        this.datePromotionStart = datePromotionStart;
-    }
-
-    public Date getDatePromotionEnd() {
-        return datePromotionEnd;
-    }
-
-    public void setDatePromotionEnd(Date datePromotionEnd) {
-        this.datePromotionEnd = datePromotionEnd;
     }
 
     public String getProducer() {

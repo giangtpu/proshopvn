@@ -45,7 +45,7 @@ GET         /itemlist                                   controllers.ItemControll
 POST         /itemlist                              controllers.ItemController.filteritemList()
 POST         /deleteItem                              controllers.ItemController.deleteItem()
 
-
+#Reciept Issue
 POST        /addReciept                             controllers.RecieptIssueController.addReciept()
 POST        /addIssue                             controllers.RecieptIssueController.addIssue()
 
@@ -55,6 +55,11 @@ POST        /recieptList                             controllers.RecieptIssueCon
 
 GET        /issueList                             controllers.RecieptIssueController.issueList()
 POST        /issueList                             controllers.RecieptIssueController.filterissueList()
+
+#Promotion
+GET    /promotionList                               controllers.PromotionController.promotionList()
+POST    /promotionList                               controllers.PromotionController.filterPromotionList()
+POST    /addPromotion                               controllers.PromotionController.addPromotion()
 
 GET         /                                       controllers.Admin.index()
 

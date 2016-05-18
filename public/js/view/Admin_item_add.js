@@ -226,68 +226,68 @@ function imageIsLoaded6(e) {
 ////////////////////////////////////UPLOAD IMAGE////////////////////////////////////////
 
 /////////////////////////////PROMOTION/////////////////////////////////
-function initDateTime(){
-    $('.datetimepicker').datetimepicker({
-        format:"DD/MM/YYYY HH:mm",
-        sideBySide:true,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-chevron-up",
-            down: "fa fa-chevron-down",
-            previous: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            today: 'fa fa-screenshot',
-            clear: 'fa fa-trash',
-            close: 'fa fa-remove',
-            minDate:true,           //ky quai !!!!
-        },
-    });
-    var today=new Date();
-    $( "#datePromotionStart" ).data("DateTimePicker").date( today);
-    $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
-    $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);
-    $( "#datePromotionEnd" ).data("DateTimePicker").minDate( today);
-
-    $("#datePromotionStart").on("dp.change", function(e) {
-        $( "#datePromotionEnd" ).data("DateTimePicker").date(e.date);
-        $( "#datePromotionEnd" ).data("DateTimePicker").minDate(e.date);
-    });
-}
-
-function setPromotion(){
-    if($('#promotionSwitch').is(":checked")){
-        //$('.discoutdiv').show();
-        $('#promotion').val(true);
-        var divappend="<div id='discoutdiv'>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='discountRate'>"+Messages("Admin.Item.discountRate")+"</label>"+
-                                    "<input type='text' style='display:none'>"+
-                                    "<input name='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
-                                "</div>"+
-                            "</div>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='datePromotionStart'>"+Messages("Admin.Item.datePromotionStart")+"</label>"+
-                                    "<input id='datePromotionStart' required='true' name='datePromotionStart'  type='text' class='form-control datetimepicker'>"+
-                                "</div>"+
-                            "</div>"+
-                            "<div class='col-md-6'>"+
-                                "<div class='form-group'>"+
-                                    "<label for='datePromotionEnd'>"+Messages("Admin.Item.datePromotionEnd")+"</label>"+
-                                    "<input id='datePromotionEnd' required='true' name='datePromotionEnd' type='text' class='form-control datetimepicker'>"+
-                                "</div>"+
-                            "</div>"+
-                      "</div>";
-        $(divappend).appendTo("#promotiongroup");
-        initDateTime();
-    }else{
-        //$('.discoutdiv').hide();
-        $('#promotion').val(false);
-        $("#discoutdiv").remove();
-    }
-}
+//function initDateTime(){
+//    $('.datetimepicker').datetimepicker({
+//        format:"DD/MM/YYYY HH:mm",
+//        sideBySide:true,
+//        icons: {
+//            time: "fa fa-clock-o",
+//            date: "fa fa-calendar",
+//            up: "fa fa-chevron-up",
+//            down: "fa fa-chevron-down",
+//            previous: 'fa fa-chevron-left',
+//            next: 'fa fa-chevron-right',
+//            today: 'fa fa-screenshot',
+//            clear: 'fa fa-trash',
+//            close: 'fa fa-remove',
+//            minDate:true,           //ky quai !!!!
+//        },
+//    });
+//    var today=new Date();
+//    $( "#datePromotionStart" ).data("DateTimePicker").date( today);
+//    $( "#datePromotionEnd" ).data("DateTimePicker").date( today);
+//    $( "#datePromotionStart" ).data("DateTimePicker").minDate( today);
+//    $( "#datePromotionEnd" ).data("DateTimePicker").minDate( today);
+//
+//    $("#datePromotionStart").on("dp.change", function(e) {
+//        $( "#datePromotionEnd" ).data("DateTimePicker").date(e.date);
+//        $( "#datePromotionEnd" ).data("DateTimePicker").minDate(e.date);
+//    });
+//}
+//
+//function setPromotion(){
+//    if($('#promotionSwitch').is(":checked")){
+//        //$('.discoutdiv').show();
+//        $('#promotion').val(true);
+//        var divappend="<div id='discoutdiv'>"+
+//                            "<div class='col-md-6'>"+
+//                                "<div class='form-group'>"+
+//                                    "<label for='discountRate'>"+Messages("Admin.Item.discountRate")+"</label>"+
+//                                    "<input type='text' style='display:none'>"+
+//                                    "<input name='discountRate' type='text'  required='true' number='true' class='form-control' placeholder='discountRate' autocomplete='off'>"+
+//                                "</div>"+
+//                            "</div>"+
+//                            "<div class='col-md-6'>"+
+//                                "<div class='form-group'>"+
+//                                    "<label for='datePromotionStart'>"+Messages("Admin.Item.datePromotionStart")+"</label>"+
+//                                    "<input id='datePromotionStart' required='true' name='datePromotionStart'  type='text' class='form-control datetimepicker'>"+
+//                                "</div>"+
+//                            "</div>"+
+//                            "<div class='col-md-6'>"+
+//                                "<div class='form-group'>"+
+//                                    "<label for='datePromotionEnd'>"+Messages("Admin.Item.datePromotionEnd")+"</label>"+
+//                                    "<input id='datePromotionEnd' required='true' name='datePromotionEnd' type='text' class='form-control datetimepicker'>"+
+//                                "</div>"+
+//                            "</div>"+
+//                      "</div>";
+//        $(divappend).appendTo("#promotiongroup");
+//        initDateTime();
+//    }else{
+//        //$('.discoutdiv').hide();
+//        $('#promotion').val(false);
+//        $("#discoutdiv").remove();
+//    }
+//}
 /////////////////////////////PROMOTION/////////////////////////////////
 
 

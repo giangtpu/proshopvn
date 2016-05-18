@@ -142,18 +142,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" id="promotiongroup">
-                                            <div class="col-md-6">
-                                                <div class="form-group" >
-                                                    <p class="category">@Messages("Admin.Item.promotion")</p>
-                                                    <input  id ="promotionSwitch" type="checkbox" onchange="setPromotion()" data-toggle="switch" @if(item.isPromotion()){checked}/>
-                                                </div>
 
-                                                <div class="form-group" hidden>
-                                                    <input  id ="promotion" name="promotion" value="@item.isPromotion()"/>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="row" id="techSpecifics">
                                             <div class="col-md-12" >
@@ -329,15 +318,8 @@
                 $('#itemmenu').addClass('active');
                 $('#itemmenu #componentitemmenu').collapse('show');
                 $('#itemmenu #itemadd').addClass('active');
-                @if(item.isPromotion()){
-                    promo_init=true;
-                    discountRate_init="@item.getDiscountRate";
 
 
-                    startpromot_int="@DateUtil.convertDatetoString(item.getDatePromotionStart,DateUtil.TIME_ITEM)";
-                    endpromot_int="@DateUtil.convertDatetoString(item.getDatePromotionEnd,DateUtil.TIME_ITEM)";
-                    setPromotion();
-                }
             });
 
             var summernotecode="@item.getDescription";

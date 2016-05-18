@@ -381,10 +381,10 @@ public class ItemController extends AbstractController {
         searchArray.add("warrantyTime");
         searchArray.add("Double");
         searchArray.add("price_sell");
-        searchArray.add("Boolean");
-        searchArray.add("promotion");
         searchArray.add("Double");
         searchArray.add("rating");
+//        searchArray.add("Boolean");
+//        searchArray.add("promotion");
 //        searchArray.add("Int");
 //        searchArray.add("quantity");
         //        searchArray.add("String");
@@ -428,7 +428,7 @@ public class ItemController extends AbstractController {
         boolean isOrigin =false;
         boolean isWarrantyTime =false;
         boolean isPrice_sell =false;
-        boolean isPromotion =false;
+//        boolean isPromotion =false;
 //        boolean isDiscountRate =false;
 //        boolean isDatePromotionStart =false;
 //        boolean isDatePromotionEnd =false;
@@ -463,9 +463,9 @@ public class ItemController extends AbstractController {
                     if (s.equals("rating")) {
                         isRating = true;
                     }
-                    if (s.equals("promotion")) {
-                        isPromotion = true;
-                    }
+//                    if (s.equals("promotion")) {
+//                        isPromotion = true;
+//                    }
                     if (s.equals("price_sell")) {
                         isPrice_sell = true;
                     }
@@ -525,12 +525,12 @@ public class ItemController extends AbstractController {
                     continue;
                 }
             }
-            if(!isPromotion) {
-                if(searchConditionForm.getFieldName().equals("promotion")) {
-                    conditionItems++;
-                    continue;
-                }
-            }
+//            if(!isPromotion) {
+//                if(searchConditionForm.getFieldName().equals("promotion")) {
+//                    conditionItems++;
+//                    continue;
+//                }
+//            }
             if(!isRating) {
                 if(searchConditionForm.getFieldName().equals("rating")) {
                     conditionItems++;
@@ -852,8 +852,8 @@ public class ItemController extends AbstractController {
         searchArray.add("warrantyTime");
         searchArray.add("Double");
         searchArray.add("price_sell");
-        searchArray.add("Boolean");
-        searchArray.add("promotion");
+//        searchArray.add("Boolean");
+//        searchArray.add("promotion");
         searchArray.add("Double");
         searchArray.add("rating");
         //        searchArray.add("Double");

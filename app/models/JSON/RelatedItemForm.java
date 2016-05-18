@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * Created by giangdaika on 14/05/2016.
  */
-public class RelatedItemForm {
-    boolean success=false;
+public class RelatedItemForm extends  ResultForm{
+
     List<ItemNameId> itemNameIds;
 
     public RelatedItemForm() {
@@ -20,11 +20,4 @@ public class RelatedItemForm {
         this.itemNameIds = itemNameIds;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
 }
