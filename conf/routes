@@ -60,6 +60,8 @@ POST        /issueList                             controllers.RecieptIssueContr
 GET    /promotionList                               controllers.PromotionController.promotionList()
 POST    /promotionList                               controllers.PromotionController.filterPromotionList()
 POST    /addPromotion                               controllers.PromotionController.addPromotion()
+POST    /delPromotion                               controllers.PromotionController.delPromotion()
+POST    /editPromotion                               controllers.PromotionController.editPromotion()
 
 GET         /                                       controllers.Admin.index()
 

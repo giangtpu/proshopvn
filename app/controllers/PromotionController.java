@@ -1,12 +1,10 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import dao.ItemDAO;
 import dao.PromotionDAO;
 import models.Item;
-import models.JSON.PromotionForm;
-import models.JSON.ReceiptForm;
-import models.JSON.ResultForm;
-import models.JSON.SearchPromotionData;
+import models.JSON.*;
 import models.Promotion;
 import models.SearchCondition;
 import models.SearchFilter;
@@ -71,6 +69,60 @@ public class PromotionController extends AbstractController  {
         responeForm.setSuccess(true);
 
         return ok(Json.toJson(responeForm));
+    }
+
+    public Result editPromotion(){
+        Form<PromotionForm> promotionFormForm = formFactory.form(PromotionForm.class);
+
+        PromotionForm promotionForm=new PromotionForm();
+        promotionForm.setSuccess(false);
+        if (promotionFormForm.hasErrors()) {
+            promotionForm.setErrorMessage(getMessages().at("form.error"));
+            return ok(Json.toJson(promotionForm));
+        }
+
+        promotionForm=promotionFormForm.bindFromRequest().get();
+        Promotion promotion=promotionDAO.getByKey(promotionForm.getId());
+
+        if(promotion==null){
+            promotionForm.setErrorMessage(getMessages().at("Admin.Item.promotion.notfound"));
+            return ok(Json.toJson(promotionForm));
+        }
+
+        boolean fill=promotionForm.fillToUpdatePromotion(promotion);
+        if(!fill){
+            promotionForm.setErrorMessage(getMessages().at("form.error"));
+            return ok(Json.toJson(promotionForm));
+        }
+
+
+        Item item=itemDAO.getByKey(promotion.getItem_id());
+        if(item==null){
+            promotionForm.setErrorMessage(getMessages().at("Admin.Item.notfound"));
+            return ok(Json.toJson(promotionForm));
+        }
+
+
+        promotionDAO.save(promotion);
+
+        promotionForm.setSuccess(true);
+
+        return ok(Json.toJson(promotionForm));
+
+    }
+
+    public Result delPromotion(){
+        JsonNode json = request().body().asJson();
+        String id = json.findPath("id").textValue();
+
+        ItemDelForm itemDelForm=new ItemDelForm();
+
+
+        promotionDAO.deleteByKey(id);
+        itemDelForm.setSuccess(true);
+        itemDelForm.setId(id);
+
+        return ok(Json.toJson(itemDelForm));
     }
 
     public Result promotionList(){

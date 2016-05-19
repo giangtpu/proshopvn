@@ -47,8 +47,6 @@ function setPromotionid(id,name,category_id){
         $( "#datePromotionEnd" ).data("DateTimePicker").date(e.date);
         $( "#datePromotionEnd" ).data("DateTimePicker").minDate(e.date);
     });
-
-
 }
 
 var r_addPromotionForm=jsRoutes.controllers.PromotionController.addPromotion();

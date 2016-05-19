@@ -1,0 +1,69 @@
+<form action="@routes.PromotionController.editPromotion()" method="post" id="editPromotionForm" >
+    <div class="modal fade" id="promotionModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">@Messages("Admin.Item.promotion")</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6" style="display: none">
+                            <div class="form-group">
+                                <label for="id">@Messages("Admin.user.usrid")</label>
+                                <input type="text" style="display: none;">
+                                <input id="id" class="form-control" name="id" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="display: none">
+                            <div class="form-group">
+                                <label for="item_id">@Messages("Admin.Item.id")</label>
+                                <input type="text" style="display: none;">
+                                <input id="item_id" class="form-control" name="item_id" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="display: none">
+                            <div class="form-group">
+                                <label for="category_id">@Messages("Admin.Category.title")</label>
+                                <input type="text" style="display: none;">
+                                <input id="category_id" class="form-control" name="category_id" readonly required='true'>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="item_name">@Messages("Admin.Item.title")</label>
+                                <input type="text" style="display: none;">
+                                <input id="item_name" class="form-control" name="item_name" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="discountRate">@Messages("Admin.Item.discountRate")</label>
+                                <input type="text" style="display: none;">
+                                <input id="discountRate" class="form-control" name="discountRate" number="true" required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="datePromotionStart">@Messages("Admin.Item.datePromotionStart")</label>
+                                <input id='datePromotionStart'  name='datePromotionStart'  type='text' class='form-control datetimepicker' required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="datePromotionEnd">@Messages("Admin.Item.datePromotionEnd")</label>
+                                <input id='datePromotionEnd'  name='datePromotionEnd'  type='text' class='form-control datetimepicker' required='true'>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                    <button type="submit" class="btn btn-info btn-simple" style="margin:0">@Messages("btnUpdate")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -10,7 +10,8 @@ import utils.ParseUtil;
 /**
  * Created by giangdaika on 18/05/2016.
  */
-public class PromotionForm {
+public class PromotionForm extends ResultForm{
+    private String id;
     private String item_id;
     private String item_name;
     private String category_id;
@@ -20,6 +21,7 @@ public class PromotionForm {
     private String datePromotionEnd;        //ngay ket thuc khuyen mai
 
     public PromotionForm() {
+
     }
 
     public boolean fillToPromotion(Promotion promotion){
@@ -32,6 +34,29 @@ public class PromotionForm {
         if (!StringUtils.isEmpty(category_id)){
             promotion.setCategory_id(category_id);
         }
+        if (!StringUtils.isEmpty(discountRate))
+        {
+            promotion.setDiscountRate(ParseUtil.parseDouble(discountRate));
+        }
+        Date datestart= (DateUtil.convertStringtoDate(
+                datePromotionStart,
+                DateUtil.TIME_ITEM));
+
+        Date dateend = (DateUtil.convertStringtoDate(
+                datePromotionEnd,
+                DateUtil.TIME_ITEM));
+
+        if (datestart.after(dateend))
+        {
+            return false;
+        }
+
+        promotion.setDatePromotionStart(datestart);
+        promotion.setDatePromotionEnd(dateend);
+        return true;
+    }
+
+    public boolean fillToUpdatePromotion(Promotion promotion){
         if (!StringUtils.isEmpty(discountRate))
         {
             promotion.setDiscountRate(ParseUtil.parseDouble(discountRate));
@@ -108,5 +133,13 @@ public class PromotionForm {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

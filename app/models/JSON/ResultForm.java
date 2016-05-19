@@ -4,8 +4,8 @@ package models.JSON;
  * Created by giangdaika on 18/05/2016.
  */
 public class ResultForm {
-    private boolean success=false;
-    private String errorMessage;
+    public boolean success=false;
+    public String errorMessage;
 
     public ResultForm() {
     }

@@ -38,3 +38,7 @@ $().ready(function(){
         $table.bootstrapTable('resetView');
     });
 });
+
+function setdelid(id){
+    $('#deleteconfirm input[name=id]').val(id);
+}

@@ -1,0 +1,5 @@
+.form-group label.error {
+    text-transform: none;
+    color: #FB404B;
+    font-size: 12px;
+}
