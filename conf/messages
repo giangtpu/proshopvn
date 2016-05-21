@@ -167,3 +167,7 @@ Admin.recieptissue.menu=Xuất nhập kho
 Admin.recieptissue.type=Loại
 Admin.recieptissue.price=Giá
 Admin.recieptissue.datepurchase=Ngày thực hiện
+
+Admin.recieptissue.notfound=Không tìm thấy xuất nhập kho
+Admin.recieptissue.typeerror=Không trùng type
+Admin.issue.negativeItem=Số lượng sản phẩm còn lại âm

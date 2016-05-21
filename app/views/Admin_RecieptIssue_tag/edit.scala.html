@@ -1,0 +1,75 @@
+<form action="@routes.RecieptIssueController.editRecieptIssue()" method="post" id="editRecieptIssueForm" >
+    <div class="modal fade" id="editRecieptIssueModal" tabindex="-1" role="dialog"  data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true" style="display : none ;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">@Messages("Admin.recieptissue.menu")</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6" style="display: none">
+                            <div class="form-group">
+                                <input id="type" class="form-control" name="type" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id">@Messages("Admin.user.usrid")</label>
+                                <input type="text" style="display: none;">
+                                <input id="id" class="form-control" name="id" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="item_id">@Messages("Admin.Item.id")</label>
+                                <input type="text" style="display: none;">
+                                <input id="item_id" class="form-control" name="item_id" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="item_name">@Messages("Admin.Item.name")</label>
+                                <input type="text" style="display: none;">
+                                <input id="item_name" class="form-control" name="item_name" readonly required='true'>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="quantity">@Messages("Admin.Item.quantity")</label>
+                                <input type="text" style="display: none;">
+                                <input id="quantity" class="form-control" name="quantity"  number="true" required='true' >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="price">@Messages("Admin.Item.price_sell")</label>
+                                <input type="text" style="display: none;">
+                                <input id="price" class="form-control" name="price" number="true" required='true' >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="datePurchase">@Messages("Admin.issue.datepurchase")</label>
+                                <input id='datePurchase' required='true' name='datePurchase'  type='text' class='form-control datetimepicker'>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">@Messages("Admin.Category.description")</label>
+                                <textarea name='description' id='description' rows="5" class="form-control" style=" resize: none;"></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" style="margin:0">@Messages("btnCancel")</button>
+                    <button type="submit" class="btn btn-info btn-simple" style="margin:0">@Messages("btnUpdate")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

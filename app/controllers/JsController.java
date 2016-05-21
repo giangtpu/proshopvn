@@ -36,6 +36,8 @@ public class JsController extends Controller {
                         routes.javascript.ItemController.deleteItem(),
                         routes.javascript.RecieptIssueController.addReciept(),
                         routes.javascript.RecieptIssueController.addIssue(),
+                        routes.javascript.RecieptIssueController.deleteRecieptIssue(),
+                        routes.javascript.RecieptIssueController.editRecieptIssue(),
                         routes.javascript.PromotionController.addPromotion(),
                         routes.javascript.PromotionController.delPromotion(),
                         routes.javascript.PromotionController.editPromotion()

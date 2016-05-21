@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import dao.ItemDAO;
 import dao.RecieptIssueDAO;
 import models.Item;
@@ -518,5 +519,120 @@ public class RecieptIssueController extends AbstractController {
         Form<SearchFilterForm> searchGenericFormForm = formFactory.form(SearchFilterForm.class);
         SearchFilterForm searchFilterForm = searchGenericFormForm.bindFromRequest().get();
         return ok(Admin_RecieptIssue_list.render(getUserSession(),filterSearchRecieptIssueData(searchFilterForm),initSearchArray(),"issueList"));
+    }
+
+    //////////////////////DELETE///////////////////
+    public Result deleteRecieptIssue(){
+        JsonNode json = request().body().asJson();
+        String id = json.findPath("id").textValue();
+
+        ReceiptForm receiptForm=new ReceiptForm();
+        receiptForm.setSuccess(false);
+
+        RecieptIssue recieptIssue= recieptIssueDAO.getByKey(id);
+        if (recieptIssue==null){
+            receiptForm.setErrorMessage(getMessages().at("Admin.recieptissue.notfound"));
+            return ok(Json.toJson(receiptForm));
+        }
+        Item item=itemDAO.getByKey(recieptIssue.getItem_id());
+        if (item==null){
+            receiptForm.setErrorMessage(getMessages().at("Admin.Item.notfound"));
+            return ok(Json.toJson(receiptForm));
+        }
+        if (recieptIssue.getType()==RecieptIssue.Types.issue.getCode()){
+            item.setQuantity(item.getQuantity()+recieptIssue.getQuantity());
+        }else if(recieptIssue.getType()==RecieptIssue.Types.reciept.getCode()){
+            item.setQuantity(item.getQuantity()-recieptIssue.getQuantity());
+        }
+        itemDAO.save(item);
+        recieptIssueDAO.deleteByKey(id);
+        receiptForm.setSuccess(true);
+        receiptForm.setId(id);
+        return ok(Json.toJson(receiptForm));
+    }
+
+    //////////////////////EDIT///////////////////
+    public Result editRecieptIssue(){
+        Form<ReceiptForm> recieptIssueFormForm = formFactory.form(ReceiptForm.class);
+
+        ReceiptForm responeForm=new ReceiptForm();
+        responeForm.setSuccess(false);
+        if (recieptIssueFormForm.hasErrors()) {
+            responeForm.setErrorMessage(getMessages().at("form.error"));
+            return ok(Json.toJson(responeForm));
+        }
+        ReceiptForm recieptIssueForm=recieptIssueFormForm.bindFromRequest().get();
+        RecieptIssue recieptIssue=recieptIssueDAO.getByKey(recieptIssueForm.getId());
+        if(recieptIssue==null){
+            responeForm.setErrorMessage(getMessages().at("Admin.recieptissue.notfound"));
+            return ok(Json.toJson(responeForm));
+        }
+
+        Item item=itemDAO.getByKey(recieptIssue.getItem_id());
+        if(item==null){
+            responeForm.setErrorMessage(getMessages().at("Admin.Item.notfound"));
+            return ok(Json.toJson(responeForm));
+        }
+
+        if(!StringUtils.isEmpty(recieptIssueForm.getDescription())){
+            recieptIssue.setDescription(recieptIssueForm.getDescription());
+        }
+        if(!StringUtils.isEmpty(recieptIssueForm.getDatePurchase())){
+            Date datePurc= (DateUtil.convertStringtoDate(
+                    recieptIssueForm.getDatePurchase(),
+                    DateUtil.TIME_ITEM));
+            recieptIssue.setDatePurchase(datePurc);
+        }
+        if(!StringUtils.isEmpty(recieptIssueForm.getPrice())){
+            recieptIssue.setPrice(recieptIssueForm.getPrice());
+        }
+        if(!StringUtils.isEmpty(recieptIssueForm.getQuantity())){
+            if(recieptIssueForm.getQuantity()!=recieptIssue.getQuantity()){
+                if(recieptIssue.getType()==recieptIssueForm.getType()){
+                    if (recieptIssue.getType()==RecieptIssue.Types.issue.getCode()){
+                        if(recieptIssueForm.getQuantity()>recieptIssue.getQuantity()){
+                            int delta=recieptIssueForm.getQuantity()-recieptIssue.getQuantity();
+                            item.setQuantity(item.getQuantity()-delta);
+                        }else{
+                            int delta=recieptIssue.getQuantity()-recieptIssueForm.getQuantity();
+                            item.setQuantity(item.getQuantity()+delta);
+                        }
+
+                    }else if(recieptIssue.getType()==RecieptIssue.Types.reciept.getCode()){
+                        if(recieptIssueForm.getQuantity()>recieptIssue.getQuantity()){
+                            int delta=recieptIssueForm.getQuantity()-recieptIssue.getQuantity();
+                            item.setQuantity(item.getQuantity()+delta);
+                        }else{
+                            int delta=recieptIssue.getQuantity()-recieptIssueForm.getQuantity();
+                            item.setQuantity(item.getQuantity()-delta);
+                        }
+                    }
+                    recieptIssue.setQuantity(recieptIssueForm.getQuantity());
+                }else{
+                    responeForm.setErrorMessage(getMessages().at("Admin.recieptissue.typeerror"));
+                    return ok(Json.toJson(responeForm));
+                }
+
+            }
+        }
+
+
+        if(item.getQuantity()<0){
+            responeForm.setErrorMessage(getMessages().at("Admin.issue.negativeItem"));
+            return ok(Json.toJson(responeForm));
+        }
+
+
+        recieptIssue.setTotal(recieptIssue.getPrice()*recieptIssue.getQuantity());
+
+        itemDAO.save(item);
+        recieptIssueDAO.save(recieptIssue);
+        responeForm.setSuccess(true);
+        responeForm.setId(recieptIssue.getId());
+        responeForm.setQuantity(recieptIssue.getQuantity());
+        responeForm.setPrice(recieptIssue.getPrice());
+        responeForm.setDatePurchase(DateUtil.getDateByFormat(recieptIssue.getDatePurchase(),DateUtil.TIME_ITEM));
+        responeForm.setDescription(recieptIssue.getDescription());
+        return ok(Json.toJson(responeForm));
     }
 }

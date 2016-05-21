@@ -13,6 +13,7 @@ import java.util.Date;
 public class ReceiptForm extends  ResultForm{
 
 
+    private String id;
     private int type;       //issue - reciept
     private String item_id;
     private String item_name;       //neu ko tim thay item - day la chi phi phat sinh khac
@@ -27,18 +28,27 @@ public class ReceiptForm extends  ResultForm{
 
     public void fillToRecieptIssue(RecieptIssue recieptIssue){
 
-
-        recieptIssue.setItem_id(getItem_id());
-        recieptIssue.setItem_name(getItem_name());
-        recieptIssue.setPrice(getPrice());
-        recieptIssue.setQuantity(getQuantity());
-        recieptIssue.setType(getType());
-
-        Date datePurc= (DateUtil.convertStringtoDate(
-                getDatePurchase(),
-                DateUtil.TIME_ITEM));
-
-        recieptIssue.setDatePurchase(datePurc);
+        if(!StringUtils.isEmpty(getItem_id())){
+            recieptIssue.setItem_id(getItem_id());
+        }
+        if(!StringUtils.isEmpty(getItem_name())){
+            recieptIssue.setItem_name(getItem_name());
+        }
+        if(!StringUtils.isEmpty(getPrice())){
+            recieptIssue.setPrice(getPrice());
+        }
+        if(!StringUtils.isEmpty(getQuantity())){
+            recieptIssue.setQuantity(getQuantity());
+        }
+        if(!StringUtils.isEmpty(getType())){
+            recieptIssue.setType(getType());
+        }
+        if(!StringUtils.isEmpty(getDatePurchase())){
+            Date datePurc= (DateUtil.convertStringtoDate(
+                    getDatePurchase(),
+                    DateUtil.TIME_ITEM));
+            recieptIssue.setDatePurchase(datePurc);
+        }
 
         if(!StringUtils.isEmpty(getDescription()))
         {
@@ -103,5 +113,11 @@ public class ReceiptForm extends  ResultForm{
         this.datePurchase = datePurchase;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

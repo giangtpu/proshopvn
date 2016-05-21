@@ -56,6 +56,10 @@ POST        /recieptList                             controllers.RecieptIssueCon
 GET        /issueList                             controllers.RecieptIssueController.issueList()
 POST        /issueList                             controllers.RecieptIssueController.filterissueList()
 
+
+POST        /deleteRecieptIssue                             controllers.RecieptIssueController.deleteRecieptIssue()
+POST        /editRecieptIssue                             controllers.RecieptIssueController.editRecieptIssue()
+
 #Promotion
 GET    /promotionList                               controllers.PromotionController.promotionList()
 POST    /promotionList                               controllers.PromotionController.filterPromotionList()
